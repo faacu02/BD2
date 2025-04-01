@@ -12,11 +12,13 @@ import java.util.*;
 
 public class DBInitializer {
 
-    /*@Autowired
+    @Autowired
     ToursService toursService;
 
     @Transactional
     public void prepareDB() throws ToursException {
+    }
+    /*
         Calendar cal1 = Calendar.getInstance();
         cal1.set(1980, Calendar.APRIL, 5);
         Date dob1 = cal1.getTime();
