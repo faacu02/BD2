@@ -17,6 +17,7 @@ public class DBInitializer {
 
     @Transactional
     public void prepareDB() throws ToursException {
+
     }
     /*
         Calendar cal1 = Calendar.getInstance();
