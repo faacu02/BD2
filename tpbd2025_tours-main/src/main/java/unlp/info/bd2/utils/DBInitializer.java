@@ -12,7 +12,7 @@ import java.util.*;
 
 public class DBInitializer {
 
-    @Autowired
+    /*@Autowired
     ToursService toursService;
 
     @Transactional
@@ -180,4 +180,6 @@ public class DBInitializer {
         Review review15 = this.toursService.addReviewToPurchase(3, "Estuvo bien, aunque esperaba más.", purchase17);
         Review review16 = this.toursService.addReviewToPurchase(1, "Muy caro para lo que se brinda.", purchase18);
     }
+
+     */
 }

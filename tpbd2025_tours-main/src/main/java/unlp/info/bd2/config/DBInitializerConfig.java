@@ -10,6 +10,7 @@ public class DBInitializerConfig {
     @Bean
     @Primary
     public DBInitializer createDBInitializer() {
-        return new DBInitializer();
+        //return new DBInitializer();
+        return null;
     }
 }
