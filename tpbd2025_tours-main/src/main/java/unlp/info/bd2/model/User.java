@@ -1,33 +1,58 @@
 package unlp.info.bd2.model;
 
-import java.util.ArrayList;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 @Entity
 @Table(name = "users")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true, length = 50)
     private String username;
 
+    @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false, length = 100)
     private String name;
 
+    @Column(nullable = false, unique = true)
     private String email;
 
+    @Column(name = "birth_date")
+    @Temporal(TemporalType.DATE)
     private Date birthdate;
+
+    @Column(name = "phone_number", length = 20)
 
     private String phoneNumber;
 
-    private boolean active;
+    @Column(nullable = false)
+    private boolean active = true;
 
-    //private List<Purchase> purchaseList;
+    @OneToMany(mappedBy = "user")
+    private List<Purchase> purchaseList = new ArrayList<>();
 
+    // Constructores
+    public User() {
+    }
 
+    public User(String username, String password, String name, String email) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.email = email;
+    }
+
+    // Getters y Setters
     public Long getId() {
         return id;
     }
@@ -84,14 +109,6 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    /* public List<Purchase> getPurchaseList() {
-         return purchaseList;
-     }
-
-     public void setPurchaseList(List<Purchase> purchaseList) {
-         this.purchaseList = purchaseList;
-     }
- */
     public boolean isActive() {
         return active;
     }
@@ -100,5 +117,11 @@ public class User {
         this.active = active;
     }
 
-    public User() {}
+    public List<Purchase> getPurchaseList() {
+        return purchaseList;
+    }
+
+    public void setPurchaseList(List<Purchase> purchaseList) {
+        this.purchaseList = purchaseList;
+    }
 }

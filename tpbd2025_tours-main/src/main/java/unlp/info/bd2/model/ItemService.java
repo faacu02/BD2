@@ -1,16 +1,37 @@
 package unlp.info.bd2.model;
 
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "item_services")
 public class ItemService {
 
-    Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @Column(nullable = false)
     private int quantity;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "purchase_id", nullable = false)
     private Purchase purchase;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "service_id", nullable = false)
     private Service service;
 
+    // Constructores
+    public ItemService() {
+    }
+
+    public ItemService(int quantity, Purchase purchase, Service service) {
+        this.quantity = quantity;
+        this.purchase = purchase;
+        this.service = service;
+    }
+
+    // Getters y Setters
     public Long getId() {
         return id;
     }
@@ -18,7 +39,6 @@ public class ItemService {
     public void setId(Long id) {
         this.id = id;
     }
-
 
     public int getQuantity() {
         return quantity;
@@ -43,4 +63,6 @@ public class ItemService {
     public void setService(Service service) {
         this.service = service;
     }
+
+
 }
