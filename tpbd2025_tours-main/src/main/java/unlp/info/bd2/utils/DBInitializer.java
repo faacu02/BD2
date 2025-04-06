@@ -26,7 +26,7 @@ public class DBInitializer {
         cal1.set(2022, Calendar.SEPTEMBER, 21);
         Date doa1 = cal1.getTime();
         LocalDate today = LocalDate.now();
-
+    */
         // Suppliers
         Supplier supplier1 = this.toursService.createSupplier("ABC Tours", "12345");
         Supplier supplier2 = this.toursService.createSupplier("XYZ Travel Agency", "67890");
@@ -44,7 +44,7 @@ public class DBInitializer {
         Service service7 = this.toursService.addServiceToSupplier("souvenir t-shirt", 10, "I love Argentina t-shirt", supplier1);
         Service service8 = this.toursService.addServiceToSupplier("souvenir photograph", 5, "Souvenir photo at tourist spot", supplier3);
         Service service9 = this.toursService.addServiceToSupplier("souvenir retrato", 5, "Another Souvenir", supplier3);
-
+/*
         // Stops
         Stop stop1 = this.toursService.createStop ("Diagonal Norte",	"Obelisco / Catedral Metropolitana / Casa Rosada / Museo del Bicentenario / Galería Güemes / Cabildo de Buenos Aires");
         Stop stop2 = this.toursService.createStop ("Avenida de Mayo",	"Casa Rosada / Museo del Bicentenario / Café Tortoni / Manzana de las Luces / Cabildo de Buenos Aires / Teatro Avenida");
