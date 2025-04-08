@@ -7,11 +7,16 @@ import unlp.info.bd2.repositories.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
+@org.springframework.stereotype.Service
 public class ToursServiceImpl implements ToursService {
 
     private ToursRepository toursRepository;
+
+    @Autowired
+    private SupplierService suplierService;
 
     public ToursServiceImpl(ToursRepository toursRepository) {
         this.toursRepository = toursRepository;
@@ -89,7 +94,7 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public Supplier createSupplier(String businessName, String authorizationNumber) throws ToursException {
-        return null;
+        return this.suplierService.createSupplier(businessName, authorizationNumber);
     }
 
     @Override
