@@ -5,9 +5,7 @@ import org.hibernate.SessionFactory;
 import unlp.info.bd2.model.User;
 import unlp.info.bd2.utils.ToursException;
 import java.util.Optional;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import unlp.info.bd2.repositories.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
