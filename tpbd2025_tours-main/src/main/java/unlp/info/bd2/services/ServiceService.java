@@ -8,7 +8,6 @@ import unlp.info.bd2.repositories.ServiceDAO;
 import java.util.Optional;
 
 @Service
-@Transactional
 public class ServiceService {
 
     @Autowired

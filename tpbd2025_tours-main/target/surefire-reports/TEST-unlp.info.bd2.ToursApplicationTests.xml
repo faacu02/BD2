@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="unlp.info.bd2.ToursApplicationTests" time="4.181" tests="10" errors="8" skipped="0" failures="2">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="unlp.info.bd2.ToursApplicationTests" time="4.215" tests="10" errors="9" skipped="0" failures="1">
   <properties>
     <property name="java.specification.version" value="19"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="GB"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-19\bin"/>
-    <property name="sun.java.command" value="C:\Users\Compumar\AppData\Local\Temp\surefire12492382789802406860\surefirebooter-20250408214627449_3.jar C:\Users\Compumar\AppData\Local\Temp\surefire12492382789802406860 2025-04-08T21-46-27_332-jvmRun1 surefire-20250408214627449_1tmp surefire_0-20250408214627449_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\Compumar\AppData\Local\Temp\surefire455934294725249484\surefirebooter-20250408231314239_3.jar C:\Users\Compumar\AppData\Local\Temp\surefire455934294725249484 2025-04-08T23-13-14_106-jvmRun1 surefire-20250408231314239_1tmp surefire_0-20250408231314239_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\Compumar\Desktop\Facu\Facultad\4to año\BBDD2\BD2\tpbd2025_tours-main\target\test-classes;C:\Users\Compumar\Desktop\Facu\Facultad\4to año\BBDD2\BD2\tpbd2025_tours-main\target\classes;C:\Users\Compumar\.m2\repository\org\springframework\boot\spring-boot-starter\3.2.3\spring-boot-starter-3.2.3.jar;C:\Users\Compumar\.m2\repository\org\springframework\boot\spring-boot\3.2.3\spring-boot-3.2.3.jar;C:\Users\Compumar\.m2\repository\org\springframework\spring-context\6.1.4\spring-context-6.1.4.jar;C:\Users\Compumar\.m2\repository\org\springframework\spring-aop\6.1.4\spring-aop-6.1.4.jar;C:\Users\Compumar\.m2\repository\org\springframework\spring-expression\6.1.4\spring-expression-6.1.4.jar;C:\Users\Compumar\.m2\repository\io\micrometer\micrometer-observation\1.12.3\micrometer-observation-1.12.3.jar;C:\Users\Compumar\.m2\repository\io\micrometer\micrometer-commons\1.12.3\micrometer-commons-1.12.3.jar;C:\Users\Compumar\.m2\repository\org\springframework\boot\spring-boot-autoconfigure\3.2.3\spring-boot-autoconfigure-3.2.3.jar;C:\Users\Compumar\.m2\repository\org\springframework\boot\spring-boot-starter-logging\3.2.3\spring-boot-starter-logging-3.2.3.jar;C:\Users\Compumar\.m2\repository\ch\qos\logback\logback-classic\1.4.14\logback-classic-1.4.14.jar;C:\Users\Compumar\.m2\repository\ch\qos\logback\logback-core\1.4.14\logback-core-1.4.14.jar;C:\Users\Compumar\.m2\repository\org\apache\logging\log4j\log4j-to-slf4j\2.21.1\log4j-to-slf4j-2.21.1.jar;C:\Users\Compumar\.m2\repository\org\apache\logging\log4j\log4j-api\2.21.1\log4j-api-2.21.1.jar;C:\Users\Compumar\.m2\repository\org\slf4j\jul-to-slf4j\2.0.12\jul-to-slf4j-2.0.12.jar;C:\Users\Compumar\.m2\repository\jakarta\annotation\jakarta.annotation-api\2.1.1\jakarta.annotation-api-2.1.1.jar;C:\Users\Compumar\.m2\repository\org\springframework\spring-core\6.1.4\spring-core-6.1.4.jar;C:\Users\Compumar\.m2\repository\org\springframework\spring-jcl\6.1.4\spring-jcl-6.1.4.jar;C:\Users\Compumar\.m2\repository\org\yaml\snakeyaml\2.2\snakeyaml-2.2.jar;C:\Users\Compumar\.m2\repository\org\springframework\spring-tx\6.1.4\spring-tx-6.1.4.jar;C:\Users\Compumar\.m2\repository\org\springframework\spring-beans\6.1.4\spring-beans-6.1.4.jar;C:\Users\Compumar\.m2\repository\org\springframework\spring-orm\6.1.4\spring-orm-6.1.4.jar;C:\Users\Compumar\.m2\repository\org\springframework\spring-jdbc\6.1.4\spring-jdbc-6.1.4.jar;C:\Users\Compumar\.m2\repository\org\hibernate\orm\hibernate-core\6.4.3.Final\hibernate-core-6.4.3.Final.jar;C:\Users\Compumar\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.1.0\jakarta.persistence-api-3.1.0.jar;C:\Users\Compumar\.m2\repository\jakarta\transaction\jakarta.transaction-api\2.0.1\jakarta.transaction-api-2.0.1.jar;C:\Users\Compumar\.m2\repository\org\jboss\logging\jboss-logging\3.5.3.Final\jboss-logging-3.5.3.Final.jar;C:\Users\Compumar\.m2\repository\org\hibernate\common\hibernate-commons-annotations\6.0.6.Final\hibernate-commons-annotations-6.0.6.Final.jar;C:\Users\Compumar\.m2\repository\io\smallrye\jandex\3.1.2\jandex-3.1.2.jar;C:\Users\Compumar\.m2\repository\com\fasterxml\classmate\1.6.0\classmate-1.6.0.jar;C:\Users\Compumar\.m2\repository\net\bytebuddy\byte-buddy\1.14.12\byte-buddy-1.14.12.jar;C:\Users\Compumar\.m2\repository\jakarta\xml\bind\jakarta.xml.bind-api\4.0.1\jakarta.xml.bind-api-4.0.1.jar;C:\Users\Compumar\.m2\repository\jakarta\activation\jakarta.activation-api\2.1.2\jakarta.activation-api-2.1.2.jar;C:\Users\Compumar\.m2\repository\org\glassfish\jaxb\jaxb-runtime\4.0.4\jaxb-runtime-4.0.4.jar;C:\Users\Compumar\.m2\repository\org\glassfish\jaxb\jaxb-core\4.0.4\jaxb-core-4.0.4.jar;C:\Users\Compumar\.m2\repository\org\eclipse\angus\angus-activation\2.0.1\angus-activation-2.0.1.jar;C:\Users\Compumar\.m2\repository\org\glassfish\jaxb\txw2\4.0.4\txw2-4.0.4.jar;C:\Users\Compumar\.m2\repository\com\sun\istack\istack-commons-runtime\4.1.2\istack-commons-runtime-4.1.2.jar;C:\Users\Compumar\.m2\repository\jakarta\inject\jakarta.inject-api\2.0.1\jakarta.inject-api-2.0.1.jar;C:\Users\Compumar\.m2\repository\org\antlr\antlr4-runtime\4.13.0\antlr4-runtime-4.13.0.jar;C:\Users\Compumar\.m2\repository\com\mysql\mysql-connector-j\8.0.33\mysql-connector-j-8.0.33.jar;C:\Users\Compumar\.m2\repository\org\springframework\boot\spring-boot-starter-test\3.2.3\spring-boot-starter-test-3.2.3.jar;C:\Users\Compumar\.m2\repository\org\springframework\boot\spring-boot-test\3.2.3\spring-boot-test-3.2.3.jar;C:\Users\Compumar\.m2\repository\org\springframework\boot\spring-boot-test-autoconfigure\3.2.3\spring-boot-test-autoconfigure-3.2.3.jar;C:\Users\Compumar\.m2\repository\com\jayway\jsonpath\json-path\2.9.0\json-path-2.9.0.jar;C:\Users\Compumar\.m2\repository\org\slf4j\slf4j-api\2.0.12\slf4j-api-2.0.12.jar;C:\Users\Compumar\.m2\repository\net\minidev\json-smart\2.5.0\json-smart-2.5.0.jar;C:\Users\Compumar\.m2\repository\net\minidev\accessors-smart\2.5.0\accessors-smart-2.5.0.jar;C:\Users\Compumar\.m2\repository\org\ow2\asm\asm\9.3\asm-9.3.jar;C:\Users\Compumar\.m2\repository\org\assertj\assertj-core\3.24.2\assertj-core-3.24.2.jar;C:\Users\Compumar\.m2\repository\org\awaitility\awaitility\4.2.0\awaitility-4.2.0.jar;C:\Users\Compumar\.m2\repository\org\hamcrest\hamcrest\2.2\hamcrest-2.2.jar;C:\Users\Compumar\.m2\repository\org\junit\jupiter\junit-jupiter\5.10.2\junit-jupiter-5.10.2.jar;C:\Users\Compumar\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.2\junit-jupiter-api-5.10.2.jar;C:\Users\Compumar\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\Compumar\.m2\repository\org\junit\platform\junit-platform-commons\1.10.2\junit-platform-commons-1.10.2.jar;C:\Users\Compumar\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\Compumar\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.2\junit-jupiter-params-5.10.2.jar;C:\Users\Compumar\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.2\junit-jupiter-engine-5.10.2.jar;C:\Users\Compumar\.m2\repository\org\junit\platform\junit-platform-engine\1.10.2\junit-platform-engine-1.10.2.jar;C:\Users\Compumar\.m2\repository\org\mockito\mockito-core\5.7.0\mockito-core-5.7.0.jar;C:\Users\Compumar\.m2\repository\net\bytebuddy\byte-buddy-agent\1.14.12\byte-buddy-agent-1.14.12.jar;C:\Users\Compumar\.m2\repository\org\objenesis\objenesis\3.3\objenesis-3.3.jar;C:\Users\Compumar\.m2\repository\org\mockito\mockito-junit-jupiter\5.7.0\mockito-junit-jupiter-5.7.0.jar;C:\Users\Compumar\.m2\repository\org\skyscreamer\jsonassert\1.5.1\jsonassert-1.5.1.jar;C:\Users\Compumar\.m2\repository\com\vaadin\external\google\android-json\0.0.20131108.vaadin1\android-json-0.0.20131108.vaadin1.jar;C:\Users\Compumar\.m2\repository\org\springframework\spring-test\6.1.4\spring-test-6.1.4.jar;C:\Users\Compumar\.m2\repository\org\xmlunit\xmlunit-core\2.9.1\xmlunit-core-2.9.1.jar;C:\Users\Compumar\.m2\repository\commons-dbcp\commons-dbcp\1.4\commons-dbcp-1.4.jar;C:\Users\Compumar\.m2\repository\commons-pool\commons-pool\1.6\commons-pool-1.6.jar;C:\Users\Compumar\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\Compumar\.m2\repository\org\hamcrest\hamcrest-core\2.2\hamcrest-core-2.2.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\Compumar\AppData\Local\Temp\surefire12492382789802406860\surefirebooter-20250408214627449_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\Compumar\AppData\Local\Temp\surefire455934294725249484\surefirebooter-20250408231314239_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="19.0.2+7-44"/>
@@ -58,7 +58,7 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="63.0"/>
   </properties>
-  <testcase name="addReviewToPurchaseTest" classname="unlp.info.bd2.ToursApplicationTests" time="0.416">
+  <testcase name="addReviewToPurchaseTest" classname="unlp.info.bd2.ToursApplicationTests" time="0.425">
     <failure message="expected: &lt;true&gt; but was: &lt;false&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -71,10 +71,10 @@
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 ]]></failure>
-    <system-out><![CDATA[21:46:28.790 [main] INFO org.hibernate.Version -- HHH000412: Hibernate ORM core version 6.4.3.Final
-21:46:28.838 [main] INFO org.hibernate.cache.internal.RegionFactoryInitiator -- HHH000026: Second-level cache disabled
-21:46:29.146 [main] WARN org.hibernate.orm.deprecation -- HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-21:46:30.101 [main] INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator -- HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+    <system-out><![CDATA[23:13:15.627 [main] INFO org.hibernate.Version -- HHH000412: Hibernate ORM core version 6.4.3.Final
+23:13:15.676 [main] INFO org.hibernate.cache.internal.RegionFactoryInitiator -- HHH000026: Second-level cache disabled
+23:13:15.988 [main] WARN org.hibernate.orm.deprecation -- HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+23:13:16.954 [main] INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator -- HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
 Hibernate: 
     alter table driver_users 
        drop 
@@ -331,7 +331,7 @@ Hibernate:
     <system-err><![CDATA[Loading class `com.mysql.jdbc.Driver'. This is deprecated. The new driver class is `com.mysql.cj.jdbc.Driver'. The driver is automatically registered via the SPI and manual loading of the driver class is generally unnecessary.
 ]]></system-err>
   </testcase>
-  <testcase name="createAndGetUserTest" classname="unlp.info.bd2.ToursApplicationTests" time="0.003">
+  <testcase name="createAndGetUserTest" classname="unlp.info.bd2.ToursApplicationTests" time="0.004">
     <error message="Cannot invoke &quot;unlp.info.bd2.model.User.getId()&quot; because &quot;user1&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "unlp.info.bd2.model.User.getId()" because "user1" is null
 	at unlp.info.bd2.ToursApplicationTests.createAndGetUserTest(ToursApplicationTests.java:55)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
@@ -339,7 +339,7 @@ Hibernate:
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 ]]></error>
   </testcase>
-  <testcase name="assignWorkersToRoutesTest" classname="unlp.info.bd2.ToursApplicationTests" time="0.003">
+  <testcase name="assignWorkersToRoutesTest" classname="unlp.info.bd2.ToursApplicationTests" time="0.002">
     <error message="Cannot invoke &quot;unlp.info.bd2.model.DriverUser.getUsername()&quot; because &quot;driverUser1&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "unlp.info.bd2.model.DriverUser.getUsername()" because "driverUser1" is null
 	at unlp.info.bd2.ToursApplicationTests.assignWorkersToRoutesTest(ToursApplicationTests.java:155)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
@@ -347,7 +347,7 @@ Hibernate:
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 ]]></error>
   </testcase>
-  <testcase name="createAndGetPurchaseTest" classname="unlp.info.bd2.ToursApplicationTests" time="0.334">
+  <testcase name="createAndGetPurchaseTest" classname="unlp.info.bd2.ToursApplicationTests" time="0.323">
     <error message="Cannot invoke &quot;unlp.info.bd2.model.Purchase.getId()&quot; because &quot;purchase1&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "unlp.info.bd2.model.Purchase.getId()" because "purchase1" is null
 	at unlp.info.bd2.ToursApplicationTests.createAndGetPurchaseTest(ToursApplicationTests.java:229)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
@@ -398,19 +398,15 @@ Hibernate:
         (?, ?, ?, ?)
 ]]></system-out>
   </testcase>
-  <testcase name="removePurchaseAndItems" classname="unlp.info.bd2.ToursApplicationTests" time="0.009">
-    <failure message="expected: &lt;1&gt; but was: &lt;0&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: <1> but was: <0>
-	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
-	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
-	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
-	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:150)
-	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:145)
-	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:531)
-	at unlp.info.bd2.ToursApplicationTests.removePurchaseAndItems(ToursApplicationTests.java:267)
+  <testcase name="removePurchaseAndItems" classname="unlp.info.bd2.ToursApplicationTests" time="0.004">
+    <error message="Supplier with this authorization number already exists." type="unlp.info.bd2.utils.ToursException"><![CDATA[unlp.info.bd2.utils.ToursException: Supplier with this authorization number already exists.
+	at unlp.info.bd2.services.SupplierService.createSupplier(SupplierService.java:23)
+	at unlp.info.bd2.services.ToursServiceImpl.createSupplier(ToursServiceImpl.java:97)
+	at unlp.info.bd2.ToursApplicationTests.removePurchaseAndItems(ToursApplicationTests.java:261)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-]]></failure>
+]]></error>
     <system-out><![CDATA[Hibernate: 
     select
         count(s1_0.id) 
@@ -418,30 +414,9 @@ Hibernate:
         suppliers s1_0 
     where
         s1_0.authorizationNumber=?
-Hibernate: 
-    insert 
-    into
-        suppliers
-        (authorizationNumber, businessName) 
-    values
-        (?, ?)
-Hibernate: 
-    insert 
-    into
-        service
-        (description, name, price, supplier_id) 
-    values
-        (?, ?, ?, ?)
-Hibernate: 
-    insert 
-    into
-        service
-        (description, name, price, supplier_id) 
-    values
-        (?, ?, ?, ?)
 ]]></system-out>
   </testcase>
-  <testcase name="createAndGetRoutesAndStopsTest" classname="unlp.info.bd2.ToursApplicationTests" time="0.003">
+  <testcase name="createAndGetRoutesAndStopsTest" classname="unlp.info.bd2.ToursApplicationTests" time="0.002">
     <error message="Cannot invoke &quot;unlp.info.bd2.model.Stop.getId()&quot; because &quot;stop1&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "unlp.info.bd2.model.Stop.getId()" because "stop1" is null
 	at unlp.info.bd2.ToursApplicationTests.createAndGetRoutesAndStopsTest(ToursApplicationTests.java:113)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
@@ -449,15 +424,11 @@ Hibernate:
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 ]]></error>
   </testcase>
-  <testcase name="createAndGetSupplierAndService" classname="unlp.info.bd2.ToursApplicationTests" time="0.007">
-    <error message="Index 0 out of bounds for length 0" type="java.lang.IndexOutOfBoundsException"><![CDATA[java.lang.IndexOutOfBoundsException: Index 0 out of bounds for length 0
-	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:100)
-	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:106)
-	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:302)
-	at java.base/java.util.Objects.checkIndex(Objects.java:385)
-	at java.base/java.util.ArrayList.get(ArrayList.java:427)
-	at org.hibernate.collection.spi.PersistentBag.get(PersistentBag.java:537)
-	at unlp.info.bd2.ToursApplicationTests.createAndGetSupplierAndService(ToursApplicationTests.java:178)
+  <testcase name="createAndGetSupplierAndService" classname="unlp.info.bd2.ToursApplicationTests" time="0.002">
+    <error message="Supplier with this authorization number already exists." type="unlp.info.bd2.utils.ToursException"><![CDATA[unlp.info.bd2.utils.ToursException: Supplier with this authorization number already exists.
+	at unlp.info.bd2.services.SupplierService.createSupplier(SupplierService.java:23)
+	at unlp.info.bd2.services.ToursServiceImpl.createSupplier(ToursServiceImpl.java:97)
+	at unlp.info.bd2.ToursApplicationTests.createAndGetSupplierAndService(ToursApplicationTests.java:171)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
@@ -469,20 +440,6 @@ Hibernate:
         suppliers s1_0 
     where
         s1_0.authorizationNumber=?
-Hibernate: 
-    insert 
-    into
-        suppliers
-        (authorizationNumber, businessName) 
-    values
-        (?, ?)
-Hibernate: 
-    insert 
-    into
-        service
-        (description, name, price, supplier_id) 
-    values
-        (?, ?, ?, ?)
 ]]></system-out>
   </testcase>
   <testcase name="updateUserTest" classname="unlp.info.bd2.ToursApplicationTests" time="0.002">
@@ -501,9 +458,11 @@ Hibernate:
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 ]]></error>
   </testcase>
-  <testcase name="updateServicePriceTest" classname="unlp.info.bd2.ToursApplicationTests" time="0.007">
-    <error message="Cannot invoke &quot;unlp.info.bd2.model.Service.getPrice()&quot; because &quot;service2&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "unlp.info.bd2.model.Service.getPrice()" because "service2" is null
-	at unlp.info.bd2.ToursApplicationTests.updateServicePriceTest(ToursApplicationTests.java:210)
+  <testcase name="updateServicePriceTest" classname="unlp.info.bd2.ToursApplicationTests" time="0.003">
+    <error message="Supplier with this authorization number already exists." type="unlp.info.bd2.utils.ToursException"><![CDATA[unlp.info.bd2.utils.ToursException: Supplier with this authorization number already exists.
+	at unlp.info.bd2.services.SupplierService.createSupplier(SupplierService.java:23)
+	at unlp.info.bd2.services.ToursServiceImpl.createSupplier(ToursServiceImpl.java:97)
+	at unlp.info.bd2.ToursApplicationTests.updateServicePriceTest(ToursApplicationTests.java:205)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
@@ -515,20 +474,6 @@ Hibernate:
         suppliers s1_0 
     where
         s1_0.authorizationNumber=?
-Hibernate: 
-    insert 
-    into
-        suppliers
-        (authorizationNumber, businessName) 
-    values
-        (?, ?)
-Hibernate: 
-    insert 
-    into
-        service
-        (description, name, price, supplier_id) 
-    values
-        (?, ?, ?, ?)
 ]]></system-out>
   </testcase>
 </testsuite>

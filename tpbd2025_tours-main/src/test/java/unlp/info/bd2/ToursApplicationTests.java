@@ -178,6 +178,7 @@ class ToursApplicationTests {
 		assertEquals(supplier1.getServices().get(0).getId(), service1.getId());
 
 		Optional<Supplier> optionalSupplier1 = this.toursService.getSupplierById(supplier1.getId());
+		System.out.println(supplier1.getId());
 		assertTrue(optionalSupplier1.isPresent());
 		Supplier supplier2 = optionalSupplier1.get();
 		assertEquals(supplier1.getId(), supplier2.getId());

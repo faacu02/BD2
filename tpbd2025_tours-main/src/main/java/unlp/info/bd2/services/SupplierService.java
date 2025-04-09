@@ -43,11 +43,13 @@ public class SupplierService {
         // Guardás el service
         unlp.info.bd2.model.Service saved = serviceDAO.save(newService);
 
-        // 💡 Refrescás el supplier desde la base de datos
-        supplier = supplierDAO.findById(supplier.getId()).orElseThrow(() -> new ToursException("Supplier not found after saving service"));
+        // ✅ Actualizás la lista de servicios del supplier manualmente
+        supplier.getServices().add(saved);
 
         return saved;
     }
+
+
 
 
 

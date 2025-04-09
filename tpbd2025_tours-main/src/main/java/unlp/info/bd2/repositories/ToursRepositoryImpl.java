@@ -2,12 +2,14 @@ package unlp.info.bd2.repositories;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import unlp.info.bd2.model.Supplier;
 import unlp.info.bd2.model.Service;
 
 import java.util.Optional;
 
 @Repository
+@Transactional
 public class ToursRepositoryImpl implements ToursRepository {
 
     @Autowired
@@ -16,7 +18,7 @@ public class ToursRepositoryImpl implements ToursRepository {
     @Autowired
     private ServiceDAO serviceDAO;
 
-    public ToursRepositoryImpl(SupplierDAO supplierDAO) {
+    public ToursRepositoryImpl(SupplierDAO supplierDAO, ServiceDAO serviceDAO) {
 
     }
 

@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------
 Test set: unlp.info.bd2.ToursQuerysTests
 -------------------------------------------------------------------------------
-Tests run: 14, Failures: 11, Errors: 2, Skipped: 0, Time elapsed: 1.326 s <<< FAILURE! -- in unlp.info.bd2.ToursQuerysTests
+Tests run: 14, Failures: 11, Errors: 2, Skipped: 0, Time elapsed: 1.367 s <<< FAILURE! -- in unlp.info.bd2.ToursQuerysTests
 unlp.info.bd2.ToursQuerysTests.getRoutsNotSellTest -- Time elapsed: 0.004 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: expected: <1> but was: <0>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
@@ -15,7 +15,7 @@ org.opentest4j.AssertionFailedError: expected: <1> but was: <0>
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 
-unlp.info.bd2.ToursQuerysTests.getAllPurchasesOfUsernameTest -- Time elapsed: 0.003 s <<< FAILURE!
+unlp.info.bd2.ToursQuerysTests.getAllPurchasesOfUsernameTest -- Time elapsed: 0.002 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: expected: <6> but was: <0>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -28,7 +28,7 @@ org.opentest4j.AssertionFailedError: expected: <6> but was: <0>
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 
-unlp.info.bd2.ToursQuerysTests.getRoutesWithStopTest -- Time elapsed: 0.004 s <<< ERROR!
+unlp.info.bd2.ToursQuerysTests.getRoutesWithStopTest -- Time elapsed: 0.001 s <<< ERROR!
 java.lang.ArrayIndexOutOfBoundsException: Index 0 out of bounds for length 0
 	at java.base/java.util.ImmutableCollections$ListN.get(ImmutableCollections.java:680)
 	at unlp.info.bd2.ToursQuerysTests.getRoutesWithStopTest(ToursQuerysTests.java:115)
@@ -36,7 +36,7 @@ java.lang.ArrayIndexOutOfBoundsException: Index 0 out of bounds for length 0
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 
-unlp.info.bd2.ToursQuerysTests.getServiceNoAddedToPurchasesTest -- Time elapsed: 0.002 s <<< FAILURE!
+unlp.info.bd2.ToursQuerysTests.getServiceNoAddedToPurchasesTest -- Time elapsed: 0.001 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: expected: <2> but was: <0>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -49,7 +49,7 @@ org.opentest4j.AssertionFailedError: expected: <2> but was: <0>
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 
-unlp.info.bd2.ToursQuerysTests.getMaxStopOfRoutesTest -- Time elapsed: 0.002 s <<< FAILURE!
+unlp.info.bd2.ToursQuerysTests.getMaxStopOfRoutesTest -- Time elapsed: 0.003 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: expected: <9> but was: <0>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -75,7 +75,7 @@ org.opentest4j.AssertionFailedError: expected: <10> but was: <0>
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 
-unlp.info.bd2.ToursQuerysTests.getTopNSuppliersInPurchasesTest -- Time elapsed: 0.001 s <<< FAILURE!
+unlp.info.bd2.ToursQuerysTests.getTopNSuppliersInPurchasesTest -- Time elapsed: 0.002 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: expected: <3> but was: <0>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -88,7 +88,7 @@ org.opentest4j.AssertionFailedError: expected: <3> but was: <0>
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 
-unlp.info.bd2.ToursQuerysTests.getTop5UsersMorePurchasesTest -- Time elapsed: 0.001 s <<< FAILURE!
+unlp.info.bd2.ToursQuerysTests.getTop5UsersMorePurchasesTest -- Time elapsed: 0.002 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: expected: <5> but was: <0>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -101,7 +101,7 @@ org.opentest4j.AssertionFailedError: expected: <5> but was: <0>
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 
-unlp.info.bd2.ToursQuerysTests.getUserSpendingMoreThanTest -- Time elapsed: 0.001 s <<< FAILURE!
+unlp.info.bd2.ToursQuerysTests.getUserSpendingMoreThanTest -- Time elapsed: 0.002 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: expected: <6> but was: <0>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -114,7 +114,7 @@ org.opentest4j.AssertionFailedError: expected: <6> but was: <0>
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 
-unlp.info.bd2.ToursQuerysTests.getMostDemandedServiceTest -- Time elapsed: 0.001 s <<< ERROR!
+unlp.info.bd2.ToursQuerysTests.getMostDemandedServiceTest -- Time elapsed: 0.002 s <<< ERROR!
 java.lang.NullPointerException: Cannot invoke "unlp.info.bd2.model.Service.getName()" because "mostDemandedService" is null
 	at unlp.info.bd2.ToursQuerysTests.getMostDemandedServiceTest(ToursQuerysTests.java:152)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:578)

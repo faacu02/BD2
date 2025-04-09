@@ -1,6 +1,9 @@
 package unlp.info.bd2.services;
 
 
+
+import jakarta.transaction.Transactional;
+
 import unlp.info.bd2.model.*;
 import unlp.info.bd2.utils.ToursException;
 import unlp.info.bd2.repositories.*;
@@ -9,8 +12,9 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
+@Transactional
 @org.springframework.stereotype.Service
+
 public class ToursServiceImpl implements ToursService {
 
     private ToursRepository toursRepository;
