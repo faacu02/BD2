@@ -11,6 +11,8 @@ import unlp.info.bd2.repositories.ToursRepository;
 import unlp.info.bd2.repositories.ToursRepositoryImpl;
 import unlp.info.bd2.services.ToursService;
 import unlp.info.bd2.services.ToursServiceImpl;
+import unlp.info.bd2.services.UserService;
+import unlp.info.bd2.repositories.UserRepositoryImpl;
 
 @ComponentScan(basePackages = "unlp.info.bd2")
 @EnableTransactionManagement
@@ -19,8 +21,8 @@ public class AppConfig {
 
     @Bean
     @Primary
-    public ToursRepository createRepository(SupplierDAO supplierDAO, ServiceDAO serviceDAO  ) {
-        return new ToursRepositoryImpl(supplierDAO, serviceDAO);
+    public ToursRepository createRepository(SupplierDAO supplierDAO, ServiceDAO serviceDAO, UserRepositoryImpl userRepository) {
+        return new ToursRepositoryImpl(supplierDAO, serviceDAO,userRepository);
     }
 
     @Bean

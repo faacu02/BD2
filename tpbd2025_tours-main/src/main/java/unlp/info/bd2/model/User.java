@@ -51,7 +51,14 @@ public class User {
         this.name = name;
         this.email = email;
     }
-
+    public User(String username, String password, String name, String email, Date birthdate, String phoneNumber) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.email = email;
+        this.birthdate = birthdate;
+        this.phoneNumber = phoneNumber;
+    }
     // Getters y Setters
     public Long getId() {
         return id;

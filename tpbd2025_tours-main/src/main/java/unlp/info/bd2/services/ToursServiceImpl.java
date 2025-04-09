@@ -22,13 +22,16 @@ public class ToursServiceImpl implements ToursService {
     @Autowired
     private SupplierService supplierService;
 
+    @Autowired
+    private UserService userService;
     public ToursServiceImpl(ToursRepository toursRepository) {
         this.toursRepository = toursRepository;
     }
 
     @Override
     public User createUser(String username, String password, String fullName, String email, Date birthdate, String phoneNumber) throws ToursException {
-        return null;
+        return this.userService.createUser(username, password, fullName, email, birthdate, phoneNumber);
+
     }
 
     @Override
@@ -43,22 +46,22 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public Optional<User> getUserById(Long id) throws ToursException {
-        return Optional.empty();
+        return this.userService.getUserById(id);
     }
 
     @Override
     public Optional<User> getUserByUsername(String username) throws ToursException {
-        return Optional.empty();
+        return this.userService.getUserByUsername(username);
     }
 
     @Override
     public User updateUser(User user) throws ToursException {
-        return null;
+        return this.userService.updateUser(user);
     }
 
     @Override
     public void deleteUser(User user) throws ToursException {
-        // No hace nada
+        this.userService.deleteUser(user);
     }
 
     @Override

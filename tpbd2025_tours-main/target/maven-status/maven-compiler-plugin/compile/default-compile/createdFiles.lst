@@ -2,12 +2,15 @@ unlp\info\bd2\model\TourGuideUser.class
 unlp\info\bd2\model\Purchase.class
 unlp\info\bd2\utils\ToursException.class
 unlp\info\bd2\config\HibernateConfiguration.class
+unlp\info\bd2\repositories\UserRepository.class
+unlp\info\bd2\services\UserService.class
 unlp\info\bd2\services\ToursServiceImpl.class
 unlp\info\bd2\model\Review.class
 unlp\info\bd2\repositories\ServiceDAO.class
 unlp\info\bd2\repositories\SupplierDAO.class
 unlp\info\bd2\model\Stop.class
 unlp\info\bd2\model\Service.class
+unlp\info\bd2\repositories\UserRepositoryImpl.class
 unlp\info\bd2\model\DriverUser.class
 unlp\info\bd2\services\SupplierService.class
 unlp\info\bd2\repositories\ToursRepository.class
