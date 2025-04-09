@@ -11,43 +11,47 @@ import java.util.Optional;
 public class ToursRepositoryImpl implements ToursRepository {
 
     @Autowired
-    private SupplierRepository supplierRepository;
+    private SupplierDAO supplierDAO;
 
     @Autowired
-    private ServiceRepository serviceRepository;
+    private ServiceDAO serviceDAO;
+
+    public ToursRepositoryImpl(SupplierDAO supplierDAO) {
+
+    }
 
     @Override
     public Supplier saveSupplier(Supplier supplier) {
-        return supplierRepository.save(supplier);
+        return supplierDAO.save(supplier);
     }
 
     @Override
     public Optional<Supplier> findSupplierByAuthorizationNumber(String authorizationNumber) {
-        return supplierRepository.findByAuthorizationNumber(authorizationNumber);
+        return supplierDAO.findByAuthorizationNumber(authorizationNumber);
     }
 
     @Override
     public boolean existsSupplierByAuthorizationNumber(String authorizationNumber) {
-        return supplierRepository.existsByAuthorizationNumber(authorizationNumber);
+        return supplierDAO.existsByAuthorizationNumber(authorizationNumber);
     }
 
     @Override
     public Optional<Supplier> findSupplierById(Long id) {
-        return supplierRepository.findById(id);
+        return supplierDAO.findById(id);
     }
 
     @Override
     public Service saveService(Service service) {
-        return serviceRepository.save(service);
+        return serviceDAO.save(service);
     }
 
     @Override
     public Optional<Service> findServiceById(Long id) {
-        return serviceRepository.findById(id);
+        return serviceDAO.findById(id);
     }
 
     @Override
     public Optional<Service> findServiceByNameAndSupplierId(String name, Long supplierId) {
-        return serviceRepository.findByNameAndSupplierId(name, supplierId);
+        return serviceDAO.findByNameAndSupplierId(name, supplierId);
     }
 }

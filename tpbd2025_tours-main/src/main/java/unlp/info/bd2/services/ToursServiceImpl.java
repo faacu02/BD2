@@ -16,7 +16,7 @@ public class ToursServiceImpl implements ToursService {
     private ToursRepository toursRepository;
 
     @Autowired
-    private SupplierService suplierService;
+    private SupplierService supplierService;
 
     public ToursServiceImpl(ToursRepository toursRepository) {
         this.toursRepository = toursRepository;
@@ -94,12 +94,12 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public Supplier createSupplier(String businessName, String authorizationNumber) throws ToursException {
-        return this.suplierService.createSupplier(businessName, authorizationNumber);
+        return this.supplierService.createSupplier(businessName, authorizationNumber);
     }
 
     @Override
     public Service addServiceToSupplier(String name, float price, String description, Supplier supplier) throws ToursException {
-        return null;
+        return this.supplierService.addServiceToSupplier(name,price, description,  supplier);
     }
 
     @Override

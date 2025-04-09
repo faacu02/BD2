@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Repository
 @Transactional // Aplica a todos los métodos de la clase
-public class  SupplierRepository {
+public class SupplierDAO {
 
     @Autowired
     private SessionFactory sessionFactory;

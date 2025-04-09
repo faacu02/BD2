@@ -3,7 +3,7 @@ package unlp.info.bd2.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import unlp.info.bd2.repositories.ServiceRepository;
+import unlp.info.bd2.repositories.ServiceDAO;
 
 import java.util.Optional;
 
@@ -12,17 +12,17 @@ import java.util.Optional;
 public class ServiceService {
 
     @Autowired
-    private ServiceRepository serviceRepository;
+    private ServiceDAO serviceDAO;
 
     public unlp.info.bd2.model.Service createService(unlp.info.bd2.model.Service service) {
-        return serviceRepository.save(service);
+        return serviceDAO.save(service);
     }
 
     public Optional<unlp.info.bd2.model.Service> getServiceById(Long id) {
-        return serviceRepository.findById(id);
+        return serviceDAO.findById(id);
     }
 
     public Optional<unlp.info.bd2.model.Service> getServiceByNameAndSupplier(String name, Long supplierId) {
-        return serviceRepository.findByNameAndSupplierId(name, supplierId);
+        return serviceDAO.findByNameAndSupplierId(name, supplierId);
     }
 }

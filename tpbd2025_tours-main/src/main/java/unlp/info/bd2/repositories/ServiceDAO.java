@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public class ServiceRepository {
+public class ServiceDAO {
 
     @Autowired
     private SessionFactory sessionFactory;
