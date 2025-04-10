@@ -104,5 +104,12 @@ public class ToursRepositoryImpl implements ToursRepository {
         }
     }
     @Override
-    p
+    public User updateUser(User user) throws ToursException {
+        try {
+            Session session = sessionFactory.getCurrentSession();
+            session.merge(user);
+            return user;
+        } catch (Exception e) {
+            throw new ToursException("Error updating user");
+        }
 }
