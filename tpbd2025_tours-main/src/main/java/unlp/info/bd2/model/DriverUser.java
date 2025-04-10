@@ -7,6 +7,7 @@ import java.util.List;
 @Entity
 @Table(name = "driver_users")
 @PrimaryKeyJoinColumn(name = "user_id")
+
 public class DriverUser extends User {
 
     @Column(nullable = false, unique = true, length = 50)
