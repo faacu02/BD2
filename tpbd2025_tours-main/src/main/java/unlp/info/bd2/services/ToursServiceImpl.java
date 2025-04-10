@@ -30,8 +30,8 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public User createUser(String username, String password, String fullName, String email, Date birthdate, String phoneNumber) throws ToursException {
-        return this.userService.createUser(username, password, fullName, email, birthdate, phoneNumber);
-
+        User user = new User(username, password, fullName, email, birthdate, phoneNumber);
+        return this.toursRepository.save(user);
     }
 
     @Override
@@ -46,17 +46,17 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public Optional<User> getUserById(Long id) throws ToursException {
-        return this.userService.getUserById(id);
+        return this.toursRepository.findById(id);
     }
 
     @Override
     public Optional<User> getUserByUsername(String username) throws ToursException {
-        return this.userService.getUserByUsername(username);
+        return this.toursRepository.findByUsername(username);
     }
 
     @Override
     public User updateUser(User user) throws ToursException {
-        return this.userService.updateUser(user);
+        return this.toursRepository.updateUser(user);
     }
 
     @Override
