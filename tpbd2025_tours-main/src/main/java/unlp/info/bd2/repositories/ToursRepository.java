@@ -4,6 +4,7 @@ import unlp.info.bd2.model.Supplier;
 import unlp.info.bd2.model.User;
 import unlp.info.bd2.utils.ToursException;
 import unlp.info.bd2.model.Service;
+import unlp.info.bd2.utils.ToursException;
 
 import java.util.Optional;
 
@@ -13,12 +14,11 @@ public interface ToursRepository {
 
     Supplier saveSupplier(Supplier supplier);
     Optional<Supplier> findSupplierByAuthorizationNumber(String authorizationNumber);
-    boolean existsSupplierByAuthorizationNumber(String authorizationNumber);
     Optional<Supplier> findSupplierById(Long id);
 
     Service saveService(Service service);
-    Optional<Service> findServiceById(Long id);
     Optional<Service> findServiceByNameAndSupplierId(String name, Long supplierId);
+    Service updatePriceService(Long id, float newPrice) throws ToursException;
 
     //User
     User saveUser(User user) throws ToursException;

@@ -2,25 +2,26 @@ package unlp.info.bd2.services;
 
 
 
-import jakarta.transaction.Transactional;
 
+
+import jakarta.persistence.PersistenceException;
+import org.hibernate.exception.ConstraintViolationException;
 import unlp.info.bd2.model.*;
 import unlp.info.bd2.utils.ToursException;
 import unlp.info.bd2.repositories.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
 
-@Transactional
+
+
 @org.springframework.stereotype.Service
 
 public class ToursServiceImpl implements ToursService {
 
     private ToursRepository toursRepository;
 
-    @Autowired
-    private SupplierService supplierService;
+
 
     @Autowired
     private UserService userService;
@@ -101,32 +102,40 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public Supplier createSupplier(String businessName, String authorizationNumber) throws ToursException {
-        return this.supplierService.createSupplier(businessName, authorizationNumber);
+        try {
+            Supplier supplier = new Supplier(businessName, authorizationNumber);
+            return toursRepository.saveSupplier(supplier);
+        } catch (PersistenceException e) {
+            // 🔁 Convertirla en una excepción propia
+            throw new ToursException("El proveedor ya existe con ese número de autorización");
+        }
     }
 
     @Override
     public Service addServiceToSupplier(String name, float price, String description, Supplier supplier) throws ToursException {
-        return this.supplierService.addServiceToSupplier(name,price, description,  supplier);
+        Service service = new Service(name, price, description, supplier);
+        supplier.getServices().add(service);
+        return this.toursRepository.saveService(service);
     }
 
     @Override
     public Service updateServicePriceById(Long id, float newPrice) throws ToursException {
-        return null;
+        return this.toursRepository.updatePriceService(id, newPrice);
     }
 
     @Override
     public Optional<Supplier> getSupplierById(Long id) {
-        return Optional.empty();
+        return this.toursRepository.findSupplierById(id);
     }
 
     @Override
     public Optional<Supplier> getSupplierByAuthorizationNumber(String authorizationNumber) {
-        return Optional.empty();
+        return this.toursRepository.findSupplierByAuthorizationNumber(authorizationNumber);
     }
 
     @Override
     public Optional<Service> getServiceByNameAndSupplierId(String name, Long id) throws ToursException {
-        return Optional.empty();
+        return this.toursRepository.findServiceByNameAndSupplierId(name, id);
     }
 
     @Override

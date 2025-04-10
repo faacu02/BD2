@@ -14,6 +14,10 @@ org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at unlp.info.bd2.ToursApplicationTests.addReviewToPurchaseTest(ToursApplicationTests.java:287)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 
 unlp.info.bd2.ToursApplicationTests.createAndGetUserTest -- Time elapsed: 0.013 s <<< ERROR!
 java.lang.NullPointerException: Cannot invoke "unlp.info.bd2.model.DriverUser.getId()" because "driverUser1" is null
@@ -28,9 +32,16 @@ java.lang.NullPointerException: Cannot invoke "unlp.info.bd2.model.DriverUser.ge
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 
 unlp.info.bd2.ToursApplicationTests.createAndGetPurchaseTest -- Time elapsed: 0.443 s <<< ERROR!
 java.lang.NullPointerException: Cannot invoke "unlp.info.bd2.model.Purchase.getId()" because "purchase1" is null
+	at unlp.info.bd2.ToursApplicationTests.createAndGetPurchaseTest(ToursApplicationTests.java:230)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 	at unlp.info.bd2.ToursApplicationTests.createAndGetPurchaseTest(ToursApplicationTests.java:230)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
