@@ -8,11 +8,13 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import unlp.info.bd2.model.Supplier;
 import unlp.info.bd2.model.Service;
+import unlp.info.bd2.model.TourGuideUser;
 import unlp.info.bd2.utils.ToursException;
 import unlp.info.bd2.model.User;
+
+import java.util.Date;
 import java.util.Optional;
 import org.hibernate.Session;
-
 @Repository
 public class ToursRepositoryImpl implements ToursRepository {
 
@@ -83,6 +85,8 @@ public class ToursRepositoryImpl implements ToursRepository {
             throw new ToursException("Error al actualizar el precio del servicio");
         }
     }
+
+    @Transactional
     @Override
     public User saveUser(User user) throws ToursException {
         try {
@@ -94,6 +98,7 @@ public class ToursRepositoryImpl implements ToursRepository {
         }
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Optional<User> findUserById(Long id) throws ToursException {
         try {
@@ -104,18 +109,20 @@ public class ToursRepositoryImpl implements ToursRepository {
         }
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Optional<User> findUserByUsername(String username) throws ToursException {
         try {
             Session session = sessionFactory.getCurrentSession();
             return session.createQuery("FROM User WHERE username = :username", User.class)
-                          .setParameter("username", username)
-                          .uniqueResultOptional();
+                    .setParameter("username", username)
+                    .uniqueResultOptional();
         } catch (Exception e) {
             throw new ToursException("Error finding user by username");
         }
     }
 
+    @Transactional()
     @Override
     public void deleteUser(User user) throws ToursException {
         try {
@@ -125,6 +132,8 @@ public class ToursRepositoryImpl implements ToursRepository {
             throw new ToursException("Error deleting user");
         }
     }
+
+    @Transactional
     @Override
     public User updateUser(User user) throws ToursException {
         try {

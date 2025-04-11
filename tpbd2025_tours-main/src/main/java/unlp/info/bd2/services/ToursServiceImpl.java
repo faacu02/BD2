@@ -27,12 +27,14 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public DriverUser createDriverUser(String username, String password, String fullName, String email, Date birthdate, String phoneNumber, String expedient) throws ToursException {
-        return null;
+        DriverUser user = new DriverUser(username, password, fullName, email, birthdate, phoneNumber,expedient);
+        return (DriverUser) this.toursRepository.saveUser(user);
     }
 
     @Override
     public TourGuideUser createTourGuideUser(String username, String password, String fullName, String email, Date birthdate, String phoneNumber, String education) throws ToursException {
-        return null;
+        TourGuideUser user = new TourGuideUser(username, password, fullName, email, birthdate, phoneNumber,education);
+        return (TourGuideUser) this.toursRepository.saveUser(user);
     }
 
     @Override

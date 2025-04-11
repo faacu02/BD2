@@ -2,6 +2,7 @@ package unlp.info.bd2.model;
 
 import jakarta.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -20,9 +21,8 @@ public class DriverUser extends User {
     public DriverUser() {
         // Constructor vacío requerido por JPA
     }
-
-    public DriverUser(String username, String password, String name, String email, String expedient) {
-        super(username, password, name, email); // Llama al constructor de User
+    public DriverUser(String username, String password, String fullName, String email, Date birthdate, String phoneNumber, String expedient) {
+        super(username, password, fullName, email, birthdate, phoneNumber);
         this.expedient = expedient;
     }
 

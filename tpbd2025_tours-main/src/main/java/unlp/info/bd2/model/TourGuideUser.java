@@ -3,6 +3,7 @@ package unlp.info.bd2.model;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -21,8 +22,8 @@ public class TourGuideUser extends User {
         // Constructor vacío requerido por JPA
     }
 
-    public TourGuideUser(String username, String password, String name, String email, String education) {
-        super(username, password, name, email);
+    public TourGuideUser(String username, String password, String fullName, String email, Date birthdate, String phoneNumber, String education) {
+        super(username, password, fullName, email, birthdate, phoneNumber);
         this.education = education;
     }
 
