@@ -7,8 +7,8 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "users")
-@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "user")
+@Inheritance(strategy = InheritanceType.JOINED) // Investigar la mejor opcion
 public class User {
 
     @Id
@@ -51,7 +51,14 @@ public class User {
         this.name = name;
         this.email = email;
     }
-
+    public User(String username, String password, String name, String email, Date birthdate, String phoneNumber) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.email = email;
+        this.birthdate = birthdate;
+        this.phoneNumber = phoneNumber;
+    }
     // Getters y Setters
     public Long getId() {
         return id;

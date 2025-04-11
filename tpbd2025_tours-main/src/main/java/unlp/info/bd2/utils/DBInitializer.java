@@ -44,7 +44,7 @@ public class DBInitializer {
         Service service8 = this.toursService.addServiceToSupplier("souvenir photograph", 5, "Souvenir photo at tourist spot", supplier3);
         Service service9 = this.toursService.addServiceToSupplier("souvenir retrato", 5, "Another Souvenir", supplier3);
 
-        // Stops
+        /* 
         Stop stop1 = this.toursService.createStop("Diagonal Norte", "Obelisco / Catedral Metropolitana / Casa Rosada / Museo del Bicentenario / Galería Güemes / Cabildo de Buenos Aires");
         Stop stop2 = this.toursService.createStop("Avenida de Mayo", "Casa Rosada / Museo del Bicentenario / Café Tortoni / Manzana de las Luces / Cabildo de Buenos Aires / Teatro Avenida");
         Stop stop3 = this.toursService.createStop("Plaza del Congreso", "Congreso de la Nación Argentina / Palacio Barolo / Pasaje Rivarola / Hotel Castelar / Monumento a los Dos Congresos");
@@ -65,7 +65,7 @@ public class DBInitializer {
         Stop stop18 = this.toursService.createStop("Av 9 de Julio", "Peatonal Florida / Teatro Colón / Plaza San Martín / Galerías Pacífico / Museo de Arte Hispanoamericano Isaac Fernández Blanco");
         Stop stop19 = this.toursService.createStop("Plaza Italia", "Museo Evita / Jardín Japonés / Jardín Botánico Carlos Thays / Rosedal / Ecoparque Interactivo");
         Stop stop20 = this.toursService.createStop("Delta", "Delta / Tigre");
-
+        */
         // Users
         User user1 = this.toursService.createUser("user1", "1234", "Usuario Uno", "user1@gmail.com", dob1, "000111222333");
         User user2 = this.toursService.createUser("user2", "1234", "Usuario Dos", "user2@gmail.com", dob1, "000111222333");

@@ -9,8 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import unlp.info.bd2.model.Supplier;
 import unlp.info.bd2.model.Service;
 import unlp.info.bd2.utils.ToursException;
-
+import unlp.info.bd2.model.User;
 import java.util.Optional;
+import org.hibernate.Session;
 
 @Repository
 public class ToursRepositoryImpl implements ToursRepository {
@@ -89,6 +90,56 @@ public class ToursRepositoryImpl implements ToursRepository {
             throw new ToursException("Error al actualizar el precio del servicio");
         }
     }
+    @Override
+    public User saveUser(User user) throws ToursException {
+        try {
+            Session session = sessionFactory.getCurrentSession();
+            session.persist(user);
+            return user;
+        } catch (Exception e) {
+            throw new ToursException("Error saving user");
+        }
     }
 
+    @Override
+    public Optional<User> findUserById(Long id) throws ToursException {
+        try {
+            Session session = sessionFactory.getCurrentSession();
+            return Optional.ofNullable(session.get(User.class, id));
+        } catch (Exception e) {
+            throw new ToursException("Error finding user by id");
+        }
+    }
 
+    @Override
+    public Optional<User> findUserByUsername(String username) throws ToursException {
+        try {
+            Session session = sessionFactory.getCurrentSession();
+            return session.createQuery("FROM User WHERE username = :username", User.class)
+                          .setParameter("username", username)
+                          .uniqueResultOptional();
+        } catch (Exception e) {
+            throw new ToursException("Error finding user by username");
+        }
+    }
+
+    @Override
+    public void deleteUser(User user) throws ToursException {
+        try {
+            Session session = sessionFactory.getCurrentSession();
+            session.delete(user);
+        } catch (Exception e) {
+            throw new ToursException("Error deleting user");
+        }
+    }
+    @Override
+    public User updateUser(User user) throws ToursException {
+        try {
+            Session session = sessionFactory.getCurrentSession();
+            session.merge(user);
+            return user;
+        } catch (Exception e) {
+            throw new ToursException("Error updating user");
+        }
+    }
+}

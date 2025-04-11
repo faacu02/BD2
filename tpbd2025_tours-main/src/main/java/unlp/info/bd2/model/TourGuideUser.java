@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "tour_guide_users")
+@Table(name = "tour_guide_user")
 @PrimaryKeyJoinColumn(name = "user_id")
 public class TourGuideUser extends User {
 

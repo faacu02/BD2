@@ -1,9 +1,4 @@
 package unlp.info.bd2.services;
-
-
-
-
-
 import jakarta.persistence.PersistenceException;
 import org.hibernate.exception.ConstraintViolationException;
 import unlp.info.bd2.model.*;
@@ -20,16 +15,14 @@ import java.util.Optional;
 public class ToursServiceImpl implements ToursService {
 
     private ToursRepository toursRepository;
-
-
-
     public ToursServiceImpl(ToursRepository toursRepository) {
         this.toursRepository = toursRepository;
     }
 
     @Override
     public User createUser(String username, String password, String fullName, String email, Date birthdate, String phoneNumber) throws ToursException {
-        return null;
+        User user = new User(username, password, fullName, email, birthdate, phoneNumber);
+        return this.toursRepository.saveUser(user);
     }
 
     @Override
@@ -44,22 +37,22 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public Optional<User> getUserById(Long id) throws ToursException {
-        return Optional.empty();
+        return this.toursRepository.findUserById(id);
     }
 
     @Override
     public Optional<User> getUserByUsername(String username) throws ToursException {
-        return Optional.empty();
+        return this.toursRepository.findUserByUsername(username);
     }
 
     @Override
     public User updateUser(User user) throws ToursException {
-        return null;
+        return this.toursRepository.updateUser(user);
     }
 
     @Override
     public void deleteUser(User user) throws ToursException {
-        // No hace nada
+        this.toursRepository.deleteUser(user);
     }
 
     @Override

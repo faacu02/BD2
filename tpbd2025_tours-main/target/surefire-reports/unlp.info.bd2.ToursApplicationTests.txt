@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: unlp.info.bd2.ToursApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 10, Failures: 1, Errors: 9, Skipped: 0, Time elapsed: 7.389 s <<< FAILURE! -- in unlp.info.bd2.ToursApplicationTests
-unlp.info.bd2.ToursApplicationTests.addReviewToPurchaseTest -- Time elapsed: 0.838 s <<< FAILURE!
+Tests run: 10, Failures: 3, Errors: 5, Skipped: 0, Time elapsed: 2.707 s <<< FAILURE! -- in unlp.info.bd2.ToursApplicationTests
+unlp.info.bd2.ToursApplicationTests.addReviewToPurchaseTest -- Time elapsed: 0.233 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -10,71 +10,69 @@ org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
 	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:36)
 	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:31)
 	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:183)
-	at unlp.info.bd2.ToursApplicationTests.addReviewToPurchaseTest(ToursApplicationTests.java:286)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at unlp.info.bd2.ToursApplicationTests.addReviewToPurchaseTest(ToursApplicationTests.java:287)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 
-unlp.info.bd2.ToursApplicationTests.createAndGetUserTest -- Time elapsed: 0.007 s <<< ERROR!
-java.lang.NullPointerException: Cannot invoke "unlp.info.bd2.model.User.getId()" because "user1" is null
-	at unlp.info.bd2.ToursApplicationTests.createAndGetUserTest(ToursApplicationTests.java:55)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+unlp.info.bd2.ToursApplicationTests.createAndGetUserTest -- Time elapsed: 0.006 s <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "unlp.info.bd2.model.DriverUser.getId()" because "driverUser1" is null
+	at unlp.info.bd2.ToursApplicationTests.createAndGetUserTest(ToursApplicationTests.java:61)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 
-unlp.info.bd2.ToursApplicationTests.assignWorkersToRoutesTest -- Time elapsed: 0.006 s <<< ERROR!
+unlp.info.bd2.ToursApplicationTests.assignWorkersToRoutesTest -- Time elapsed: 0.002 s <<< ERROR!
 java.lang.NullPointerException: Cannot invoke "unlp.info.bd2.model.DriverUser.getUsername()" because "driverUser1" is null
 	at unlp.info.bd2.ToursApplicationTests.assignWorkersToRoutesTest(ToursApplicationTests.java:155)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 
-unlp.info.bd2.ToursApplicationTests.createAndGetPurchaseTest -- Time elapsed: 0.005 s <<< ERROR!
+unlp.info.bd2.ToursApplicationTests.createAndGetPurchaseTest -- Time elapsed: 0.011 s <<< ERROR!
 java.lang.NullPointerException: Cannot invoke "unlp.info.bd2.model.Purchase.getId()" because "purchase1" is null
-	at unlp.info.bd2.ToursApplicationTests.createAndGetPurchaseTest(ToursApplicationTests.java:229)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at unlp.info.bd2.ToursApplicationTests.createAndGetPurchaseTest(ToursApplicationTests.java:230)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 
-unlp.info.bd2.ToursApplicationTests.removePurchaseAndItems -- Time elapsed: 0.005 s <<< ERROR!
-java.lang.NullPointerException: Cannot invoke "unlp.info.bd2.model.Service.getItemServiceList()" because "service1" is null
-	at unlp.info.bd2.ToursApplicationTests.removePurchaseAndItems(ToursApplicationTests.java:267)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+unlp.info.bd2.ToursApplicationTests.removePurchaseAndItems -- Time elapsed: 0.006 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <1> but was: <0>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:150)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:145)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:531)
+	at unlp.info.bd2.ToursApplicationTests.removePurchaseAndItems(ToursApplicationTests.java:268)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 
-unlp.info.bd2.ToursApplicationTests.createAndGetRoutesAndStopsTest -- Time elapsed: 0.006 s <<< ERROR!
+unlp.info.bd2.ToursApplicationTests.createAndGetRoutesAndStopsTest -- Time elapsed: 0.002 s <<< ERROR!
 java.lang.NullPointerException: Cannot invoke "unlp.info.bd2.model.Stop.getId()" because "stop1" is null
 	at unlp.info.bd2.ToursApplicationTests.createAndGetRoutesAndStopsTest(ToursApplicationTests.java:113)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 
-unlp.info.bd2.ToursApplicationTests.createAndGetSupplierAndService -- Time elapsed: 0.005 s <<< ERROR!
-java.lang.NullPointerException: Cannot invoke "unlp.info.bd2.model.Supplier.getId()" because "supplier1" is null
-	at unlp.info.bd2.ToursApplicationTests.createAndGetSupplierAndService(ToursApplicationTests.java:172)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+unlp.info.bd2.ToursApplicationTests.updateUserTest -- Time elapsed: 0.013 s <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "unlp.info.bd2.model.DriverUser.getExpedient()" because "driverUser" is null
+	at unlp.info.bd2.ToursApplicationTests.updateUserTest(ToursApplicationTests.java:94)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 
-unlp.info.bd2.ToursApplicationTests.updateUserTest -- Time elapsed: 0.007 s <<< ERROR!
-java.lang.NullPointerException: Cannot invoke "unlp.info.bd2.model.User.getPhoneNumber()" because "user1" is null
-	at unlp.info.bd2.ToursApplicationTests.updateUserTest(ToursApplicationTests.java:88)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-
-unlp.info.bd2.ToursApplicationTests.deleteUserTest -- Time elapsed: 0.005 s <<< ERROR!
-java.lang.NullPointerException: Cannot invoke "unlp.info.bd2.model.User.isActive()" because "user1" is null
-	at unlp.info.bd2.ToursApplicationTests.deleteUserTest(ToursApplicationTests.java:297)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-
-unlp.info.bd2.ToursApplicationTests.updateServicePriceTest -- Time elapsed: 0.005 s <<< ERROR!
-java.lang.NullPointerException: Cannot invoke "unlp.info.bd2.model.Service.getPrice()" because "service1" is null
-	at unlp.info.bd2.ToursApplicationTests.updateServicePriceTest(ToursApplicationTests.java:207)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+unlp.info.bd2.ToursApplicationTests.deleteUserTest -- Time elapsed: 0.021 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:63)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:36)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:31)
+	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:183)
+	at unlp.info.bd2.ToursApplicationTests.deleteUserTest(ToursApplicationTests.java:312)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 

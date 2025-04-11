@@ -1,62 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="unlp.info.bd2.ToursQuerysTests" time="2.159" tests="14" errors="2" skipped="0" failures="11">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="unlp.info.bd2.ToursQuerysTests" time="1.002" tests="14" errors="2" skipped="0" failures="11">
   <properties>
-    <property name="java.specification.version" value="17"/>
+    <property name="java.specification.version" value="24"/>
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.class.path" value="C:\Users\lauty\IdeaProjects\BD2\tpbd2025_tours-main\target\test-classes;C:\Users\lauty\IdeaProjects\BD2\tpbd2025_tours-main\target\classes;C:\Users\lauty\.m2\repository\org\springframework\boot\spring-boot-starter\3.2.3\spring-boot-starter-3.2.3.jar;C:\Users\lauty\.m2\repository\org\springframework\boot\spring-boot\3.2.3\spring-boot-3.2.3.jar;C:\Users\lauty\.m2\repository\org\springframework\spring-context\6.1.4\spring-context-6.1.4.jar;C:\Users\lauty\.m2\repository\org\springframework\spring-aop\6.1.4\spring-aop-6.1.4.jar;C:\Users\lauty\.m2\repository\org\springframework\spring-expression\6.1.4\spring-expression-6.1.4.jar;C:\Users\lauty\.m2\repository\io\micrometer\micrometer-observation\1.12.3\micrometer-observation-1.12.3.jar;C:\Users\lauty\.m2\repository\io\micrometer\micrometer-commons\1.12.3\micrometer-commons-1.12.3.jar;C:\Users\lauty\.m2\repository\org\springframework\boot\spring-boot-autoconfigure\3.2.3\spring-boot-autoconfigure-3.2.3.jar;C:\Users\lauty\.m2\repository\org\springframework\boot\spring-boot-starter-logging\3.2.3\spring-boot-starter-logging-3.2.3.jar;C:\Users\lauty\.m2\repository\ch\qos\logback\logback-classic\1.4.14\logback-classic-1.4.14.jar;C:\Users\lauty\.m2\repository\ch\qos\logback\logback-core\1.4.14\logback-core-1.4.14.jar;C:\Users\lauty\.m2\repository\org\apache\logging\log4j\log4j-to-slf4j\2.21.1\log4j-to-slf4j-2.21.1.jar;C:\Users\lauty\.m2\repository\org\apache\logging\log4j\log4j-api\2.21.1\log4j-api-2.21.1.jar;C:\Users\lauty\.m2\repository\org\slf4j\jul-to-slf4j\2.0.12\jul-to-slf4j-2.0.12.jar;C:\Users\lauty\.m2\repository\jakarta\annotation\jakarta.annotation-api\2.1.1\jakarta.annotation-api-2.1.1.jar;C:\Users\lauty\.m2\repository\org\springframework\spring-core\6.1.4\spring-core-6.1.4.jar;C:\Users\lauty\.m2\repository\org\springframework\spring-jcl\6.1.4\spring-jcl-6.1.4.jar;C:\Users\lauty\.m2\repository\org\yaml\snakeyaml\2.2\snakeyaml-2.2.jar;C:\Users\lauty\.m2\repository\org\springframework\spring-tx\6.0.12\spring-tx-6.0.12.jar;C:\Users\lauty\.m2\repository\org\springframework\spring-beans\6.1.4\spring-beans-6.1.4.jar;C:\Users\lauty\.m2\repository\org\springframework\spring-orm\6.0.12\spring-orm-6.0.12.jar;C:\Users\lauty\.m2\repository\org\springframework\spring-jdbc\6.1.4\spring-jdbc-6.1.4.jar;C:\Users\lauty\.m2\repository\org\hibernate\orm\hibernate-core\6.4.3.Final\hibernate-core-6.4.3.Final.jar;C:\Users\lauty\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.1.0\jakarta.persistence-api-3.1.0.jar;C:\Users\lauty\.m2\repository\jakarta\transaction\jakarta.transaction-api\2.0.1\jakarta.transaction-api-2.0.1.jar;C:\Users\lauty\.m2\repository\org\jboss\logging\jboss-logging\3.5.3.Final\jboss-logging-3.5.3.Final.jar;C:\Users\lauty\.m2\repository\org\hibernate\common\hibernate-commons-annotations\6.0.6.Final\hibernate-commons-annotations-6.0.6.Final.jar;C:\Users\lauty\.m2\repository\io\smallrye\jandex\3.1.2\jandex-3.1.2.jar;C:\Users\lauty\.m2\repository\com\fasterxml\classmate\1.6.0\classmate-1.6.0.jar;C:\Users\lauty\.m2\repository\net\bytebuddy\byte-buddy\1.14.12\byte-buddy-1.14.12.jar;C:\Users\lauty\.m2\repository\jakarta\xml\bind\jakarta.xml.bind-api\4.0.1\jakarta.xml.bind-api-4.0.1.jar;C:\Users\lauty\.m2\repository\jakarta\activation\jakarta.activation-api\2.1.2\jakarta.activation-api-2.1.2.jar;C:\Users\lauty\.m2\repository\org\glassfish\jaxb\jaxb-runtime\4.0.4\jaxb-runtime-4.0.4.jar;C:\Users\lauty\.m2\repository\org\glassfish\jaxb\jaxb-core\4.0.4\jaxb-core-4.0.4.jar;C:\Users\lauty\.m2\repository\org\eclipse\angus\angus-activation\2.0.1\angus-activation-2.0.1.jar;C:\Users\lauty\.m2\repository\org\glassfish\jaxb\txw2\4.0.4\txw2-4.0.4.jar;C:\Users\lauty\.m2\repository\com\sun\istack\istack-commons-runtime\4.1.2\istack-commons-runtime-4.1.2.jar;C:\Users\lauty\.m2\repository\jakarta\inject\jakarta.inject-api\2.0.1\jakarta.inject-api-2.0.1.jar;C:\Users\lauty\.m2\repository\org\antlr\antlr4-runtime\4.13.0\antlr4-runtime-4.13.0.jar;C:\Users\lauty\.m2\repository\com\mysql\mysql-connector-j\8.0.33\mysql-connector-j-8.0.33.jar;C:\Users\lauty\.m2\repository\org\springframework\boot\spring-boot-starter-test\3.2.3\spring-boot-starter-test-3.2.3.jar;C:\Users\lauty\.m2\repository\org\springframework\boot\spring-boot-test\3.2.3\spring-boot-test-3.2.3.jar;C:\Users\lauty\.m2\repository\org\springframework\boot\spring-boot-test-autoconfigure\3.2.3\spring-boot-test-autoconfigure-3.2.3.jar;C:\Users\lauty\.m2\repository\com\jayway\jsonpath\json-path\2.9.0\json-path-2.9.0.jar;C:\Users\lauty\.m2\repository\org\slf4j\slf4j-api\2.0.12\slf4j-api-2.0.12.jar;C:\Users\lauty\.m2\repository\net\minidev\json-smart\2.5.0\json-smart-2.5.0.jar;C:\Users\lauty\.m2\repository\net\minidev\accessors-smart\2.5.0\accessors-smart-2.5.0.jar;C:\Users\lauty\.m2\repository\org\ow2\asm\asm\9.3\asm-9.3.jar;C:\Users\lauty\.m2\repository\org\assertj\assertj-core\3.24.2\assertj-core-3.24.2.jar;C:\Users\lauty\.m2\repository\org\awaitility\awaitility\4.2.0\awaitility-4.2.0.jar;C:\Users\lauty\.m2\repository\org\hamcrest\hamcrest\2.2\hamcrest-2.2.jar;C:\Users\lauty\.m2\repository\org\junit\jupiter\junit-jupiter\5.10.2\junit-jupiter-5.10.2.jar;C:\Users\lauty\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.2\junit-jupiter-api-5.10.2.jar;C:\Users\lauty\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\lauty\.m2\repository\org\junit\platform\junit-platform-commons\1.10.2\junit-platform-commons-1.10.2.jar;C:\Users\lauty\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\lauty\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.2\junit-jupiter-params-5.10.2.jar;C:\Users\lauty\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.2\junit-jupiter-engine-5.10.2.jar;C:\Users\lauty\.m2\repository\org\junit\platform\junit-platform-engine\1.10.2\junit-platform-engine-1.10.2.jar;C:\Users\lauty\.m2\repository\org\mockito\mockito-core\5.7.0\mockito-core-5.7.0.jar;C:\Users\lauty\.m2\repository\net\bytebuddy\byte-buddy-agent\1.14.12\byte-buddy-agent-1.14.12.jar;C:\Users\lauty\.m2\repository\org\objenesis\objenesis\3.3\objenesis-3.3.jar;C:\Users\lauty\.m2\repository\org\mockito\mockito-junit-jupiter\5.7.0\mockito-junit-jupiter-5.7.0.jar;C:\Users\lauty\.m2\repository\org\skyscreamer\jsonassert\1.5.1\jsonassert-1.5.1.jar;C:\Users\lauty\.m2\repository\com\vaadin\external\google\android-json\0.0.20131108.vaadin1\android-json-0.0.20131108.vaadin1.jar;C:\Users\lauty\.m2\repository\org\springframework\spring-test\6.1.4\spring-test-6.1.4.jar;C:\Users\lauty\.m2\repository\org\xmlunit\xmlunit-core\2.9.1\xmlunit-core-2.9.1.jar;C:\Users\lauty\.m2\repository\commons-dbcp\commons-dbcp\1.4\commons-dbcp-1.4.jar;C:\Users\lauty\.m2\repository\commons-pool\commons-pool\1.6\commons-pool-1.6.jar;C:\Users\lauty\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\lauty\.m2\repository\org\hamcrest\hamcrest-core\2.2\hamcrest-core-2.2.jar;"/>
+    <property name="java.class.path" value="D:\Repos\BD2\tpbd2025_tours-main\target\test-classes;D:\Repos\BD2\tpbd2025_tours-main\target\classes;C:\Users\ladis\.m2\repository\org\springframework\boot\spring-boot-starter\3.2.3\spring-boot-starter-3.2.3.jar;C:\Users\ladis\.m2\repository\org\springframework\boot\spring-boot\3.2.3\spring-boot-3.2.3.jar;C:\Users\ladis\.m2\repository\org\springframework\spring-context\6.1.4\spring-context-6.1.4.jar;C:\Users\ladis\.m2\repository\org\springframework\spring-aop\6.1.4\spring-aop-6.1.4.jar;C:\Users\ladis\.m2\repository\org\springframework\spring-expression\6.1.4\spring-expression-6.1.4.jar;C:\Users\ladis\.m2\repository\io\micrometer\micrometer-observation\1.12.3\micrometer-observation-1.12.3.jar;C:\Users\ladis\.m2\repository\io\micrometer\micrometer-commons\1.12.3\micrometer-commons-1.12.3.jar;C:\Users\ladis\.m2\repository\org\springframework\boot\spring-boot-autoconfigure\3.2.3\spring-boot-autoconfigure-3.2.3.jar;C:\Users\ladis\.m2\repository\org\springframework\boot\spring-boot-starter-logging\3.2.3\spring-boot-starter-logging-3.2.3.jar;C:\Users\ladis\.m2\repository\ch\qos\logback\logback-classic\1.4.14\logback-classic-1.4.14.jar;C:\Users\ladis\.m2\repository\ch\qos\logback\logback-core\1.4.14\logback-core-1.4.14.jar;C:\Users\ladis\.m2\repository\org\apache\logging\log4j\log4j-to-slf4j\2.21.1\log4j-to-slf4j-2.21.1.jar;C:\Users\ladis\.m2\repository\org\apache\logging\log4j\log4j-api\2.21.1\log4j-api-2.21.1.jar;C:\Users\ladis\.m2\repository\org\slf4j\jul-to-slf4j\2.0.12\jul-to-slf4j-2.0.12.jar;C:\Users\ladis\.m2\repository\jakarta\annotation\jakarta.annotation-api\2.1.1\jakarta.annotation-api-2.1.1.jar;C:\Users\ladis\.m2\repository\org\springframework\spring-core\6.1.4\spring-core-6.1.4.jar;C:\Users\ladis\.m2\repository\org\springframework\spring-jcl\6.1.4\spring-jcl-6.1.4.jar;C:\Users\ladis\.m2\repository\org\yaml\snakeyaml\2.2\snakeyaml-2.2.jar;C:\Users\ladis\.m2\repository\org\springframework\spring-tx\6.1.4\spring-tx-6.1.4.jar;C:\Users\ladis\.m2\repository\org\springframework\spring-beans\6.1.4\spring-beans-6.1.4.jar;C:\Users\ladis\.m2\repository\org\springframework\spring-orm\6.1.4\spring-orm-6.1.4.jar;C:\Users\ladis\.m2\repository\org\springframework\spring-jdbc\6.1.4\spring-jdbc-6.1.4.jar;C:\Users\ladis\.m2\repository\org\hibernate\orm\hibernate-core\6.4.3.Final\hibernate-core-6.4.3.Final.jar;C:\Users\ladis\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.1.0\jakarta.persistence-api-3.1.0.jar;C:\Users\ladis\.m2\repository\jakarta\transaction\jakarta.transaction-api\2.0.1\jakarta.transaction-api-2.0.1.jar;C:\Users\ladis\.m2\repository\org\jboss\logging\jboss-logging\3.5.3.Final\jboss-logging-3.5.3.Final.jar;C:\Users\ladis\.m2\repository\org\hibernate\common\hibernate-commons-annotations\6.0.6.Final\hibernate-commons-annotations-6.0.6.Final.jar;C:\Users\ladis\.m2\repository\io\smallrye\jandex\3.1.2\jandex-3.1.2.jar;C:\Users\ladis\.m2\repository\com\fasterxml\classmate\1.6.0\classmate-1.6.0.jar;C:\Users\ladis\.m2\repository\net\bytebuddy\byte-buddy\1.14.12\byte-buddy-1.14.12.jar;C:\Users\ladis\.m2\repository\jakarta\xml\bind\jakarta.xml.bind-api\4.0.1\jakarta.xml.bind-api-4.0.1.jar;C:\Users\ladis\.m2\repository\jakarta\activation\jakarta.activation-api\2.1.2\jakarta.activation-api-2.1.2.jar;C:\Users\ladis\.m2\repository\org\glassfish\jaxb\jaxb-runtime\4.0.4\jaxb-runtime-4.0.4.jar;C:\Users\ladis\.m2\repository\org\glassfish\jaxb\jaxb-core\4.0.4\jaxb-core-4.0.4.jar;C:\Users\ladis\.m2\repository\org\eclipse\angus\angus-activation\2.0.1\angus-activation-2.0.1.jar;C:\Users\ladis\.m2\repository\org\glassfish\jaxb\txw2\4.0.4\txw2-4.0.4.jar;C:\Users\ladis\.m2\repository\com\sun\istack\istack-commons-runtime\4.1.2\istack-commons-runtime-4.1.2.jar;C:\Users\ladis\.m2\repository\jakarta\inject\jakarta.inject-api\2.0.1\jakarta.inject-api-2.0.1.jar;C:\Users\ladis\.m2\repository\org\antlr\antlr4-runtime\4.13.0\antlr4-runtime-4.13.0.jar;C:\Users\ladis\.m2\repository\com\mysql\mysql-connector-j\8.0.33\mysql-connector-j-8.0.33.jar;C:\Users\ladis\.m2\repository\org\springframework\boot\spring-boot-starter-test\3.2.3\spring-boot-starter-test-3.2.3.jar;C:\Users\ladis\.m2\repository\org\springframework\boot\spring-boot-test\3.2.3\spring-boot-test-3.2.3.jar;C:\Users\ladis\.m2\repository\org\springframework\boot\spring-boot-test-autoconfigure\3.2.3\spring-boot-test-autoconfigure-3.2.3.jar;C:\Users\ladis\.m2\repository\com\jayway\jsonpath\json-path\2.9.0\json-path-2.9.0.jar;C:\Users\ladis\.m2\repository\org\slf4j\slf4j-api\2.0.12\slf4j-api-2.0.12.jar;C:\Users\ladis\.m2\repository\net\minidev\json-smart\2.5.0\json-smart-2.5.0.jar;C:\Users\ladis\.m2\repository\net\minidev\accessors-smart\2.5.0\accessors-smart-2.5.0.jar;C:\Users\ladis\.m2\repository\org\ow2\asm\asm\9.3\asm-9.3.jar;C:\Users\ladis\.m2\repository\org\assertj\assertj-core\3.24.2\assertj-core-3.24.2.jar;C:\Users\ladis\.m2\repository\org\awaitility\awaitility\4.2.0\awaitility-4.2.0.jar;C:\Users\ladis\.m2\repository\org\hamcrest\hamcrest\2.2\hamcrest-2.2.jar;C:\Users\ladis\.m2\repository\org\junit\jupiter\junit-jupiter\5.10.2\junit-jupiter-5.10.2.jar;C:\Users\ladis\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.2\junit-jupiter-api-5.10.2.jar;C:\Users\ladis\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\ladis\.m2\repository\org\junit\platform\junit-platform-commons\1.10.2\junit-platform-commons-1.10.2.jar;C:\Users\ladis\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\ladis\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.2\junit-jupiter-params-5.10.2.jar;C:\Users\ladis\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.2\junit-jupiter-engine-5.10.2.jar;C:\Users\ladis\.m2\repository\org\junit\platform\junit-platform-engine\1.10.2\junit-platform-engine-1.10.2.jar;C:\Users\ladis\.m2\repository\org\mockito\mockito-core\5.7.0\mockito-core-5.7.0.jar;C:\Users\ladis\.m2\repository\net\bytebuddy\byte-buddy-agent\1.14.12\byte-buddy-agent-1.14.12.jar;C:\Users\ladis\.m2\repository\org\objenesis\objenesis\3.3\objenesis-3.3.jar;C:\Users\ladis\.m2\repository\org\mockito\mockito-junit-jupiter\5.7.0\mockito-junit-jupiter-5.7.0.jar;C:\Users\ladis\.m2\repository\org\skyscreamer\jsonassert\1.5.1\jsonassert-1.5.1.jar;C:\Users\ladis\.m2\repository\com\vaadin\external\google\android-json\0.0.20131108.vaadin1\android-json-0.0.20131108.vaadin1.jar;C:\Users\ladis\.m2\repository\org\springframework\spring-test\6.1.4\spring-test-6.1.4.jar;C:\Users\ladis\.m2\repository\org\xmlunit\xmlunit-core\2.9.1\xmlunit-core-2.9.1.jar;C:\Users\ladis\.m2\repository\commons-dbcp\commons-dbcp\1.4\commons-dbcp-1.4.jar;C:\Users\ladis\.m2\repository\commons-pool\commons-pool\1.6\commons-pool-1.6.jar;C:\Users\ladis\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\ladis\.m2\repository\org\hamcrest\hamcrest-core\2.2\hamcrest-core-2.2.jar;"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="user.variant" value=""/>
     <property name="java.vendor.url" value="https://java.oracle.com/"/>
     <property name="user.timezone" value="America/Buenos_Aires"/>
-    <property name="os.name" value="Windows 11"/>
-    <property name="java.vm.specification.version" value="17"/>
+    <property name="os.name" value="Windows 10"/>
+    <property name="java.vm.specification.version" value="24"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="AR"/>
-    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-17\bin"/>
-    <property name="sun.java.command" value="C:\Users\lauty\AppData\Local\Temp\surefire10943364887642653240\surefirebooter-20250410101516539_3.jar C:\Users\lauty\AppData\Local\Temp\surefire10943364887642653240 2025-04-10T10-15-13_316-jvmRun1 surefire-20250410101516539_1tmp surefire_0-20250410101516539_2tmp"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-24\bin"/>
+    <property name="sun.java.command" value="C:\Users\ladis\AppData\Local\Temp\surefire12940707774274639018\surefirebooter-20250410214630848_3.jar C:\Users\ladis\AppData\Local\Temp\surefire12940707774274639018 2025-04-10T21-46-30_731-jvmRun1 surefire-20250410214630848_1tmp surefire_0-20250410214630848_2tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="C:\Users\lauty\IdeaProjects\BD2\tpbd2025_tours-main\target\test-classes;C:\Users\lauty\IdeaProjects\BD2\tpbd2025_tours-main\target\classes;C:\Users\lauty\.m2\repository\org\springframework\boot\spring-boot-starter\3.2.3\spring-boot-starter-3.2.3.jar;C:\Users\lauty\.m2\repository\org\springframework\boot\spring-boot\3.2.3\spring-boot-3.2.3.jar;C:\Users\lauty\.m2\repository\org\springframework\spring-context\6.1.4\spring-context-6.1.4.jar;C:\Users\lauty\.m2\repository\org\springframework\spring-aop\6.1.4\spring-aop-6.1.4.jar;C:\Users\lauty\.m2\repository\org\springframework\spring-expression\6.1.4\spring-expression-6.1.4.jar;C:\Users\lauty\.m2\repository\io\micrometer\micrometer-observation\1.12.3\micrometer-observation-1.12.3.jar;C:\Users\lauty\.m2\repository\io\micrometer\micrometer-commons\1.12.3\micrometer-commons-1.12.3.jar;C:\Users\lauty\.m2\repository\org\springframework\boot\spring-boot-autoconfigure\3.2.3\spring-boot-autoconfigure-3.2.3.jar;C:\Users\lauty\.m2\repository\org\springframework\boot\spring-boot-starter-logging\3.2.3\spring-boot-starter-logging-3.2.3.jar;C:\Users\lauty\.m2\repository\ch\qos\logback\logback-classic\1.4.14\logback-classic-1.4.14.jar;C:\Users\lauty\.m2\repository\ch\qos\logback\logback-core\1.4.14\logback-core-1.4.14.jar;C:\Users\lauty\.m2\repository\org\apache\logging\log4j\log4j-to-slf4j\2.21.1\log4j-to-slf4j-2.21.1.jar;C:\Users\lauty\.m2\repository\org\apache\logging\log4j\log4j-api\2.21.1\log4j-api-2.21.1.jar;C:\Users\lauty\.m2\repository\org\slf4j\jul-to-slf4j\2.0.12\jul-to-slf4j-2.0.12.jar;C:\Users\lauty\.m2\repository\jakarta\annotation\jakarta.annotation-api\2.1.1\jakarta.annotation-api-2.1.1.jar;C:\Users\lauty\.m2\repository\org\springframework\spring-core\6.1.4\spring-core-6.1.4.jar;C:\Users\lauty\.m2\repository\org\springframework\spring-jcl\6.1.4\spring-jcl-6.1.4.jar;C:\Users\lauty\.m2\repository\org\yaml\snakeyaml\2.2\snakeyaml-2.2.jar;C:\Users\lauty\.m2\repository\org\springframework\spring-tx\6.0.12\spring-tx-6.0.12.jar;C:\Users\lauty\.m2\repository\org\springframework\spring-beans\6.1.4\spring-beans-6.1.4.jar;C:\Users\lauty\.m2\repository\org\springframework\spring-orm\6.0.12\spring-orm-6.0.12.jar;C:\Users\lauty\.m2\repository\org\springframework\spring-jdbc\6.1.4\spring-jdbc-6.1.4.jar;C:\Users\lauty\.m2\repository\org\hibernate\orm\hibernate-core\6.4.3.Final\hibernate-core-6.4.3.Final.jar;C:\Users\lauty\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.1.0\jakarta.persistence-api-3.1.0.jar;C:\Users\lauty\.m2\repository\jakarta\transaction\jakarta.transaction-api\2.0.1\jakarta.transaction-api-2.0.1.jar;C:\Users\lauty\.m2\repository\org\jboss\logging\jboss-logging\3.5.3.Final\jboss-logging-3.5.3.Final.jar;C:\Users\lauty\.m2\repository\org\hibernate\common\hibernate-commons-annotations\6.0.6.Final\hibernate-commons-annotations-6.0.6.Final.jar;C:\Users\lauty\.m2\repository\io\smallrye\jandex\3.1.2\jandex-3.1.2.jar;C:\Users\lauty\.m2\repository\com\fasterxml\classmate\1.6.0\classmate-1.6.0.jar;C:\Users\lauty\.m2\repository\net\bytebuddy\byte-buddy\1.14.12\byte-buddy-1.14.12.jar;C:\Users\lauty\.m2\repository\jakarta\xml\bind\jakarta.xml.bind-api\4.0.1\jakarta.xml.bind-api-4.0.1.jar;C:\Users\lauty\.m2\repository\jakarta\activation\jakarta.activation-api\2.1.2\jakarta.activation-api-2.1.2.jar;C:\Users\lauty\.m2\repository\org\glassfish\jaxb\jaxb-runtime\4.0.4\jaxb-runtime-4.0.4.jar;C:\Users\lauty\.m2\repository\org\glassfish\jaxb\jaxb-core\4.0.4\jaxb-core-4.0.4.jar;C:\Users\lauty\.m2\repository\org\eclipse\angus\angus-activation\2.0.1\angus-activation-2.0.1.jar;C:\Users\lauty\.m2\repository\org\glassfish\jaxb\txw2\4.0.4\txw2-4.0.4.jar;C:\Users\lauty\.m2\repository\com\sun\istack\istack-commons-runtime\4.1.2\istack-commons-runtime-4.1.2.jar;C:\Users\lauty\.m2\repository\jakarta\inject\jakarta.inject-api\2.0.1\jakarta.inject-api-2.0.1.jar;C:\Users\lauty\.m2\repository\org\antlr\antlr4-runtime\4.13.0\antlr4-runtime-4.13.0.jar;C:\Users\lauty\.m2\repository\com\mysql\mysql-connector-j\8.0.33\mysql-connector-j-8.0.33.jar;C:\Users\lauty\.m2\repository\org\springframework\boot\spring-boot-starter-test\3.2.3\spring-boot-starter-test-3.2.3.jar;C:\Users\lauty\.m2\repository\org\springframework\boot\spring-boot-test\3.2.3\spring-boot-test-3.2.3.jar;C:\Users\lauty\.m2\repository\org\springframework\boot\spring-boot-test-autoconfigure\3.2.3\spring-boot-test-autoconfigure-3.2.3.jar;C:\Users\lauty\.m2\repository\com\jayway\jsonpath\json-path\2.9.0\json-path-2.9.0.jar;C:\Users\lauty\.m2\repository\org\slf4j\slf4j-api\2.0.12\slf4j-api-2.0.12.jar;C:\Users\lauty\.m2\repository\net\minidev\json-smart\2.5.0\json-smart-2.5.0.jar;C:\Users\lauty\.m2\repository\net\minidev\accessors-smart\2.5.0\accessors-smart-2.5.0.jar;C:\Users\lauty\.m2\repository\org\ow2\asm\asm\9.3\asm-9.3.jar;C:\Users\lauty\.m2\repository\org\assertj\assertj-core\3.24.2\assertj-core-3.24.2.jar;C:\Users\lauty\.m2\repository\org\awaitility\awaitility\4.2.0\awaitility-4.2.0.jar;C:\Users\lauty\.m2\repository\org\hamcrest\hamcrest\2.2\hamcrest-2.2.jar;C:\Users\lauty\.m2\repository\org\junit\jupiter\junit-jupiter\5.10.2\junit-jupiter-5.10.2.jar;C:\Users\lauty\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.2\junit-jupiter-api-5.10.2.jar;C:\Users\lauty\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\lauty\.m2\repository\org\junit\platform\junit-platform-commons\1.10.2\junit-platform-commons-1.10.2.jar;C:\Users\lauty\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\lauty\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.2\junit-jupiter-params-5.10.2.jar;C:\Users\lauty\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.2\junit-jupiter-engine-5.10.2.jar;C:\Users\lauty\.m2\repository\org\junit\platform\junit-platform-engine\1.10.2\junit-platform-engine-1.10.2.jar;C:\Users\lauty\.m2\repository\org\mockito\mockito-core\5.7.0\mockito-core-5.7.0.jar;C:\Users\lauty\.m2\repository\net\bytebuddy\byte-buddy-agent\1.14.12\byte-buddy-agent-1.14.12.jar;C:\Users\lauty\.m2\repository\org\objenesis\objenesis\3.3\objenesis-3.3.jar;C:\Users\lauty\.m2\repository\org\mockito\mockito-junit-jupiter\5.7.0\mockito-junit-jupiter-5.7.0.jar;C:\Users\lauty\.m2\repository\org\skyscreamer\jsonassert\1.5.1\jsonassert-1.5.1.jar;C:\Users\lauty\.m2\repository\com\vaadin\external\google\android-json\0.0.20131108.vaadin1\android-json-0.0.20131108.vaadin1.jar;C:\Users\lauty\.m2\repository\org\springframework\spring-test\6.1.4\spring-test-6.1.4.jar;C:\Users\lauty\.m2\repository\org\xmlunit\xmlunit-core\2.9.1\xmlunit-core-2.9.1.jar;C:\Users\lauty\.m2\repository\commons-dbcp\commons-dbcp\1.4\commons-dbcp-1.4.jar;C:\Users\lauty\.m2\repository\commons-pool\commons-pool\1.6\commons-pool-1.6.jar;C:\Users\lauty\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\lauty\.m2\repository\org\hamcrest\hamcrest-core\2.2\hamcrest-core-2.2.jar;"/>
+    <property name="surefire.test.class.path" value="D:\Repos\BD2\tpbd2025_tours-main\target\test-classes;D:\Repos\BD2\tpbd2025_tours-main\target\classes;C:\Users\ladis\.m2\repository\org\springframework\boot\spring-boot-starter\3.2.3\spring-boot-starter-3.2.3.jar;C:\Users\ladis\.m2\repository\org\springframework\boot\spring-boot\3.2.3\spring-boot-3.2.3.jar;C:\Users\ladis\.m2\repository\org\springframework\spring-context\6.1.4\spring-context-6.1.4.jar;C:\Users\ladis\.m2\repository\org\springframework\spring-aop\6.1.4\spring-aop-6.1.4.jar;C:\Users\ladis\.m2\repository\org\springframework\spring-expression\6.1.4\spring-expression-6.1.4.jar;C:\Users\ladis\.m2\repository\io\micrometer\micrometer-observation\1.12.3\micrometer-observation-1.12.3.jar;C:\Users\ladis\.m2\repository\io\micrometer\micrometer-commons\1.12.3\micrometer-commons-1.12.3.jar;C:\Users\ladis\.m2\repository\org\springframework\boot\spring-boot-autoconfigure\3.2.3\spring-boot-autoconfigure-3.2.3.jar;C:\Users\ladis\.m2\repository\org\springframework\boot\spring-boot-starter-logging\3.2.3\spring-boot-starter-logging-3.2.3.jar;C:\Users\ladis\.m2\repository\ch\qos\logback\logback-classic\1.4.14\logback-classic-1.4.14.jar;C:\Users\ladis\.m2\repository\ch\qos\logback\logback-core\1.4.14\logback-core-1.4.14.jar;C:\Users\ladis\.m2\repository\org\apache\logging\log4j\log4j-to-slf4j\2.21.1\log4j-to-slf4j-2.21.1.jar;C:\Users\ladis\.m2\repository\org\apache\logging\log4j\log4j-api\2.21.1\log4j-api-2.21.1.jar;C:\Users\ladis\.m2\repository\org\slf4j\jul-to-slf4j\2.0.12\jul-to-slf4j-2.0.12.jar;C:\Users\ladis\.m2\repository\jakarta\annotation\jakarta.annotation-api\2.1.1\jakarta.annotation-api-2.1.1.jar;C:\Users\ladis\.m2\repository\org\springframework\spring-core\6.1.4\spring-core-6.1.4.jar;C:\Users\ladis\.m2\repository\org\springframework\spring-jcl\6.1.4\spring-jcl-6.1.4.jar;C:\Users\ladis\.m2\repository\org\yaml\snakeyaml\2.2\snakeyaml-2.2.jar;C:\Users\ladis\.m2\repository\org\springframework\spring-tx\6.1.4\spring-tx-6.1.4.jar;C:\Users\ladis\.m2\repository\org\springframework\spring-beans\6.1.4\spring-beans-6.1.4.jar;C:\Users\ladis\.m2\repository\org\springframework\spring-orm\6.1.4\spring-orm-6.1.4.jar;C:\Users\ladis\.m2\repository\org\springframework\spring-jdbc\6.1.4\spring-jdbc-6.1.4.jar;C:\Users\ladis\.m2\repository\org\hibernate\orm\hibernate-core\6.4.3.Final\hibernate-core-6.4.3.Final.jar;C:\Users\ladis\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.1.0\jakarta.persistence-api-3.1.0.jar;C:\Users\ladis\.m2\repository\jakarta\transaction\jakarta.transaction-api\2.0.1\jakarta.transaction-api-2.0.1.jar;C:\Users\ladis\.m2\repository\org\jboss\logging\jboss-logging\3.5.3.Final\jboss-logging-3.5.3.Final.jar;C:\Users\ladis\.m2\repository\org\hibernate\common\hibernate-commons-annotations\6.0.6.Final\hibernate-commons-annotations-6.0.6.Final.jar;C:\Users\ladis\.m2\repository\io\smallrye\jandex\3.1.2\jandex-3.1.2.jar;C:\Users\ladis\.m2\repository\com\fasterxml\classmate\1.6.0\classmate-1.6.0.jar;C:\Users\ladis\.m2\repository\net\bytebuddy\byte-buddy\1.14.12\byte-buddy-1.14.12.jar;C:\Users\ladis\.m2\repository\jakarta\xml\bind\jakarta.xml.bind-api\4.0.1\jakarta.xml.bind-api-4.0.1.jar;C:\Users\ladis\.m2\repository\jakarta\activation\jakarta.activation-api\2.1.2\jakarta.activation-api-2.1.2.jar;C:\Users\ladis\.m2\repository\org\glassfish\jaxb\jaxb-runtime\4.0.4\jaxb-runtime-4.0.4.jar;C:\Users\ladis\.m2\repository\org\glassfish\jaxb\jaxb-core\4.0.4\jaxb-core-4.0.4.jar;C:\Users\ladis\.m2\repository\org\eclipse\angus\angus-activation\2.0.1\angus-activation-2.0.1.jar;C:\Users\ladis\.m2\repository\org\glassfish\jaxb\txw2\4.0.4\txw2-4.0.4.jar;C:\Users\ladis\.m2\repository\com\sun\istack\istack-commons-runtime\4.1.2\istack-commons-runtime-4.1.2.jar;C:\Users\ladis\.m2\repository\jakarta\inject\jakarta.inject-api\2.0.1\jakarta.inject-api-2.0.1.jar;C:\Users\ladis\.m2\repository\org\antlr\antlr4-runtime\4.13.0\antlr4-runtime-4.13.0.jar;C:\Users\ladis\.m2\repository\com\mysql\mysql-connector-j\8.0.33\mysql-connector-j-8.0.33.jar;C:\Users\ladis\.m2\repository\org\springframework\boot\spring-boot-starter-test\3.2.3\spring-boot-starter-test-3.2.3.jar;C:\Users\ladis\.m2\repository\org\springframework\boot\spring-boot-test\3.2.3\spring-boot-test-3.2.3.jar;C:\Users\ladis\.m2\repository\org\springframework\boot\spring-boot-test-autoconfigure\3.2.3\spring-boot-test-autoconfigure-3.2.3.jar;C:\Users\ladis\.m2\repository\com\jayway\jsonpath\json-path\2.9.0\json-path-2.9.0.jar;C:\Users\ladis\.m2\repository\org\slf4j\slf4j-api\2.0.12\slf4j-api-2.0.12.jar;C:\Users\ladis\.m2\repository\net\minidev\json-smart\2.5.0\json-smart-2.5.0.jar;C:\Users\ladis\.m2\repository\net\minidev\accessors-smart\2.5.0\accessors-smart-2.5.0.jar;C:\Users\ladis\.m2\repository\org\ow2\asm\asm\9.3\asm-9.3.jar;C:\Users\ladis\.m2\repository\org\assertj\assertj-core\3.24.2\assertj-core-3.24.2.jar;C:\Users\ladis\.m2\repository\org\awaitility\awaitility\4.2.0\awaitility-4.2.0.jar;C:\Users\ladis\.m2\repository\org\hamcrest\hamcrest\2.2\hamcrest-2.2.jar;C:\Users\ladis\.m2\repository\org\junit\jupiter\junit-jupiter\5.10.2\junit-jupiter-5.10.2.jar;C:\Users\ladis\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.2\junit-jupiter-api-5.10.2.jar;C:\Users\ladis\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\ladis\.m2\repository\org\junit\platform\junit-platform-commons\1.10.2\junit-platform-commons-1.10.2.jar;C:\Users\ladis\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\ladis\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.2\junit-jupiter-params-5.10.2.jar;C:\Users\ladis\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.2\junit-jupiter-engine-5.10.2.jar;C:\Users\ladis\.m2\repository\org\junit\platform\junit-platform-engine\1.10.2\junit-platform-engine-1.10.2.jar;C:\Users\ladis\.m2\repository\org\mockito\mockito-core\5.7.0\mockito-core-5.7.0.jar;C:\Users\ladis\.m2\repository\net\bytebuddy\byte-buddy-agent\1.14.12\byte-buddy-agent-1.14.12.jar;C:\Users\ladis\.m2\repository\org\objenesis\objenesis\3.3\objenesis-3.3.jar;C:\Users\ladis\.m2\repository\org\mockito\mockito-junit-jupiter\5.7.0\mockito-junit-jupiter-5.7.0.jar;C:\Users\ladis\.m2\repository\org\skyscreamer\jsonassert\1.5.1\jsonassert-1.5.1.jar;C:\Users\ladis\.m2\repository\com\vaadin\external\google\android-json\0.0.20131108.vaadin1\android-json-0.0.20131108.vaadin1.jar;C:\Users\ladis\.m2\repository\org\springframework\spring-test\6.1.4\spring-test-6.1.4.jar;C:\Users\ladis\.m2\repository\org\xmlunit\xmlunit-core\2.9.1\xmlunit-core-2.9.1.jar;C:\Users\ladis\.m2\repository\commons-dbcp\commons-dbcp\1.4\commons-dbcp-1.4.jar;C:\Users\ladis\.m2\repository\commons-pool\commons-pool\1.6\commons-pool-1.6.jar;C:\Users\ladis\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\ladis\.m2\repository\org\hamcrest\hamcrest-core\2.2\hamcrest-core-2.2.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
-    <property name="user.home" value="C:\Users\lauty"/>
+    <property name="user.home" value="C:\Users\ladis"/>
     <property name="user.language" value="es"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
-    <property name="java.version.date" value="2024-07-16"/>
-    <property name="java.home" value="C:\Program Files\Java\jdk-17"/>
+    <property name="java.version.date" value="2025-03-18"/>
+    <property name="java.home" value="C:\Program Files\Java\jdk-24"/>
     <property name="file.separator" value="\"/>
-    <property name="basedir" value="C:\Users\lauty\IdeaProjects\BD2\tpbd2025_tours-main"/>
+    <property name="basedir" value="D:\Repos\BD2\tpbd2025_tours-main"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\lauty\AppData\Local\Temp\surefire10943364887642653240\surefirebooter-20250410101516539_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\ladis\AppData\Local\Temp\surefire12940707774274639018\surefirebooter-20250410214630848_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="java.runtime.version" value="17.0.12+8-LTS-286"/>
-    <property name="user.name" value="lauty"/>
+    <property name="java.runtime.version" value="24+36-3646"/>
+    <property name="user.name" value="ladis"/>
+    <property name="stdout.encoding" value="Cp1252"/>
     <property name="path.separator" value=";"/>
     <property name="os.version" value="10.0"/>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
-    <property name="file.encoding" value="Cp1252"/>
+    <property name="file.encoding" value="UTF-8"/>
     <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
-    <property name="localRepository" value="C:\Users\lauty\.m2\repository"/>
+    <property name="localRepository" value="C:\Users\ladis\.m2\repository"/>
     <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
-    <property name="java.io.tmpdir" value="C:\Users\lauty\AppData\Local\Temp\"/>
-    <property name="java.version" value="17.0.12"/>
-    <property name="user.dir" value="C:\Users\lauty\IdeaProjects\BD2\tpbd2025_tours-main"/>
+    <property name="java.io.tmpdir" value="C:\Users\ladis\AppData\Local\Temp\"/>
+    <property name="java.version" value="24"/>
+    <property name="user.dir" value="D:\Repos\BD2\tpbd2025_tours-main"/>
     <property name="os.arch" value="amd64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="sun.os.patch.level" value=""/>
     <property name="native.encoding" value="Cp1252"/>
-    <property name="java.library.path" value="C:\Program Files\Java\jdk-17\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\nodejs\;C:\Program Files\Apache\Maven\apache-maven-3.9.9\bin;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\lauty\AppData\Local\Programs\Python\Python313\Scripts\;C:\Users\lauty\AppData\Local\Programs\Python\Python313\;C:\Users\lauty\AppData\Local\Programs\Python\Launcher\;C:\Users\lauty\AppData\Local\Microsoft\WindowsApps;C:\Users\lauty\AppData\Roaming\npm;C:\Users\lauty\AppData\Local\Programs\Microsoft VS Code\bin;;C:\Program Files\JetBrains\IntelliJ IDEA 2024.3.5\bin;;."/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk-24\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;D:\Git\cmd;C:\Program Files\nodejs\;C:\Program Files\Docker\Docker\resources\bin;D:\apache-maven-3.9.9\bin;C:\Program Files\MySQL\MySQL Server 8.0\bin;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\ladis\AppData\Local\Microsoft\WindowsApps;C:\Users\ladis\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\ladis\AppData\Roaming\npm;D:\JetBrains\IntelliJ IDEA 2024.3.5\bin;;."/>
     <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="Cp1252"/>
     <property name="java.vendor" value="Oracle Corporation"/>
-    <property name="java.vm.version" value="17.0.12+8-LTS-286"/>
+    <property name="java.vm.version" value="24+36-3646"/>
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
-    <property name="java.class.version" value="61.0"/>
+    <property name="java.class.version" value="68.0"/>
   </properties>
-  <testcase name="getRoutsNotSellTest" classname="unlp.info.bd2.ToursQuerysTests" time="0.009">
+  <testcase name="getRoutsNotSellTest" classname="unlp.info.bd2.ToursQuerysTests" time="0.004">
     <failure message="expected: &lt;1&gt; but was: &lt;0&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: <1> but was: <0>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -65,97 +67,103 @@
 	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:145)
 	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:531)
 	at unlp.info.bd2.ToursQuerysTests.getRoutsNotSellTest(ToursQuerysTests.java:138)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 ]]></failure>
-    <system-out><![CDATA[10:15:25.119 [main] INFO org.hibernate.cache.internal.RegionFactoryInitiator -- HHH000026: Second-level cache disabled
-10:15:25.137 [main] WARN org.hibernate.orm.deprecation -- HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-10:15:25.372 [main] INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator -- HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+    <system-out><![CDATA[21:46:33.998 [main] INFO org.hibernate.cache.internal.RegionFactoryInitiator -- HHH000026: Second-level cache disabled
+21:46:34.005 [main] WARN org.hibernate.orm.deprecation -- HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+21:46:34.107 [main] INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator -- HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
 Hibernate: 
-    alter table driver_users 
+    alter table driver_user 
        drop 
-       foreign key FKbkb3p6s8c7msobniuraiv9mx5
+       foreign key FK5plp88i05d9anfavkl5kvgq8r
 Hibernate: 
-    alter table item_services 
+    alter table item_service 
        drop 
-       foreign key FKe7pdfp76d4vvib2n64ofqf98u
+       foreign key FKdh9103thuolwgnjo1a3t6jncg
 Hibernate: 
-    alter table item_services 
+    alter table item_service 
        drop 
-       foreign key FKokunrok5avbqvfqt11oox02w0
+       foreign key FKt5qirumhx1spku2rbcivyyylr
 Hibernate: 
-    alter table purchases 
+    alter table purchase 
        drop 
-       foreign key FKb8a9x319ptkwr9xnu3imfwxkt
+       foreign key FKlcpdjfiob46rcasubm36h5386
 Hibernate: 
-    alter table purchases 
+    alter table purchase 
        drop 
-       foreign key FKm0ndjymn9p747pfp4515pio8i
+       foreign key FK86i0stm7cqsglqptdvjij1k3m
 Hibernate: 
-    alter table reviews 
+    alter table review 
        drop 
-       foreign key FKtlbpgfgpje3g0do3xdmry3y9j
+       foreign key FK731w9xg0e85ajicsu83ljt0le
 Hibernate: 
-    alter table route_drivers 
+    alter table route_driver 
        drop 
-       foreign key FKbpby28imkdifoc4yic85ib4im
+       foreign key FKeneifnh71tm4sn2is3prxbmok
 Hibernate: 
-    alter table route_drivers 
+    alter table route_driver 
        drop 
-       foreign key FKbovlxo45trq2qh2668qfjrstj
+       foreign key FK7hlkkl6wpy9yt033oaswm3sh6
 Hibernate: 
-    alter table route_tour_guides 
+    alter table route_stop 
        drop 
-       foreign key FK1wifbph2qg4sra4jqndc3roxk
+       foreign key FKmu1b9fkhu2d4982t14wc4wjg9
 Hibernate: 
-    alter table route_tour_guides 
+    alter table route_stop 
        drop 
-       foreign key FKaj9a5b81y31cpc1j5fn3aor4e
+       foreign key FKrah0j8khs716aqhsqt3x5yxbw
+Hibernate: 
+    alter table route_tour_guide 
+       drop 
+       foreign key FKoloe28y3isamkunq2tp0upg1v
+Hibernate: 
+    alter table route_tour_guide 
+       drop 
+       foreign key FKk07x1hkul7qy8j6vwl05ig3m5
 Hibernate: 
     alter table service 
        drop 
-       foreign key FK790p4du8exr1yxtwn38uv6jff
+       foreign key FK7e25rr8xu6adyi4gh3ieifp5c
 Hibernate: 
-    alter table stops 
+    alter table tour_guide_user 
        drop 
-       foreign key FKj89bt622wq57q3hmubkjgu6il
+       foreign key FKndu7c8qjdsp73qyt22gstmvje
 Hibernate: 
-    alter table tour_guide_users 
-       drop 
-       foreign key FK47epqmfvk5ks6jkyeqcrv6b9b
+    drop table if exists driver_user
 Hibernate: 
-    drop table if exists driver_users
+    drop table if exists item_service
 Hibernate: 
-    drop table if exists item_services
+    drop table if exists purchase
 Hibernate: 
-    drop table if exists purchases
+    drop table if exists review
 Hibernate: 
-    drop table if exists reviews
+    drop table if exists route
 Hibernate: 
-    drop table if exists route_drivers
+    drop table if exists route_driver
 Hibernate: 
-    drop table if exists route_tour_guides
+    drop table if exists route_stop
 Hibernate: 
-    drop table if exists routes
+    drop table if exists route_tour_guide
 Hibernate: 
     drop table if exists service
 Hibernate: 
-    drop table if exists stops
+    drop table if exists stop
 Hibernate: 
-    drop table if exists suppliers
+    drop table if exists supplier
 Hibernate: 
-    drop table if exists tour_guide_users
+    drop table if exists tour_guide_user
 Hibernate: 
-    drop table if exists users
+    drop table if exists user
 Hibernate: 
-    create table driver_users (
+    create table driver_user (
         user_id bigint not null,
         expedient varchar(50) not null,
         primary key (user_id)
     ) engine=InnoDB
 Hibernate: 
-    create table item_services (
+    create table item_service (
         quantity integer not null,
         id bigint not null auto_increment,
         purchase_id bigint not null,
@@ -163,7 +171,7 @@ Hibernate:
         primary key (id)
     ) engine=InnoDB
 Hibernate: 
-    create table purchases (
+    create table purchase (
         totalPrice float(23) not null,
         date datetime(6) not null,
         id bigint not null auto_increment,
@@ -173,31 +181,36 @@ Hibernate:
         primary key (id)
     ) engine=InnoDB
 Hibernate: 
-    create table reviews (
+    create table review (
         rating integer not null,
         id bigint not null auto_increment,
-        purchase_id bigint not null,
+        purchase_id bigint,
         comment varchar(1000),
         primary key (id)
     ) engine=InnoDB
 Hibernate: 
-    create table route_drivers (
-        driver_id bigint not null,
-        route_id bigint not null
-    ) engine=InnoDB
-Hibernate: 
-    create table route_tour_guides (
-        route_id bigint not null,
-        tour_guide_id bigint not null
-    ) engine=InnoDB
-Hibernate: 
-    create table routes (
+    create table route (
         max_number_users integer not null,
         price float(23) not null,
         total_km float(23) not null,
         id bigint not null auto_increment,
         name varchar(100) not null,
         primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    create table route_driver (
+        driver_id bigint not null,
+        route_id bigint not null
+    ) engine=InnoDB
+Hibernate: 
+    create table route_stop (
+        route_id bigint not null,
+        stop_id bigint not null
+    ) engine=InnoDB
+Hibernate: 
+    create table route_tour_guide (
+        route_id bigint not null,
+        tour_guide_id bigint not null
     ) engine=InnoDB
 Hibernate: 
     create table service (
@@ -209,28 +222,27 @@ Hibernate:
         primary key (id)
     ) engine=InnoDB
 Hibernate: 
-    create table stops (
+    create table stop (
         id bigint not null auto_increment,
-        route_id bigint not null,
         name varchar(100) not null,
         description varchar(500),
         primary key (id)
     ) engine=InnoDB
 Hibernate: 
-    create table suppliers (
+    create table supplier (
         id bigint not null auto_increment,
         authorizationNumber varchar(255) not null,
         businessName varchar(255) not null,
         primary key (id)
     ) engine=InnoDB
 Hibernate: 
-    create table tour_guide_users (
+    create table tour_guide_user (
         user_id bigint not null,
         education varchar(100) not null,
         primary key (user_id)
     ) engine=InnoDB
 Hibernate: 
-    create table users (
+    create table user (
         active bit not null,
         birth_date date,
         id bigint not null auto_increment,
@@ -242,91 +254,261 @@ Hibernate:
         primary key (id)
     ) engine=InnoDB
 Hibernate: 
-    alter table driver_users 
-       add constraint UK_ihp4u0csiamk5btoxi1el0s5q unique (expedient)
+    alter table purchase 
+       add constraint UK_2pwvqbnxy6v5c0y1baow5by8t unique (code)
 Hibernate: 
-    alter table purchases 
-       add constraint UK_idp67y8emgudwcvj94r8chpf4 unique (code)
+    alter table review 
+       add constraint UK_qv55tbygybrtvuyut6ropvfpr unique (purchase_id)
 Hibernate: 
-    alter table reviews 
-       add constraint UK_jfd0ugmaq72ipi087g9f158hs unique (purchase_id)
+    alter table supplier 
+       add constraint UK_n89ugh3wv2ou78krk2a8y2bq2 unique (authorizationNumber)
 Hibernate: 
-    alter table suppliers 
-       add constraint UK_b699v3k8236wnaxjc86510b8q unique (authorizationNumber)
+    alter table user 
+       add constraint UK_sb8bbouer5wak8vyiiy4pf2bx unique (username)
 Hibernate: 
-    alter table users 
-       add constraint UK_r43af9ap4edm43mmtq01oddj6 unique (username)
+    alter table user 
+       add constraint UK_ob8kqyqqgmefl0aco34akdtpe unique (email)
 Hibernate: 
-    alter table users 
-       add constraint UK_6dotkott2kjsp8vw4d0m25fb7 unique (email)
-Hibernate: 
-    alter table driver_users 
-       add constraint FKbkb3p6s8c7msobniuraiv9mx5 
+    alter table driver_user 
+       add constraint FK5plp88i05d9anfavkl5kvgq8r 
        foreign key (user_id) 
-       references users (id)
+       references user (id)
 Hibernate: 
-    alter table item_services 
-       add constraint FKe7pdfp76d4vvib2n64ofqf98u 
+    alter table item_service 
+       add constraint FKdh9103thuolwgnjo1a3t6jncg 
        foreign key (purchase_id) 
-       references purchases (id)
+       references purchase (id)
 Hibernate: 
-    alter table item_services 
-       add constraint FKokunrok5avbqvfqt11oox02w0 
+    alter table item_service 
+       add constraint FKt5qirumhx1spku2rbcivyyylr 
        foreign key (service_id) 
        references service (id)
 Hibernate: 
-    alter table purchases 
-       add constraint FKb8a9x319ptkwr9xnu3imfwxkt 
+    alter table purchase 
+       add constraint FKlcpdjfiob46rcasubm36h5386 
        foreign key (route_id) 
-       references routes (id)
+       references route (id)
 Hibernate: 
-    alter table purchases 
-       add constraint FKm0ndjymn9p747pfp4515pio8i 
+    alter table purchase 
+       add constraint FK86i0stm7cqsglqptdvjij1k3m 
        foreign key (user_id) 
-       references users (id)
+       references user (id)
 Hibernate: 
-    alter table reviews 
-       add constraint FKtlbpgfgpje3g0do3xdmry3y9j 
+    alter table review 
+       add constraint FK731w9xg0e85ajicsu83ljt0le 
        foreign key (purchase_id) 
-       references purchases (id)
+       references purchase (id)
 Hibernate: 
-    alter table route_drivers 
-       add constraint FKbpby28imkdifoc4yic85ib4im 
+    alter table route_driver 
+       add constraint FKeneifnh71tm4sn2is3prxbmok 
        foreign key (driver_id) 
-       references driver_users (user_id)
+       references driver_user (user_id)
 Hibernate: 
-    alter table route_drivers 
-       add constraint FKbovlxo45trq2qh2668qfjrstj 
+    alter table route_driver 
+       add constraint FK7hlkkl6wpy9yt033oaswm3sh6 
        foreign key (route_id) 
-       references routes (id)
+       references route (id)
 Hibernate: 
-    alter table route_tour_guides 
-       add constraint FK1wifbph2qg4sra4jqndc3roxk 
+    alter table route_stop 
+       add constraint FKmu1b9fkhu2d4982t14wc4wjg9 
+       foreign key (stop_id) 
+       references stop (id)
+Hibernate: 
+    alter table route_stop 
+       add constraint FKrah0j8khs716aqhsqt3x5yxbw 
+       foreign key (route_id) 
+       references route (id)
+Hibernate: 
+    alter table route_tour_guide 
+       add constraint FKoloe28y3isamkunq2tp0upg1v 
        foreign key (tour_guide_id) 
-       references tour_guide_users (user_id)
+       references tour_guide_user (user_id)
 Hibernate: 
-    alter table route_tour_guides 
-       add constraint FKaj9a5b81y31cpc1j5fn3aor4e 
+    alter table route_tour_guide 
+       add constraint FKk07x1hkul7qy8j6vwl05ig3m5 
        foreign key (route_id) 
-       references routes (id)
+       references route (id)
 Hibernate: 
     alter table service 
-       add constraint FK790p4du8exr1yxtwn38uv6jff 
+       add constraint FK7e25rr8xu6adyi4gh3ieifp5c 
        foreign key (supplier_id) 
-       references suppliers (id)
+       references supplier (id)
 Hibernate: 
-    alter table stops 
-       add constraint FKj89bt622wq57q3hmubkjgu6il 
-       foreign key (route_id) 
-       references routes (id)
-Hibernate: 
-    alter table tour_guide_users 
-       add constraint FK47epqmfvk5ks6jkyeqcrv6b9b 
+    alter table tour_guide_user 
+       add constraint FKndu7c8qjdsp73qyt22gstmvje 
        foreign key (user_id) 
-       references users (id)
+       references user (id)
+Hibernate: 
+    insert 
+    into
+        supplier
+        (authorizationNumber, businessName) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        supplier
+        (authorizationNumber, businessName) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        supplier
+        (authorizationNumber, businessName) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        supplier
+        (authorizationNumber, businessName) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        supplier
+        (authorizationNumber, businessName) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        service
+        (description, name, price, supplier_id) 
+    values
+        (?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        service
+        (description, name, price, supplier_id) 
+    values
+        (?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        service
+        (description, name, price, supplier_id) 
+    values
+        (?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        service
+        (description, name, price, supplier_id) 
+    values
+        (?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        service
+        (description, name, price, supplier_id) 
+    values
+        (?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        service
+        (description, name, price, supplier_id) 
+    values
+        (?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        service
+        (description, name, price, supplier_id) 
+    values
+        (?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        service
+        (description, name, price, supplier_id) 
+    values
+        (?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        service
+        (description, name, price, supplier_id) 
+    values
+        (?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        user
+        (active, birth_date, email, name, password, phone_number, username) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        user
+        (active, birth_date, email, name, password, phone_number, username) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        user
+        (active, birth_date, email, name, password, phone_number, username) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        user
+        (active, birth_date, email, name, password, phone_number, username) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        user
+        (active, birth_date, email, name, password, phone_number, username) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        user
+        (active, birth_date, email, name, password, phone_number, username) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        user
+        (active, birth_date, email, name, password, phone_number, username) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        user
+        (active, birth_date, email, name, password, phone_number, username) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        user
+        (active, birth_date, email, name, password, phone_number, username) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        user
+        (active, birth_date, email, name, password, phone_number, username) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
 ]]></system-out>
   </testcase>
-  <testcase name="getAllPurchasesOfUsernameTest" classname="unlp.info.bd2.ToursQuerysTests" time="0.004">
+  <testcase name="getAllPurchasesOfUsernameTest" classname="unlp.info.bd2.ToursQuerysTests" time="0.002">
     <failure message="expected: &lt;6&gt; but was: &lt;0&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: <6> but was: <0>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -335,21 +517,21 @@ Hibernate:
 	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:145)
 	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:531)
 	at unlp.info.bd2.ToursQuerysTests.getAllPurchasesOfUsernameTest(ToursQuerysTests.java:57)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 ]]></failure>
   </testcase>
-  <testcase name="getRoutesWithStopTest" classname="unlp.info.bd2.ToursQuerysTests" time="0.004">
+  <testcase name="getRoutesWithStopTest" classname="unlp.info.bd2.ToursQuerysTests" time="0.002">
     <error message="Index 0 out of bounds for length 0" type="java.lang.ArrayIndexOutOfBoundsException"><![CDATA[java.lang.ArrayIndexOutOfBoundsException: Index 0 out of bounds for length 0
-	at java.base/java.util.ImmutableCollections$ListN.get(ImmutableCollections.java:680)
+	at java.base/java.util.ImmutableCollections$ListN.get(ImmutableCollections.java:689)
 	at unlp.info.bd2.ToursQuerysTests.getRoutesWithStopTest(ToursQuerysTests.java:115)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 ]]></error>
   </testcase>
-  <testcase name="getServiceNoAddedToPurchasesTest" classname="unlp.info.bd2.ToursQuerysTests" time="0.004">
+  <testcase name="getServiceNoAddedToPurchasesTest" classname="unlp.info.bd2.ToursQuerysTests" time="0.001">
     <failure message="expected: &lt;2&gt; but was: &lt;0&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: <2> but was: <0>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -358,12 +540,12 @@ Hibernate:
 	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:145)
 	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:531)
 	at unlp.info.bd2.ToursQuerysTests.getServiceNoAddedToPurchasesTest(ToursQuerysTests.java:159)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 ]]></failure>
   </testcase>
-  <testcase name="getMaxStopOfRoutesTest" classname="unlp.info.bd2.ToursQuerysTests" time="0.005">
+  <testcase name="getMaxStopOfRoutesTest" classname="unlp.info.bd2.ToursQuerysTests" time="0.002">
     <failure message="expected: &lt;9&gt; but was: &lt;0&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: <9> but was: <0>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -372,12 +554,12 @@ Hibernate:
 	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
 	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:639)
 	at unlp.info.bd2.ToursQuerysTests.getMaxStopOfRoutesTest(ToursQuerysTests.java:132)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 ]]></failure>
   </testcase>
-  <testcase name="getTop10MoreExpensivePurchasesInServicesTest" classname="unlp.info.bd2.ToursQuerysTests" time="0.004">
+  <testcase name="getTop10MoreExpensivePurchasesInServicesTest" classname="unlp.info.bd2.ToursQuerysTests" time="0.001">
     <failure message="expected: &lt;10&gt; but was: &lt;0&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: <10> but was: <0>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -386,12 +568,12 @@ Hibernate:
 	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:145)
 	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:531)
 	at unlp.info.bd2.ToursQuerysTests.getTop10MoreExpensivePurchasesInServicesTest(ToursQuerysTests.java:91)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 ]]></failure>
   </testcase>
-  <testcase name="getTopNSuppliersInPurchasesTest" classname="unlp.info.bd2.ToursQuerysTests" time="0.004">
+  <testcase name="getTopNSuppliersInPurchasesTest" classname="unlp.info.bd2.ToursQuerysTests" time="0.001">
     <failure message="expected: &lt;3&gt; but was: &lt;0&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: <3> but was: <0>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -400,12 +582,12 @@ Hibernate:
 	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:145)
 	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:531)
 	at unlp.info.bd2.ToursQuerysTests.getTopNSuppliersInPurchasesTest(ToursQuerysTests.java:81)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 ]]></failure>
   </testcase>
-  <testcase name="getTop5UsersMorePurchasesTest" classname="unlp.info.bd2.ToursQuerysTests" time="0.003">
+  <testcase name="getTop5UsersMorePurchasesTest" classname="unlp.info.bd2.ToursQuerysTests" time="0.001">
     <failure message="expected: &lt;5&gt; but was: &lt;0&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: <5> but was: <0>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -414,13 +596,13 @@ Hibernate:
 	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:145)
 	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:531)
 	at unlp.info.bd2.ToursQuerysTests.getTop5UsersMorePurchasesTest(ToursQuerysTests.java:98)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 ]]></failure>
   </testcase>
-  <testcase name="init" classname="unlp.info.bd2.ToursQuerysTests" time="0.003"/>
-  <testcase name="getUserSpendingMoreThanTest" classname="unlp.info.bd2.ToursQuerysTests" time="0.004">
+  <testcase name="init" classname="unlp.info.bd2.ToursQuerysTests" time="0.001"/>
+  <testcase name="getUserSpendingMoreThanTest" classname="unlp.info.bd2.ToursQuerysTests" time="0.001">
     <failure message="expected: &lt;6&gt; but was: &lt;0&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: <6> but was: <0>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -429,20 +611,20 @@ Hibernate:
 	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:145)
 	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:531)
 	at unlp.info.bd2.ToursQuerysTests.getUserSpendingMoreThanTest(ToursQuerysTests.java:69)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 ]]></failure>
   </testcase>
-  <testcase name="getMostDemandedServiceTest" classname="unlp.info.bd2.ToursQuerysTests" time="0.005">
+  <testcase name="getMostDemandedServiceTest" classname="unlp.info.bd2.ToursQuerysTests" time="0.001">
     <error message="Cannot invoke &quot;unlp.info.bd2.model.Service.getName()&quot; because &quot;mostDemandedService&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "unlp.info.bd2.model.Service.getName()" because "mostDemandedService" is null
 	at unlp.info.bd2.ToursQuerysTests.getMostDemandedServiceTest(ToursQuerysTests.java:152)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 ]]></error>
   </testcase>
-  <testcase name="getTourGuidesWithRating1Test" classname="unlp.info.bd2.ToursQuerysTests" time="0.005">
+  <testcase name="getTourGuidesWithRating1Test" classname="unlp.info.bd2.ToursQuerysTests" time="0.002">
     <failure message="expected: &lt;3&gt; but was: &lt;0&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: <3> but was: <0>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -451,12 +633,12 @@ Hibernate:
 	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:145)
 	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:531)
 	at unlp.info.bd2.ToursQuerysTests.getTourGuidesWithRating1Test(ToursQuerysTests.java:166)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 ]]></failure>
   </testcase>
-  <testcase name="getTop3RoutesWithMaxRatingTest" classname="unlp.info.bd2.ToursQuerysTests" time="0.004">
+  <testcase name="getTop3RoutesWithMaxRatingTest" classname="unlp.info.bd2.ToursQuerysTests" time="0.001">
     <failure message="expected: &lt;3&gt; but was: &lt;0&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: <3> but was: <0>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -465,12 +647,12 @@ Hibernate:
 	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:145)
 	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:531)
 	at unlp.info.bd2.ToursQuerysTests.getTop3RoutesWithMaxRatingTest(ToursQuerysTests.java:145)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 ]]></failure>
   </testcase>
-  <testcase name="getCountOfPurchasesBetweenDatesTest" classname="unlp.info.bd2.ToursQuerysTests" time="0.005">
+  <testcase name="getCountOfPurchasesBetweenDatesTest" classname="unlp.info.bd2.ToursQuerysTests" time="0.002">
     <failure message="expected: &lt;7&gt; but was: &lt;0&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: <7> but was: <0>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -479,9 +661,9 @@ Hibernate:
 	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:161)
 	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:632)
 	at unlp.info.bd2.ToursQuerysTests.getCountOfPurchasesBetweenDatesTest(ToursQuerysTests.java:106)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 ]]></failure>
   </testcase>
 </testsuite>

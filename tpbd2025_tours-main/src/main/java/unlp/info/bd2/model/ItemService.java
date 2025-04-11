@@ -3,7 +3,7 @@ package unlp.info.bd2.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "item_services")
+@Table(name = "item_service")
 public class ItemService {
 
     @Id
@@ -13,11 +13,11 @@ public class ItemService {
     @Column(nullable = false)
     private int quantity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "purchase_id", nullable = false)
     private Purchase purchase;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "service_id", nullable = false)
     private Service service;
 
