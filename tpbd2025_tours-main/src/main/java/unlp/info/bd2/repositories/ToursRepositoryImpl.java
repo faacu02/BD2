@@ -6,6 +6,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import unlp.info.bd2.model.Purchase;
 import unlp.info.bd2.model.Supplier;
 import unlp.info.bd2.model.Service;
 import unlp.info.bd2.utils.ToursException;
@@ -141,5 +142,16 @@ public class ToursRepositoryImpl implements ToursRepository {
         } catch (Exception e) {
             throw new ToursException("Error updating user");
         }
+    }
+
+    @Transactional(readOnly = true)
+    public List<Purchase> getAllPurchasesOfUsername(String username){
+        Session session = sessionFactory.getCurrentSession();
+        Query<Purchase> query = session.createQuery(
+                "FROM Purchase p WHERE p.user.username = :username", Purchase.class
+        );
+        query.setParameter("username", username);
+
+        return query.getResultList();
     }
 }
