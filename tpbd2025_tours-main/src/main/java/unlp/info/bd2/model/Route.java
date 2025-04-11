@@ -137,7 +137,7 @@ public class Route {
     public void addDriver(DriverUser driver) {
         this.driverList.add(driver);
     }
-    public void addTourGuideUser(TourGuideUser tourGuideUser) {
+    public void addTourGuide(TourGuideUser tourGuideUser) {
         this.tourGuideList.add(tourGuideUser);
     }
 }

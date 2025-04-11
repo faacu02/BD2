@@ -35,4 +35,11 @@ public interface ToursRepository {
     Route saveRoute(Route route) throws ToursException;
     Optional<Route> findRouteById(Long id);
     List<Route> findRouteBelowPrice(float price);
+
+    //HQL
+
+    //ROUTES
+    List<Route> findRoutesWithStop(Stop stop);
+    Long findMaxStopOfRoutes();
+    
 }

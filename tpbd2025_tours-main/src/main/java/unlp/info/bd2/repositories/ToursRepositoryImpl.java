@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.hibernate.Session;
+
 @Repository
 public class ToursRepositoryImpl implements ToursRepository {
 
@@ -40,7 +41,6 @@ public class ToursRepositoryImpl implements ToursRepository {
         return result;
     }
 
-
     @Override
     public Optional<Supplier> findSupplierById(Long id) {
         Session session = sessionFactory.getCurrentSession();
@@ -54,7 +54,6 @@ public class ToursRepositoryImpl implements ToursRepository {
         session.persist(service);
         return service;
     }
-
 
     @Override
     public Optional<Service> findServiceByNameAndSupplierId(String name, Long supplierId) {
@@ -143,6 +142,7 @@ public class ToursRepositoryImpl implements ToursRepository {
             throw new ToursException("Error updating user");
         }
     }
+
     //Stops
     @Transactional
     @Override
@@ -155,6 +155,7 @@ public class ToursRepositoryImpl implements ToursRepository {
             throw new ToursException("Error updating stop");
         }
     }
+
     @Transactional(readOnly = true)
     @Override
     public List<Stop> findStopByName(String name) {
@@ -163,6 +164,7 @@ public class ToursRepositoryImpl implements ToursRepository {
                 .setParameter("name", name + "%")
                 .list();
     }
+
     //Route
     @Transactional
     @Override
@@ -175,19 +177,43 @@ public class ToursRepositoryImpl implements ToursRepository {
             throw new ToursException("Error updating route");
         }
     }
+
     @Transactional(readOnly = true)
     @Override
     public Optional<Route> findRouteById(Long id) {
-            Session session = sessionFactory.getCurrentSession();
-            return Optional.ofNullable(session.get(Route.class, id));
+        Session session = sessionFactory.getCurrentSession();
+        return Optional.ofNullable(session.get(Route.class, id));
 
     }
+
     @Transactional(readOnly = true)
     @Override
-    public List<Route> findRouteBelowPrice(float price){
+    public List<Route> findRouteBelowPrice(float price) {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery("FROM Route WHERE price < :price", Route.class)
                 .setParameter("price", price)
                 .list();
+    }
+
+    //HQL
+    //ROUTES
+    @Transactional(readOnly = true)
+    @Override
+    public List<Route> findRoutesWithStop(Stop stop) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("SELECT r FROM Route r JOIN r.stops s WHERE s.id = :stopId", Route.class)
+                .setParameter("stopId", stop.getId())
+                .list();
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Long findMaxStopOfRoutes() {
+        Session session = sessionFactory.getCurrentSession();
+        Integer result = session.createQuery(
+                "SELECT MAX(size(r.stops)) FROM Route r", Integer.class
+        ).uniqueResult();
+
+        return result != null ? result.longValue() : 0L;
     }
 }

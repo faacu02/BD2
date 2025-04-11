@@ -125,7 +125,7 @@ public class ToursServiceImpl implements ToursService {
 
         TourGuideUser tourGuide = (TourGuideUser) user;
         tourGuide.addRoute(route);
-        route.addTourGuideUser(tourGuide);
+        route.addTourGuide(tourGuide);
 
         this.toursRepository.saveUser(tourGuide);
         this.toursRepository.saveRoute(route);
@@ -231,15 +231,15 @@ public class ToursServiceImpl implements ToursService {
     public long getCountOfPurchasesBetweenDates(Date start, Date end) {
         return 0;
     }
-
+    //Routes
     @Override
     public List<Route> getRoutesWithStop(Stop stop) {
-        return List.of();
+        return this.toursRepository.findRoutesWithStop(stop);
     }
 
     @Override
     public Long getMaxStopOfRoutes() {
-        return 0L;
+        return this.toursRepository.findMaxStopOfRoutes();
     }
 
     @Override

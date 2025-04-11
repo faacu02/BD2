@@ -44,7 +44,7 @@ public class DBInitializer {
         Service service8 = this.toursService.addServiceToSupplier("souvenir photograph", 5, "Souvenir photo at tourist spot", supplier3);
         Service service9 = this.toursService.addServiceToSupplier("souvenir retrato", 5, "Another Souvenir", supplier3);
 
-        /* 
+
         Stop stop1 = this.toursService.createStop("Diagonal Norte", "Obelisco / Catedral Metropolitana / Casa Rosada / Museo del Bicentenario / Galería Güemes / Cabildo de Buenos Aires");
         Stop stop2 = this.toursService.createStop("Avenida de Mayo", "Casa Rosada / Museo del Bicentenario / Café Tortoni / Manzana de las Luces / Cabildo de Buenos Aires / Teatro Avenida");
         Stop stop3 = this.toursService.createStop("Plaza del Congreso", "Congreso de la Nación Argentina / Palacio Barolo / Pasaje Rivarola / Hotel Castelar / Monumento a los Dos Congresos");
@@ -65,7 +65,7 @@ public class DBInitializer {
         Stop stop18 = this.toursService.createStop("Av 9 de Julio", "Peatonal Florida / Teatro Colón / Plaza San Martín / Galerías Pacífico / Museo de Arte Hispanoamericano Isaac Fernández Blanco");
         Stop stop19 = this.toursService.createStop("Plaza Italia", "Museo Evita / Jardín Japonés / Jardín Botánico Carlos Thays / Rosedal / Ecoparque Interactivo");
         Stop stop20 = this.toursService.createStop("Delta", "Delta / Tigre");
-        */
+
         // Users
         User user1 = this.toursService.createUser("user1", "1234", "Usuario Uno", "user1@gmail.com", dob1, "000111222333");
         User user2 = this.toursService.createUser("user2", "1234", "Usuario Dos", "user2@gmail.com", dob1, "000111222333");
@@ -89,7 +89,7 @@ public class DBInitializer {
         TourGuideUser tourGuideUser2 = this.toursService.createTourGuideUser("userG2", "1234", "Usuario TourGuide2", "userg2@gmail.com", dob1, "000111222555", "edu...");
         TourGuideUser tourGuideUser3 = this.toursService.createTourGuideUser("userG3", "1234", "Usuario TourGuide3", "userg3@gmail.com", dob1, "000111222555", "edu...");
         TourGuideUser tourGuideUser4 = this.toursService.createTourGuideUser("userG4", "1234", "Usuario TourGuide4", "userg4@gmail.com", dob1, "000111222555", "edu...");
-  /*
+
         // Routes
         List<Stop> stopsRoute1 = new ArrayList<Stop>(Arrays.asList(stop1, stop2, stop3, stop4, stop6, stop14, stop15, stop17, stop19));
         Route route1 = this.toursService.createRoute("City Tour", 200, 62,10, stopsRoute1);
@@ -185,7 +185,7 @@ public class DBInitializer {
         Review review16 = this.toursService.addReviewToPurchase(1, "Muy caro para lo que se brinda.", purchase18);
     }
 
-*/
-    }
+
 }
+
 
