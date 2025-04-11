@@ -69,20 +69,13 @@ public class ToursRepositoryImpl implements ToursRepository {
     public Service updatePriceService(Long id, float newPrice) throws ToursException {
         try {
             Session session = sessionFactory.getCurrentSession();
-
-            // Obtener el servicio desde la base de datos
             Service existingService = session.get(Service.class, id);
 
             if (existingService == null) {
                 throw new ToursException("El servicio con ID " + id + " no existe.");
             }
 
-            // Actualizar el precio
             existingService.setPrice(newPrice);
-
-            // No es necesario llamar a update() si el objeto está ya en estado persistente
-            // Hibernate sincronizará automáticamente los cambios al hacer commit
-
             return existingService;
 
         } catch (Exception e) {
