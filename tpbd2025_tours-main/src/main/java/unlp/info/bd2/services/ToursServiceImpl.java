@@ -54,7 +54,14 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public void deleteUser(User user) throws ToursException {
+        //if(user.getPurchases.size() = 0){
         this.toursRepository.deleteUser(user);
+        /*}
+        else{
+        user.setActive(false)
+        this.toursRepository.saveUser(user)
+        }
+         */
     }
 
     @Override
@@ -86,22 +93,42 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public void assignDriverByUsername(String username, Long idRoute) throws ToursException {
-        this.getUserById(idRoute).ifPresent(user -> {
-            DriverUser userD = (DriverUser) user;
-            Optional<Route> route = this.getRouteById(idRoute);
-            userD.addRoute(route.get());
-            route.get().addDriver(userD);
-            try {
-                this.toursRepository.saveUser(userD);
-            } catch (ToursException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        User user = this.getUserByUsername(username)
+                .orElseThrow(() -> new ToursException("User not found"));
+
+        if (!(user instanceof DriverUser)) {
+            throw new ToursException("User is not a driver");
+        }
+
+        Route route = this.getRouteById(idRoute)
+                .orElseThrow(() -> new ToursException("Route not found"));
+
+        DriverUser userD = (DriverUser) user;
+        userD.addRoute(route);
+        route.addDriver(userD);
+
+        this.toursRepository.saveUser(userD);
+        this.toursRepository.saveRoute(route);
     }
 
     @Override
     public void assignTourGuideByUsername(String username, Long idRoute) throws ToursException {
-        // No hace nada
+        User user = this.getUserByUsername(username)
+                .orElseThrow(() -> new ToursException("User not found"));
+
+        if (!(user instanceof TourGuideUser)) {
+            throw new ToursException("User is not a tour guide");
+        }
+
+        Route route = this.getRouteById(idRoute)
+                .orElseThrow(() -> new ToursException("Route not found"));
+
+        TourGuideUser tourGuide = (TourGuideUser) user;
+        tourGuide.addRoute(route);
+        route.addTourGuideUser(tourGuide);
+
+        this.toursRepository.saveUser(tourGuide);
+        this.toursRepository.saveRoute(route);
     }
 
     @Override
