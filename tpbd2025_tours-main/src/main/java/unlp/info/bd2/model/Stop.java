@@ -32,6 +32,10 @@ public class Stop {
         this.routes = routes;
     }
 
+    public Stop(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 
 
     public Long getId() {

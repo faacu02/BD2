@@ -27,12 +27,14 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public DriverUser createDriverUser(String username, String password, String fullName, String email, Date birthdate, String phoneNumber, String expedient) throws ToursException {
-        return null;
+        DriverUser user = new DriverUser(username, password, fullName, email, birthdate, phoneNumber,expedient);
+        return (DriverUser) this.toursRepository.saveUser(user);
     }
 
     @Override
     public TourGuideUser createTourGuideUser(String username, String password, String fullName, String email, Date birthdate, String phoneNumber, String education) throws ToursException {
-        return null;
+        TourGuideUser user = new TourGuideUser(username, password, fullName, email, birthdate, phoneNumber,education);
+        return (TourGuideUser) this.toursRepository.saveUser(user);
     }
 
     @Override
@@ -52,42 +54,81 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public void deleteUser(User user) throws ToursException {
+        //if(user.getPurchases.size() = 0){
         this.toursRepository.deleteUser(user);
+        /*}
+        else{
+        user.setActive(false)
+        this.toursRepository.saveUser(user)
+        }
+         */
     }
 
     @Override
     public Stop createStop(String name, String description) throws ToursException {
-        return null;
+        Stop stop = new Stop(name,description);
+        return this.toursRepository.saveStop(stop);
     }
 
     @Override
     public List<Stop> getStopByNameStart(String name) {
-        return List.of();
+        return this.toursRepository.findStopByName(name);
     }
 
     @Override
     public Route createRoute(String name, float price, float totalKm, int maxNumberOfUsers, List<Stop> stops) throws ToursException {
-        return null;
+        Route route = new Route(name,price,totalKm,maxNumberOfUsers,stops);
+        return this.toursRepository.saveRoute(route);
     }
 
     @Override
     public Optional<Route> getRouteById(Long id) {
-        return Optional.empty();
+        return this.toursRepository.findRouteById(id);
     }
 
     @Override
     public List<Route> getRoutesBelowPrice(float price) {
-        return List.of();
+        return this.toursRepository.findRouteBelowPrice(price);
     }
 
     @Override
     public void assignDriverByUsername(String username, Long idRoute) throws ToursException {
-        // No hace nada
+        User user = this.getUserByUsername(username)
+                .orElseThrow(() -> new ToursException("User not found"));
+
+        if (!(user instanceof DriverUser)) {
+            throw new ToursException("User is not a driver");
+        }
+
+        Route route = this.getRouteById(idRoute)
+                .orElseThrow(() -> new ToursException("Route not found"));
+
+        DriverUser userD = (DriverUser) user;
+        userD.addRoute(route);
+        route.addDriver(userD);
+
+        this.toursRepository.saveUser(userD);
+        this.toursRepository.saveRoute(route);
     }
 
     @Override
     public void assignTourGuideByUsername(String username, Long idRoute) throws ToursException {
-        // No hace nada
+        User user = this.getUserByUsername(username)
+                .orElseThrow(() -> new ToursException("User not found"));
+
+        if (!(user instanceof TourGuideUser)) {
+            throw new ToursException("User is not a tour guide");
+        }
+
+        Route route = this.getRouteById(idRoute)
+                .orElseThrow(() -> new ToursException("Route not found"));
+
+        TourGuideUser tourGuide = (TourGuideUser) user;
+        tourGuide.addRoute(route);
+        route.addTourGuide(tourGuide);
+
+        this.toursRepository.saveUser(tourGuide);
+        this.toursRepository.saveRoute(route);
     }
 
     @Override
@@ -130,6 +171,7 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public Purchase createPurchase(String code, Route route, User user) throws ToursException {
+
         return null;
     }
 
@@ -189,15 +231,15 @@ public class ToursServiceImpl implements ToursService {
     public long getCountOfPurchasesBetweenDates(Date start, Date end) {
         return 0;
     }
-
+    //Routes
     @Override
     public List<Route> getRoutesWithStop(Stop stop) {
-        return List.of();
+        return this.toursRepository.findRoutesWithStop(stop);
     }
 
     @Override
     public Long getMaxStopOfRoutes() {
-        return 0L;
+        return this.toursRepository.findMaxStopOfRoutes();
     }
 
     @Override
