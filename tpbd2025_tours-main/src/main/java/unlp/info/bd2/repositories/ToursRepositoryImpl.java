@@ -90,7 +90,6 @@ public class ToursRepositoryImpl implements ToursRepository {
             throw new ToursException("Error al actualizar el precio del servicio");
         }
     }
-    }
     @Override
     public User saveUser(User user) throws ToursException {
         try {
@@ -142,4 +141,5 @@ public class ToursRepositoryImpl implements ToursRepository {
         } catch (Exception e) {
             throw new ToursException("Error updating user");
         }
+    }
 }

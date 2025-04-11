@@ -3,7 +3,7 @@ package unlp.info.bd2.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "stops")
+@Table(name = "stop")
 public class Stop {
 
     @Id
@@ -17,8 +17,7 @@ public class Stop {
     @Column(length = 500)
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "route_id", nullable = false)
+    @ManyToMany(mappedBy = "stop",fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE}) //mappedBy va?
     private Route route;
 
     // Constructores

@@ -7,8 +7,8 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "users")
-@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "user")
+@Inheritance(strategy = InheritanceType.JOINED) // Investigar la mejor opcion
 public class User {
 
     @Id
