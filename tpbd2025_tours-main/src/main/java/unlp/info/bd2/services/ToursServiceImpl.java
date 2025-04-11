@@ -59,32 +59,44 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public Stop createStop(String name, String description) throws ToursException {
-        return null;
+        Stop stop = new Stop(name,description);
+        return this.toursRepository.saveStop(stop);
     }
 
     @Override
     public List<Stop> getStopByNameStart(String name) {
-        return List.of();
+        return this.toursRepository.findStopByName(name);
     }
 
     @Override
     public Route createRoute(String name, float price, float totalKm, int maxNumberOfUsers, List<Stop> stops) throws ToursException {
-        return null;
+        Route route = new Route(name,price,totalKm,maxNumberOfUsers,stops);
+        return this.toursRepository.saveRoute(route);
     }
 
     @Override
     public Optional<Route> getRouteById(Long id) {
-        return Optional.empty();
+        return this.toursRepository.findRouteById(id);
     }
 
     @Override
     public List<Route> getRoutesBelowPrice(float price) {
-        return List.of();
+        return this.toursRepository.findRouteBelowPrice(price);
     }
 
     @Override
     public void assignDriverByUsername(String username, Long idRoute) throws ToursException {
-        // No hace nada
+        this.getUserById(idRoute).ifPresent(user -> {
+            DriverUser userD = (DriverUser) user;
+            Optional<Route> route = this.getRouteById(idRoute);
+            userD.addRoute(route.get());
+            route.get().addDriver(userD);
+            try {
+                this.toursRepository.saveUser(userD);
+            } catch (ToursException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     @Override
@@ -132,6 +144,7 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public Purchase createPurchase(String code, Route route, User user) throws ToursException {
+
         return null;
     }
 

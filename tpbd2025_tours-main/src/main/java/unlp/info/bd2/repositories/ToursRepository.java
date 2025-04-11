@@ -1,13 +1,11 @@
 package unlp.info.bd2.repositories;
 
-import unlp.info.bd2.model.Supplier;
-import unlp.info.bd2.model.TourGuideUser;
-import unlp.info.bd2.model.User;
+import unlp.info.bd2.model.*;
 import unlp.info.bd2.utils.ToursException;
-import unlp.info.bd2.model.Service;
 import unlp.info.bd2.utils.ToursException;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -28,4 +26,13 @@ public interface ToursRepository {
     Optional<User> findUserByUsername(String username) throws ToursException;
     void deleteUser(User user) throws ToursException;
     User updateUser(User user) throws ToursException;
+
+    //Stops
+    Stop saveStop(Stop stop) throws ToursException;
+    List<Stop> findStopByName(String name);
+
+    //Routes
+    Route saveRoute(Route route) throws ToursException;
+    Optional<Route> findRouteById(Long id);
+    List<Route> findRouteBelowPrice(float price);
 }
