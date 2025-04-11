@@ -12,13 +12,12 @@ public class Review {
     private Long id;
 
     @Column(nullable = false)
-
     private int rating;
 
     @Column(length = 1000)
     private String comment;
 
-    @OneToOne
+    @OneToOne //Va esto o no?
     private Purchase purchase;
 
     // Constructores

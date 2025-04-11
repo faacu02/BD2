@@ -2,8 +2,11 @@ package unlp.info.bd2.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
-@Table(name = "stops")
+@Table(name = "stop")
 public class Stop {
 
     @Id
@@ -17,19 +20,17 @@ public class Stop {
     @Column(length = 500)
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "route_id", nullable = false)
-    private Route route;
-
+    @ManyToMany(mappedBy = "stops",fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE}) //mappedBy va?
+    private List<Route> routes = new ArrayList<>();
     // Constructores
     public Stop() {
         // Constructor vacío requerido por JPA
     }
 
-    public Stop(String name, String description, Route route) {
+    public Stop(String name, String description, List<Route> routes) {
         this.name = name;
         this.description = description;
-        this.route = route;
+        this.routes = routes;
     }
 
 

@@ -5,15 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "driver_users")
+@Table(name = "driver_user")
 @PrimaryKeyJoinColumn(name = "user_id")
 
 public class DriverUser extends User {
 
-    @Column(nullable = false, unique = true, length = 50)
+    @Column(nullable = false, length = 50)
     private String expedient;
-
-    @ManyToMany(mappedBy = "driverList", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+;
+    @ManyToMany(mappedBy = "driverList", cascade =  {CascadeType.MERGE,CascadeType.PERSIST}) //Justificar
     private List<Route> routes = new ArrayList<>();
 
     // Constructores

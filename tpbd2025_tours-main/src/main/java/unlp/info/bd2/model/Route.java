@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "routes")
+@Table(name = "route")
 public class Route {
 
     @Id
@@ -24,20 +24,25 @@ public class Route {
     @Column(nullable = false, name = "max_number_users")
     private int maxNumberUsers;
 
-    @OneToMany(mappedBy = "route", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST}) //MERGE????
+    @JoinTable(
+        name = "route_stop",
+        joinColumns = @JoinColumn(name = "route_id"),
+        inverseJoinColumns = @JoinColumn(name = "stop_id")
+)
     private List<Stop> stops = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
     @JoinTable(
-            name = "route_drivers",
+            name = "route_driver",
             joinColumns = @JoinColumn(name = "route_id"),
             inverseJoinColumns = @JoinColumn(name = "driver_id")
     )
     private List<DriverUser> driverList = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
     @JoinTable(
-            name = "route_tour_guides",
+            name = "route_tour_guide",
             joinColumns = @JoinColumn(name = "route_id"),
             inverseJoinColumns = @JoinColumn(name = "tour_guide_id")
     )

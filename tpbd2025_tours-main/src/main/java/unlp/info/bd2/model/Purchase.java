@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "purchases")
+@Table(name = "purchase")
 public class Purchase {
 
     @Id
@@ -23,18 +23,18 @@ public class Purchase {
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.PERSIST})
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.PERSIST})
     @JoinColumn(name = "route_id")
     private Route route;
 
-    @OneToOne(mappedBy = "purchase", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "purchase", cascade = {CascadeType.MERGE,CascadeType.REMOVE,CascadeType.PERSIST}, orphanRemoval = true) //MERGE VA???
     private Review review;
 
-    @OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "purchase", cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<ItemService> itemServiceList = new ArrayList<>();
 
 
