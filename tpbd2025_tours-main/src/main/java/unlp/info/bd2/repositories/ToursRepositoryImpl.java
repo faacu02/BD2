@@ -133,6 +133,7 @@ public class ToursRepositoryImpl implements ToursRepository {
                     .setParameter("username", username)
                     .uniqueResultOptional();
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             throw new ToursException("Error finding user by username");
         }
     }

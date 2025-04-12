@@ -54,14 +54,19 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public void deleteUser(User user) throws ToursException {
-        //if(user.getPurchases.size() = 0){
-        this.toursRepository.deleteUser(user);
-        /*}
-        else{
-        user.setActive(false)
-        this.toursRepository.saveUser(user)
+        if (user instanceof TourGuideUser && !((TourGuideUser) user).getRoutes().isEmpty()) {
+            throw new ToursException("TourGuideUser has routes");
         }
-         */
+        if(user.isActive()) {
+            if (user.getPurchaseList().isEmpty()) {
+                this.toursRepository.deleteUser(user);
+            } else {
+                user.setActive(false);
+                this.toursRepository.saveUser(user);
+            }
+        }else {
+            throw new ToursException("User is not active");
+        }
     }
 
     @Override
@@ -168,12 +173,16 @@ public class ToursServiceImpl implements ToursService {
     @Override
     public Purchase createPurchase(String code, Route route, User user) throws ToursException {
         Purchase purchase = new Purchase(code, route, user);
+        user.addPurchase(purchase);
+        this.toursRepository.saveUser(user);
         return this.toursRepository.savePurchase(purchase);
     }
 
     @Override
     public Purchase createPurchase(String code, Date date, Route route, User user) throws ToursException {
         Purchase purchase = new Purchase(code, date, route, user);
+        user.addPurchase(purchase);
+        this.toursRepository.saveUser(user);
         return this.toursRepository.savePurchase(purchase);
     }
 

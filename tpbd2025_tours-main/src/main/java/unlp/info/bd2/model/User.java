@@ -50,6 +50,7 @@ public class User {
         this.password = password;
         this.name = name;
         this.email = email;
+        this.active = true;
     }
     public User(String username, String password, String name, String email, Date birthdate, String phoneNumber) {
         this.username = username;
@@ -58,6 +59,7 @@ public class User {
         this.email = email;
         this.birthdate = birthdate;
         this.phoneNumber = phoneNumber;
+        this.active = true;
     }
     // Getters y Setters
     public Long getId() {
@@ -130,5 +132,9 @@ public class User {
 
     public void setPurchaseList(List<Purchase> purchaseList) {
         this.purchaseList = purchaseList;
+    }
+
+    public void addPurchase(Purchase purchase) {
+        this.purchaseList.add(purchase);
     }
 }
