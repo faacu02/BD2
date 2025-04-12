@@ -171,13 +171,14 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public Purchase createPurchase(String code, Route route, User user) throws ToursException {
-
-        return null;
+        Purchase purchase = new Purchase(code, route, user);
+        return this.toursRepository.savePurchase(purchase);
     }
 
     @Override
     public Purchase createPurchase(String code, Date date, Route route, User user) throws ToursException {
-        return null;
+        Purchase purchase = new Purchase(code, date, route, user);
+        return this.toursRepository.savePurchase(purchase);
     }
 
     @Override
@@ -186,13 +187,17 @@ public class ToursServiceImpl implements ToursService {
     }
 
     @Override
-    public Optional<Purchase> getPurchaseByCode(String code) {
-        return Optional.empty();
+    public Optional<Purchase> getPurchaseByCode(String code){
+        try {
+            return this.toursRepository.findPurchaseByCode(code);
+        } catch (ToursException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void deletePurchase(Purchase purchase) throws ToursException {
-        // No hace nada
+        this.toursRepository.deletePurchase(purchase);
     }
 
     @Override

@@ -36,7 +36,7 @@ public class User {
     private String phoneNumber;
 
     @Column(nullable = false)
-    private boolean active = true;
+    private boolean active;
 
     @OneToMany(mappedBy = "user")
     private List<Purchase> purchaseList = new ArrayList<>();

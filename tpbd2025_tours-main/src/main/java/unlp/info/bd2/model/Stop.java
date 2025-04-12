@@ -14,7 +14,6 @@ public class Stop {
     private Long id;
 
     @Column(nullable = false, length = 100)
-
     private String name;
 
     @Column(length = 500)

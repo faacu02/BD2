@@ -95,8 +95,8 @@ public class ToursRepositoryImpl implements ToursRepository {
         }
     }
 
-    @Override
     @Transactional
+    @Override
     public User saveUser(User user) throws ToursException {
         try {
             Session session = sessionFactory.getCurrentSession();
@@ -106,6 +106,7 @@ public class ToursRepositoryImpl implements ToursRepository {
             throw new ToursException("Error saving user");
         }
     }
+
 
     @Override
     @Transactional(readOnly = true)
@@ -131,8 +132,8 @@ public class ToursRepositoryImpl implements ToursRepository {
         }
     }
 
+    @Transactional()
     @Override
-    @Transactional
     public void deleteUser(User user) throws ToursException {
         try {
             Session session = sessionFactory.getCurrentSession();
@@ -142,9 +143,8 @@ public class ToursRepositoryImpl implements ToursRepository {
         }
     }
 
-
-    @Override
     @Transactional
+    @Override
     public User updateUser(User user) throws ToursException {
         try {
             Session session = sessionFactory.getCurrentSession();
@@ -269,4 +269,27 @@ public class ToursRepositoryImpl implements ToursRepository {
     }
 
 
+
+    @Transactional
+    public Purchase savePurchase(Purchase purchase){
+        Session session = sessionFactory.getCurrentSession();
+        session.persist(purchase);
+        return purchase;
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Optional<Purchase> findPurchaseByCode(String code) {
+        Session session = sessionFactory.getCurrentSession();
+        Query<Purchase> query = session.createQuery("FROM Purchase p WHERE p.code = :code", Purchase.class);
+        query.setParameter("code", code);
+        return query.uniqueResultOptional();
+    }
+
+    @Transactional
+    @Override
+    public void deletePurchase(Purchase purchase) {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(purchase);
+    }
 }

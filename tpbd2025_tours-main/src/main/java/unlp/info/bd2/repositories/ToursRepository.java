@@ -38,11 +38,17 @@ public interface ToursRepository {
     Optional<Route> findRouteById(Long id);
     List<Route> findRouteBelowPrice(float price);
 
+    //PURCHASES
+    Purchase savePurchase(Purchase purchase);
+    Optional<Purchase> findPurchaseByCode(String code) throws ToursException;
+    void deletePurchase(Purchase purchase);
+
     //HQL
 
     //ROUTES
     List<Route> findRoutesWithStop(Stop stop);
     Long findMaxStopOfRoutes();
+
 
     //Service
     Service getMostDemandedService();
@@ -50,5 +56,5 @@ public interface ToursRepository {
 
     //Supplier
     List<Supplier> getTopNSuppliersInPurchases(int n);
-    
+
 }
