@@ -207,6 +207,21 @@ public class ToursRepositoryImpl implements ToursRepository {
                 .list();
     }
 
+    @Override
+    @Transactional
+    public ItemService saveItemService(ItemService itemService) throws ToursException {
+        try {
+            Session session = sessionFactory.getCurrentSession();  // ¡no se cierra!
+            session.persist(itemService);
+            return itemService;
+        } catch (Exception e) {
+            throw new ToursException("Error saving item service");
+        }
+    }
+
+
+
+
     //HQL
     //ROUTES
     @Transactional(readOnly = true)
@@ -292,4 +307,6 @@ public class ToursRepositoryImpl implements ToursRepository {
         Session session = sessionFactory.getCurrentSession();
         session.delete(purchase);
     }
+
+
 }

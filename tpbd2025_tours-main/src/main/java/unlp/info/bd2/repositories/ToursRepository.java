@@ -43,6 +43,9 @@ public interface ToursRepository {
     Optional<Purchase> findPurchaseByCode(String code) throws ToursException;
     void deletePurchase(Purchase purchase);
 
+    //ITEM SERVICE
+    ItemService saveItemService(ItemService itemService) throws ToursException;
+
     //HQL
 
     //ROUTES

@@ -183,7 +183,11 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public ItemService addItemToPurchase(Service service, int quantity, Purchase purchase) throws ToursException {
-        return null;
+        ItemService item = new ItemService(quantity, purchase, service);
+        purchase.getItemServiceList().add(item);
+        service.getItemServiceList().add(item);
+        return this.toursRepository.saveItemService(item);
+
     }
 
     @Override
