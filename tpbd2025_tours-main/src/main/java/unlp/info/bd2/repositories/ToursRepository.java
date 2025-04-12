@@ -12,12 +12,14 @@ import org.springframework.boot.autoconfigure.security.SecurityProperties;
 
 public interface ToursRepository {
 
-    Supplier saveSupplier(Supplier supplier);
-    Optional<Supplier> findSupplierByAuthorizationNumber(String authorizationNumber);
+    //Supplier
+    Supplier saveSupplier(Supplier supplier) throws ToursException;
+    Optional<Supplier> findSupplierByAuthorizationNumber(String authorizationNumber) ;
     Optional<Supplier> findSupplierById(Long id);
 
-    Service saveService(Service service);
-    Optional<Service> findServiceByNameAndSupplierId(String name, Long supplierId);
+    //Service
+    Service saveService(Service service) throws ToursException;
+    Optional<Service> findServiceByNameAndSupplierId(String name, Long supplierId) throws ToursException;
     Service updatePriceService(Long id, float newPrice) throws ToursException;
 
     //User

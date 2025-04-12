@@ -23,6 +23,7 @@ public class ToursRepositoryImpl implements ToursRepository {
     }
 
     @Override
+    @Transactional
     public Supplier saveSupplier(Supplier supplier) {
         Session session = sessionFactory.getCurrentSession();
         session.persist(supplier);
@@ -30,6 +31,7 @@ public class ToursRepositoryImpl implements ToursRepository {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Supplier> findSupplierByAuthorizationNumber(String authorizationNumber) {
         Session session = sessionFactory.getCurrentSession();
         org.hibernate.query.Query<Supplier> query = session.createQuery(
@@ -41,6 +43,7 @@ public class ToursRepositoryImpl implements ToursRepository {
 
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Supplier> findSupplierById(Long id) {
         Session session = sessionFactory.getCurrentSession();
         Supplier supplier = session.find(Supplier.class, id);
@@ -48,6 +51,7 @@ public class ToursRepositoryImpl implements ToursRepository {
     }
 
     @Override
+    @Transactional
     public Service saveService(Service service) {
         Session session = sessionFactory.getCurrentSession();
         session.persist(service);
@@ -56,17 +60,24 @@ public class ToursRepositoryImpl implements ToursRepository {
 
 
     @Override
-    public Optional<Service> findServiceByNameAndSupplierId(String name, Long supplierId) {
+    @Transactional(readOnly = true)
+    public Optional<Service> findServiceByNameAndSupplierId(String name, Long supplierId) throws ToursException {
         Session session = sessionFactory.getCurrentSession();
-        Query<Service> query = session.createQuery(
-                "FROM Service s WHERE s.name = :name AND s.supplier.id = :supplierId", Service.class);
-        query.setParameter("name", name);
-        query.setParameter("supplierId", supplierId);
-        Optional<Service> result = query.uniqueResultOptional();
-        return result;
+        try {
+            Query<Service> query = session.createQuery(
+                    "FROM Service s WHERE s.name = :name AND s.supplier.id = :supplierId", Service.class);
+            query.setParameter("name", name);
+            query.setParameter("supplierId", supplierId);
+            Optional<Service> result = query.uniqueResultOptional();
+            return result;
+        } catch (Exception e) {
+            throw new ToursException("Error al encontrar el servicio por nombre y ID del proveedor");
+        }
     }
 
+
     @Override
+    @Transactional
     public Service updatePriceService(Long id, float newPrice) throws ToursException {
         try {
             Session session = sessionFactory.getCurrentSession();
@@ -84,6 +95,7 @@ public class ToursRepositoryImpl implements ToursRepository {
         }
     }
     @Override
+    @Transactional
     public User saveUser(User user) throws ToursException {
         try {
             Session session = sessionFactory.getCurrentSession();
@@ -95,6 +107,7 @@ public class ToursRepositoryImpl implements ToursRepository {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<User> findUserById(Long id) throws ToursException {
         try {
             Session session = sessionFactory.getCurrentSession();
@@ -105,6 +118,7 @@ public class ToursRepositoryImpl implements ToursRepository {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<User> findUserByUsername(String username) throws ToursException {
         try {
             Session session = sessionFactory.getCurrentSession();
@@ -117,6 +131,7 @@ public class ToursRepositoryImpl implements ToursRepository {
     }
 
     @Override
+    @Transactional
     public void deleteUser(User user) throws ToursException {
         try {
             Session session = sessionFactory.getCurrentSession();
@@ -126,6 +141,7 @@ public class ToursRepositoryImpl implements ToursRepository {
         }
     }
     @Override
+    @Transactional
     public User updateUser(User user) throws ToursException {
         try {
             Session session = sessionFactory.getCurrentSession();
