@@ -1,5 +1,6 @@
 package unlp.info.bd2.repositories;
 
+import jakarta.persistence.PersistenceException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -25,12 +26,16 @@ public class ToursRepositoryImpl implements ToursRepository {
     }
 
     @Override
-    @Transactional
-    public Supplier saveSupplier(Supplier supplier) {
-        Session session = sessionFactory.getCurrentSession();
-        session.persist(supplier);
-        return supplier;
+    public Supplier saveSupplier(Supplier supplier) throws ToursException {
+        try {
+            Session session = sessionFactory.getCurrentSession();
+            session.persist(supplier);
+            return supplier;
+        } catch (PersistenceException e) {
+            throw new ToursException("No se pudo guardar el proveedor. Puede que ya exista uno con ese número de autorización.");
+        }
     }
+
 
     @Override
     @Transactional(readOnly = true)

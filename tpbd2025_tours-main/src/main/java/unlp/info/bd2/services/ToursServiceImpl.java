@@ -133,14 +133,10 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public Supplier createSupplier(String businessName, String authorizationNumber) throws ToursException {
-        try {
-            Supplier supplier = new Supplier(businessName, authorizationNumber);
-            return toursRepository.saveSupplier(supplier);
-        } catch (PersistenceException e) {
-            // 🔁 Convertirla en una excepción propia
-            throw new ToursException("El proveedor ya existe con ese número de autorización");
-        }
+        Supplier supplier = new Supplier(businessName, authorizationNumber);
+        return toursRepository.saveSupplier(supplier);
     }
+
 
     @Override
     public Service addServiceToSupplier(String name, float price, String description, Supplier supplier) throws ToursException {
