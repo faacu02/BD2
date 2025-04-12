@@ -41,5 +41,9 @@ public interface ToursRepository {
     //ROUTES
     List<Route> findRoutesWithStop(Stop stop);
     Long findMaxStopOfRoutes();
-    
+
+    //PURCHASES
+    Purchase savePurchase(Purchase purchase);
+    Optional<Purchase> findPurchaseByCode(String code) throws ToursException;
+    void deletePurchase(Purchase purchase);
 }

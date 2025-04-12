@@ -215,4 +215,27 @@ public class ToursRepositoryImpl implements ToursRepository {
 
         return result != null ? result.longValue() : 0L;
     }
+
+    @Transactional
+    public Purchase savePurchase(Purchase purchase){
+        Session session = sessionFactory.getCurrentSession();
+        session.persist(purchase);
+        return purchase;
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Optional<Purchase> findPurchaseByCode(String code) {
+        Session session = sessionFactory.getCurrentSession();
+        Query<Purchase> query = session.createQuery("FROM Purchase p WHERE p.code = :code", Purchase.class);
+        query.setParameter("code", code);
+        return query.uniqueResultOptional();
+    }
+
+    @Transactional
+    @Override
+    public void deletePurchase(Purchase purchase) {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(purchase);
+    }
 }

@@ -37,7 +37,18 @@ public class Purchase {
     @OneToMany(mappedBy = "purchase", cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<ItemService> itemServiceList = new ArrayList<>();
 
+    public Purchase(String code, Route route, User user) {
+        this.code = code;
+        this.route = route;
+        this.user = user;
+    }
 
+    public Purchase(String code, Date date, Route route, User user) {
+        this.code = code;
+        this.date = date;
+        this.route = route;
+        this.user = user;
+    }
 
     public Long getId() {
         return id;
