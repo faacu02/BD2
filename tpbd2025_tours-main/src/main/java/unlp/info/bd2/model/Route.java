@@ -24,15 +24,15 @@ public class Route {
     @Column(nullable = false, name = "max_number_users")
     private int maxNumberUsers;
 
-    @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST}) //MERGE????
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}) //MERGE????
     @JoinTable(
-        name = "route_stop",
-        joinColumns = @JoinColumn(name = "route_id"),
-        inverseJoinColumns = @JoinColumn(name = "stop_id")
-)
+            name = "route_stop",
+            joinColumns = @JoinColumn(name = "route_id"),
+            inverseJoinColumns = @JoinColumn(name = "stop_id")
+    )
     private List<Stop> stops = new ArrayList<>();
 
-    @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(
             name = "route_driver",
             joinColumns = @JoinColumn(name = "route_id"),
@@ -40,7 +40,7 @@ public class Route {
     )
     private List<DriverUser> driverList = new ArrayList<>();
 
-    @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(
             name = "route_tour_guide",
             joinColumns = @JoinColumn(name = "route_id"),
@@ -57,6 +57,14 @@ public class Route {
         this.price = price;
         this.totalKm = totalKm;
         this.maxNumberUsers = maxNumberUsers;
+    }
+
+    public Route(String name, float price, float totalKm, int maxNumberOfUsers, List<Stop> stops) {
+        this.name = name;
+        this.price = price;
+        this.totalKm = totalKm;
+        this.maxNumberUsers = maxNumberOfUsers;
+        this.stops = stops;
     }
 
     public Long getId() {
@@ -123,4 +131,13 @@ public class Route {
         this.tourGuideList = tourGuideList;
     }
 
+    public void addStop(Stop stop) {
+        this.stops.add(stop);
+    }
+    public void addDriver(DriverUser driver) {
+        this.driverList.add(driver);
+    }
+    public void addTourGuide(TourGuideUser tourGuideUser) {
+        this.tourGuideList.add(tourGuideUser);
+    }
 }
