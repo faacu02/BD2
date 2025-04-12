@@ -43,5 +43,12 @@ public interface ToursRepository {
     //ROUTES
     List<Route> findRoutesWithStop(Stop stop);
     Long findMaxStopOfRoutes();
+
+    //Service
+    Service getMostDemandedService();
+    List<Service> getServiceNoAddedToPurchases();
+
+    //Supplier
+    List<Supplier> getTopNSuppliersInPurchases(int n);
     
 }

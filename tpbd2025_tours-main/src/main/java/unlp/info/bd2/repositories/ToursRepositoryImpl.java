@@ -95,7 +95,6 @@ public class ToursRepositoryImpl implements ToursRepository {
         }
     }
 
-    @Transactional
     @Override
     @Transactional
     public User saveUser(User user) throws ToursException {
@@ -108,7 +107,6 @@ public class ToursRepositoryImpl implements ToursRepository {
         }
     }
 
-    @Transactional(readOnly = true)
     @Override
     @Transactional(readOnly = true)
     public Optional<User> findUserById(Long id) throws ToursException {
@@ -120,7 +118,6 @@ public class ToursRepositoryImpl implements ToursRepository {
         }
     }
 
-    @Transactional(readOnly = true)
     @Override
     @Transactional(readOnly = true)
     public Optional<User> findUserByUsername(String username) throws ToursException {
@@ -134,7 +131,6 @@ public class ToursRepositoryImpl implements ToursRepository {
         }
     }
 
-    @Transactional()
     @Override
     @Transactional
     public void deleteUser(User user) throws ToursException {
@@ -146,7 +142,7 @@ public class ToursRepositoryImpl implements ToursRepository {
         }
     }
 
-    @Transactional
+
     @Override
     @Transactional
     public User updateUser(User user) throws ToursException {
@@ -232,4 +228,45 @@ public class ToursRepositoryImpl implements ToursRepository {
 
         return result != null ? result.longValue() : 0L;
     }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Service getMostDemandedService() {
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "SELECT isv.service " +
+                "FROM ItemService isv " +
+                "GROUP BY isv.service " +
+                "ORDER BY COUNT(isv.id) DESC";
+
+        Query<Service> query = session.createQuery(hql, Service.class);
+        query.setMaxResults(1);
+        return query.uniqueResult();
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<Service> getServiceNoAddedToPurchases() {
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "SELECT s FROM Service s WHERE s.itemServiceList IS EMPTY";
+        Query<Service> query = session.createQuery(hql, Service.class);
+        return query.list();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Supplier> getTopNSuppliersInPurchases(int n) {
+        Session session = sessionFactory.getCurrentSession();
+        String hql = """
+            SELECT isv.service.supplier
+            FROM ItemService isv
+            GROUP BY isv.service.supplier
+            ORDER BY COUNT(isv.id) DESC
+        """;
+
+        Query<Supplier> query = session.createQuery(hql, Supplier.class);
+        query.setMaxResults(n);
+        return query.list();
+    }
+
+
 }
