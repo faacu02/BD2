@@ -244,19 +244,33 @@ public class ToursRepositoryImpl implements ToursRepository {
         return result != null ? result.longValue() : 0L;
     }
 
+
     @Transactional(readOnly = true)
     @Override
     public Service getMostDemandedService() {
         Session session = sessionFactory.getCurrentSession();
-        String hql = "SELECT isv.service " +
+
+        String hql = "SELECT isv.service.name, COUNT(isv.id) " +
                 "FROM ItemService isv " +
-                "GROUP BY isv.service " +
+                "GROUP BY isv.service.name " +
                 "ORDER BY COUNT(isv.id) DESC";
 
-        Query<Service> query = session.createQuery(hql, Service.class);
-        query.setMaxResults(1);
-        return query.uniqueResult();
+        List<Object[]> results = session.createQuery(hql, Object[].class)
+                .setMaxResults(1)
+                .getResultList();
+
+        if (results.isEmpty()) return null;
+
+        String mostDemandedServiceName = (String) results.get(0)[0];
+
+        // Obtener una instancia de Service con ese nombre
+        String hqlService = "FROM Service s WHERE s.name = :name";
+        return session.createQuery(hqlService, Service.class)
+                .setParameter("name", mostDemandedServiceName)
+                .setMaxResults(1)
+                .uniqueResult();
     }
+
 
     @Transactional(readOnly = true)
     @Override
