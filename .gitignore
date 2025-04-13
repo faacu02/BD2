@@ -26,3 +26,5 @@ replay_pid*
 .idea/
 *.iml
 
+tpbd2025_tours-main/target/*
+

@@ -7,15 +7,15 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "users")
-@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "user")
+@Inheritance(strategy = InheritanceType.JOINED) // Investigar la mejor opcion
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 50)
+    @Column(nullable = false, unique = true, length = 50,updatable = false)
     private String username;
 
     @Column(nullable = false)
@@ -36,22 +36,31 @@ public class User {
     private String phoneNumber;
 
     @Column(nullable = false)
-    private boolean active = true;
+    private boolean active;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
     private List<Purchase> purchaseList = new ArrayList<>();
 
     // Constructores
     public User() {
     }
 
-    public User(String username, String password, String name, String email) {
+     public User(String username, String password, String name, String email) { //
         this.username = username;
         this.password = password;
         this.name = name;
         this.email = email;
+        this.active = true;
     }
-
+    public User(String username, String password, String name, String email, Date birthdate, String phoneNumber) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.email = email;
+        this.birthdate = birthdate;
+        this.phoneNumber = phoneNumber;
+        this.active = true;
+    }
     // Getters y Setters
     public Long getId() {
         return id;
@@ -123,5 +132,9 @@ public class User {
 
     public void setPurchaseList(List<Purchase> purchaseList) {
         this.purchaseList = purchaseList;
+    }
+
+    public void addPurchase(Purchase purchase) {
+        this.purchaseList.add(purchase);
     }
 }

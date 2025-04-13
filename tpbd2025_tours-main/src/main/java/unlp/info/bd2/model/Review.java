@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 
 @Entity
-@Table(name = "reviews")
+@Table(name = "review")
 public class Review {
 
     @Id
@@ -12,14 +12,12 @@ public class Review {
     private Long id;
 
     @Column(nullable = false)
-
     private int rating;
 
     @Column(length = 1000)
     private String comment;
 
-    @OneToOne
-    @JoinColumn(name = "purchase_id", nullable = false, unique = true)
+    @OneToOne //Va esto o no?
     private Purchase purchase;
 
     // Constructores

@@ -1,6 +1,6 @@
 package unlp.info.bd2.services;
-
-
+import jakarta.persistence.PersistenceException;
+import org.hibernate.exception.ConstraintViolationException;
 import unlp.info.bd2.model.*;
 import unlp.info.bd2.utils.ToursException;
 import unlp.info.bd2.repositories.*;
@@ -9,159 +9,251 @@ import java.util.List;
 import java.util.Optional;
 
 
+
+@org.springframework.stereotype.Service
+
 public class ToursServiceImpl implements ToursService {
 
     private ToursRepository toursRepository;
-
     public ToursServiceImpl(ToursRepository toursRepository) {
         this.toursRepository = toursRepository;
     }
 
     @Override
     public User createUser(String username, String password, String fullName, String email, Date birthdate, String phoneNumber) throws ToursException {
-        return null;
+        User user = new User(username, password, fullName, email, birthdate, phoneNumber);
+        return this.toursRepository.saveUser(user);
     }
 
     @Override
     public DriverUser createDriverUser(String username, String password, String fullName, String email, Date birthdate, String phoneNumber, String expedient) throws ToursException {
-        return null;
+        DriverUser user = new DriverUser(username, password, fullName, email, birthdate, phoneNumber,expedient);
+        return (DriverUser) this.toursRepository.saveUser(user);
     }
 
     @Override
     public TourGuideUser createTourGuideUser(String username, String password, String fullName, String email, Date birthdate, String phoneNumber, String education) throws ToursException {
-        return null;
+        TourGuideUser user = new TourGuideUser(username, password, fullName, email, birthdate, phoneNumber,education);
+        return (TourGuideUser) this.toursRepository.saveUser(user);
     }
 
     @Override
     public Optional<User> getUserById(Long id) throws ToursException {
-        return Optional.empty();
+        return this.toursRepository.findUserById(id);
     }
 
     @Override
     public Optional<User> getUserByUsername(String username) throws ToursException {
-        return Optional.empty();
+        return this.toursRepository.findUserByUsername(username);
     }
 
     @Override
     public User updateUser(User user) throws ToursException {
-        return null;
+        return this.toursRepository.updateUser(user);
     }
 
     @Override
     public void deleteUser(User user) throws ToursException {
-        // No hace nada
+        if (user instanceof TourGuideUser && !((TourGuideUser) user).getRoutes().isEmpty()) {
+            throw new ToursException("TourGuideUser has routes");
+        }
+        if(user.isActive()) {
+            if (user.getPurchaseList().isEmpty()) {
+                this.toursRepository.deleteUser(user);
+            } else {
+                user.setActive(false);
+                this.toursRepository.saveUser(user);
+            }
+        }else {
+            throw new ToursException("User is not active");
+        }
     }
 
     @Override
     public Stop createStop(String name, String description) throws ToursException {
-        return null;
+        Stop stop = new Stop(name,description);
+        return this.toursRepository.saveStop(stop);
     }
 
     @Override
     public List<Stop> getStopByNameStart(String name) {
-        return List.of();
+        return this.toursRepository.findStopByName(name);
     }
 
     @Override
     public Route createRoute(String name, float price, float totalKm, int maxNumberOfUsers, List<Stop> stops) throws ToursException {
-        return null;
+        Route route = new Route(name,price,totalKm,maxNumberOfUsers,stops);
+        return this.toursRepository.saveRoute(route);
     }
 
     @Override
     public Optional<Route> getRouteById(Long id) {
-        return Optional.empty();
+        return this.toursRepository.findRouteById(id);
     }
 
     @Override
     public List<Route> getRoutesBelowPrice(float price) {
-        return List.of();
+        return this.toursRepository.findRouteBelowPrice(price);
     }
 
     @Override
     public void assignDriverByUsername(String username, Long idRoute) throws ToursException {
-        // No hace nada
+        User user = this.getUserByUsername(username)
+                .orElseThrow(() -> new ToursException("User not found"));
+
+        if (!(user instanceof DriverUser)) {
+            throw new ToursException("User is not a driver");
+        }
+
+        Route route = this.getRouteById(idRoute)
+                .orElseThrow(() -> new ToursException("Route not found"));
+
+        DriverUser userD = (DriverUser) user;
+        userD.addRoute(route);
+        route.addDriver(userD);
+
+        this.toursRepository.saveUser(userD);
+        this.toursRepository.saveRoute(route);
     }
 
     @Override
     public void assignTourGuideByUsername(String username, Long idRoute) throws ToursException {
-        // No hace nada
+        User user = this.getUserByUsername(username)
+                .orElseThrow(() -> new ToursException("User not found"));
+
+        if (!(user instanceof TourGuideUser)) {
+            throw new ToursException("User is not a tour guide");
+        }
+
+        Route route = this.getRouteById(idRoute)
+                .orElseThrow(() -> new ToursException("Route not found"));
+
+        TourGuideUser tourGuide = (TourGuideUser) user;
+        tourGuide.addRoute(route);
+        route.addTourGuide(tourGuide);
+
+        this.toursRepository.saveUser(tourGuide);
+        this.toursRepository.saveRoute(route);
     }
 
     @Override
     public Supplier createSupplier(String businessName, String authorizationNumber) throws ToursException {
-        return null;
+        Supplier supplier = new Supplier(businessName, authorizationNumber);
+        return toursRepository.saveSupplier(supplier);
     }
+
 
     @Override
     public Service addServiceToSupplier(String name, float price, String description, Supplier supplier) throws ToursException {
-        return null;
+        Service service = new Service(name, price, description, supplier);
+        supplier.getServices().add(service);
+        return this.toursRepository.saveService(service);
     }
 
     @Override
     public Service updateServicePriceById(Long id, float newPrice) throws ToursException {
-        return null;
+        return this.toursRepository.updatePriceService(id, newPrice);
     }
 
     @Override
-    public Optional<Supplier> getSupplierById(Long id) {
-        return Optional.empty();
+    public Optional<Supplier> getSupplierById(Long id){
+        return this.toursRepository.findSupplierById(id);
     }
 
     @Override
     public Optional<Supplier> getSupplierByAuthorizationNumber(String authorizationNumber) {
-        return Optional.empty();
+        return this.toursRepository.findSupplierByAuthorizationNumber(authorizationNumber);
     }
 
     @Override
     public Optional<Service> getServiceByNameAndSupplierId(String name, Long id) throws ToursException {
-        return Optional.empty();
+        return this.toursRepository.findServiceByNameAndSupplierId(name, id);
     }
 
     @Override
     public Purchase createPurchase(String code, Route route, User user) throws ToursException {
-        return null;
+        Purchase purchase = new Purchase(code, route, user);
+        user.addPurchase(purchase);
+        this.toursRepository.saveUser(user);
+        return this.toursRepository.savePurchase(purchase);
     }
 
     @Override
     public Purchase createPurchase(String code, Date date, Route route, User user) throws ToursException {
-        return null;
+        try{
+            if(this.toursRepository.getCountOfPurchasesInRouteAndDate(route,date) < route.getMaxNumberUsers()){
+                Purchase purchase = new Purchase(code, date, route, user);
+                user.addPurchase(purchase);
+                //this.toursRepository.saveUser(user);
+                return this.toursRepository.savePurchase(purchase);
+            } else{
+                throw new ToursException("No hay lugares disponibles");
+            }
+        } catch (Exception e){
+            throw new ToursException("No puede realizarse la compra");
+        }
     }
 
     @Override
     public ItemService addItemToPurchase(Service service, int quantity, Purchase purchase) throws ToursException {
-        return null;
+        ItemService item = new ItemService(quantity, purchase, service);
+        purchase.getItemServiceList().add(item);
+        service.getItemServiceList().add(item);
+        return this.toursRepository.saveItemService(item);
+
     }
 
     @Override
-    public Optional<Purchase> getPurchaseByCode(String code) {
-        return Optional.empty();
+    public Optional<Purchase> getPurchaseByCode(String code){
+        try {
+            return this.toursRepository.findPurchaseByCode(code);
+        } catch (ToursException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void deletePurchase(Purchase purchase) throws ToursException {
-        // No hace nada
+        this.toursRepository.deletePurchase(purchase);
     }
 
     @Override
     public Review addReviewToPurchase(int rating, String comment, Purchase purchase) throws ToursException {
-        return null;
+        try {
+            Review review = new Review(rating, comment, purchase);
+            purchase.setReview(review);
+            //this.toursRepository.updatePurchase(purchase);
+            return this.toursRepository.saveReview(review);
+        }catch (Exception e){
+            throw new ToursException("No se puede agregar la reseña");
+        }
     }
 
     // CONSULTAS HQL
 
     @Override
     public List<Purchase> getAllPurchasesOfUsername(String username) {
-        return List.of();
+        Optional<User> user;
+        try {
+            user = this.getUserByUsername(username);
+        }catch (ToursException e){
+            return null;
+        }
+            if(user.isEmpty()){
+                return null;
+            }else{
+               return user.get().getPurchaseList();
+            }
     }
 
     @Override
     public List<User> getUserSpendingMoreThan(float amount) {
-        return List.of();
+        return this.toursRepository.getUserSpendingMoreThan(amount);
     }
 
     @Override
     public List<Supplier> getTopNSuppliersInPurchases(int n) {
-        return List.of();
+        return this.toursRepository.getTopNSuppliersInPurchases(n);
     }
 
     @Override
@@ -171,22 +263,22 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public List<User> getTop5UsersMorePurchases() {
-        return List.of();
+        return this.toursRepository.getTop5UsersMorePurchases();
     }
 
     @Override
     public long getCountOfPurchasesBetweenDates(Date start, Date end) {
-        return 0;
+        return this.toursRepository.getCountOfPurchasesBetweenDates(start, end);
     }
-
+    //Routes
     @Override
     public List<Route> getRoutesWithStop(Stop stop) {
-        return List.of();
+        return this.toursRepository.findRoutesWithStop(stop);
     }
 
     @Override
     public Long getMaxStopOfRoutes() {
-        return 0L;
+        return this.toursRepository.findMaxStopOfRoutes();
     }
 
     @Override
@@ -196,21 +288,21 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public List<Route> getTop3RoutesWithMaxRating() {
-        return List.of();
+        return this.toursRepository.getTop3RoutesWithMaxRating();
     }
 
     @Override
     public Service getMostDemandedService() {
-        return null;
+        return this.toursRepository.getMostDemandedService();
     }
 
     @Override
     public List<Service> getServiceNoAddedToPurchases() {
-        return List.of();
+        return this.toursRepository.getServiceNoAddedToPurchases();
     }
 
     @Override
     public List<TourGuideUser> getTourGuidesWithRating1() {
-        return List.of();
+        return this.toursRepository.getTourGuidesWithRating1();
     }
 }

@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "purchases")
+@Table(name = "purchase")
 public class Purchase {
 
     @Id
@@ -23,21 +23,34 @@ public class Purchase {
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.PERSIST})
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.PERSIST})
     @JoinColumn(name = "route_id")
     private Route route;
 
-    @OneToOne(mappedBy = "purchase", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "purchase", cascade = {CascadeType.MERGE,CascadeType.REMOVE,CascadeType.PERSIST}, orphanRemoval = true) //MERGE VA???
     private Review review;
 
-    @OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "purchase", cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<ItemService> itemServiceList = new ArrayList<>();
+    public Purchase() {}
+    public Purchase(String code, Route route, User user) {
+        this.code = code;
+        this.route = route;
+        this.user = user;
+        this.totalPrice = route.getPrice();
+    }
 
-
+    public Purchase(String code, Date date, Route route, User user) {
+        this.code = code;
+        this.date = date;
+        this.route = route;
+        this.user = user;
+        this.totalPrice = route.getPrice();
+    }
 
     public Long getId() {
         return id;
@@ -56,7 +69,11 @@ public class Purchase {
     }
 
     public float getTotalPrice() {
-        return totalPrice;
+        float total = (float) this.itemServiceList.stream()
+                .mapToDouble(item -> item.getPrice())
+                .sum();
+        this.totalPrice = total + this.route.getPrice();
+        return this.totalPrice;
     }
 
     public void setTotalPrice(float totalPrice) {
@@ -102,4 +119,5 @@ public class Purchase {
     public void setItemServiceList(List<ItemService> itemServiceList) {
         this.itemServiceList = itemServiceList;
     }
+
 }
