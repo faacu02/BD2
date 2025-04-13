@@ -14,6 +14,8 @@ import unlp.info.bd2.utils.ToursException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.hibernate.Session;
 
 @Repository
@@ -327,6 +329,15 @@ public class ToursRepositoryImpl implements ToursRepository {
         Session session = sessionFactory.getCurrentSession();
         session.delete(purchase);
     }
-
+    @Transactional(readOnly = true)
+    @Override
+    public List<User> getTop5UsersMorePurchases() {
+        Session session = sessionFactory.getCurrentSession();
+        List<User> allUsers = session.createQuery("FROM User", User.class).getResultList();
+        return allUsers.stream()
+                .sorted((u1, u2) -> Integer.compare(u2.getPurchaseList().size(), u1.getPurchaseList().size()))
+                .limit(5)
+                .collect(Collectors.toList());
+    }
 
 }

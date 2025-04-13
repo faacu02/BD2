@@ -47,7 +47,8 @@ public interface ToursRepository {
     ItemService saveItemService(ItemService itemService) throws ToursException;
 
     //HQL
-
+    //Users
+    List<User> getTop5UsersMorePurchases();
     //ROUTES
     List<Route> findRoutesWithStop(Stop stop);
     Long findMaxStopOfRoutes();
