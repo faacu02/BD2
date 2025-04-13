@@ -426,7 +426,7 @@ public class ToursRepositoryImpl implements ToursRepository {
         List<User> allUsers = session.createQuery("FROM User", User.class).getResultList();
         return allUsers.stream()
                 .filter(user -> user.getPurchaseList().stream()
-                        .anyMatch(purchase -> purchase.calculateTotalPrice() >= amount))
+                        .anyMatch(purchase -> purchase.getTotalPrice() >= amount))
                 .collect(Collectors.toList());
     }
 }
