@@ -218,7 +218,17 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public List<Purchase> getAllPurchasesOfUsername(String username) {
-        return List.of();
+        Optional<User> user;
+        try {
+            user = this.getUserByUsername(username);
+        }catch (ToursException e){
+            return null;
+        }
+            if(user.isEmpty()){
+                return null;
+            }else{
+               return user.get().getPurchaseList();
+            }
     }
 
     @Override
