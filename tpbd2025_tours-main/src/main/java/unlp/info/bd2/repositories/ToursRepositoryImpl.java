@@ -394,17 +394,9 @@ public class ToursRepositoryImpl implements ToursRepository {
     public List<User> getUserSpendingMoreThan(float amount) {
         Session session = sessionFactory.getCurrentSession();
         List<User> allUsers = session.createQuery("FROM User", User.class).getResultList();
-        for (User user : allUsers) {
-            System.out.println("User: " + user.getUsername());
-            System.out.println("Purchases count: " + user.getPurchaseList().size());
-            for (Purchase purchase : user.getPurchaseList()) {
-                System.out.println(" - Purchase amount: " + purchase.calculateTotalPrice());
-            }
-        }
         return allUsers.stream()
                 .filter(user -> user.getPurchaseList().stream()
-                        .mapToDouble(Purchase::calculateTotalPrice)
-                        .sum() > amount)
+                        .anyMatch(purchase -> purchase.calculateTotalPrice() >= amount))
                 .collect(Collectors.toList());
     }
 }

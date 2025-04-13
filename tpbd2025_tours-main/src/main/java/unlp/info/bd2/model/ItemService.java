@@ -64,5 +64,7 @@ public class ItemService {
         this.service = service;
     }
 
-
+    public float getPrice(){
+        return this.getQuantity()*this.getService().getPrice();
+    }
 }
