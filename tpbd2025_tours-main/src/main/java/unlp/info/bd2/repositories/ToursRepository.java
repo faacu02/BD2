@@ -46,4 +46,8 @@ public interface ToursRepository {
     Purchase savePurchase(Purchase purchase);
     Optional<Purchase> findPurchaseByCode(String code) throws ToursException;
     void deletePurchase(Purchase purchase);
+    Purchase updatePurchase(Purchase purchase);
+
+    //REVIEWS
+    Review saveReview(Review review);
 }

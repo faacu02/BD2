@@ -238,4 +238,19 @@ public class ToursRepositoryImpl implements ToursRepository {
         Session session = sessionFactory.getCurrentSession();
         session.delete(purchase);
     }
+
+    public Purchase updatePurchase(Purchase purchase) {
+        Session session = sessionFactory.getCurrentSession();
+        session.merge(purchase);
+        return purchase;
+    }
+
+    //REVIEW
+    @Transactional
+    @Override
+    public Review saveReview(Review review) {
+        Session session = sessionFactory.getCurrentSession();
+        session.persist(review);
+        return review;
+    }
 }
