@@ -41,6 +41,7 @@ public class Purchase {
         this.code = code;
         this.route = route;
         this.user = user;
+        this.totalPrice = route.getPrice();
     }
 
     public Purchase(String code, Date date, Route route, User user) {
@@ -48,6 +49,7 @@ public class Purchase {
         this.date = date;
         this.route = route;
         this.user = user;
+        this.totalPrice = route.getPrice();
     }
 
     public Long getId() {
@@ -67,7 +69,11 @@ public class Purchase {
     }
 
     public float getTotalPrice() {
-        return totalPrice;
+        float total = (float) this.itemServiceList.stream()
+                .mapToDouble(item -> item.getService().getPrice() * item.getQuantity())
+                .sum();
+        this.totalPrice = total + this.route.getPrice();
+        return this.totalPrice;
     }
     public float calculateTotalPrice() {
         float total = 0;
@@ -120,4 +126,5 @@ public class Purchase {
     public void setItemServiceList(List<ItemService> itemServiceList) {
         this.itemServiceList = itemServiceList;
     }
+
 }

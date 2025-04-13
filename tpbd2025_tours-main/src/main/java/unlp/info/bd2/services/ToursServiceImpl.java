@@ -180,10 +180,18 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public Purchase createPurchase(String code, Date date, Route route, User user) throws ToursException {
-        Purchase purchase = new Purchase(code, date, route, user);
-        user.addPurchase(purchase);
-        this.toursRepository.saveUser(user);
-        return this.toursRepository.savePurchase(purchase);
+        try{
+            if(this.toursRepository.getCountOfPurchasesInRouteAndDate(route,date) < route.getMaxNumberUsers()){
+                Purchase purchase = new Purchase(code, date, route, user);
+                user.addPurchase(purchase);
+                //this.toursRepository.saveUser(user);
+                return this.toursRepository.savePurchase(purchase);
+            } else{
+                throw new ToursException("No hay lugares disponibles");
+            }
+        } catch (Exception e){
+            throw new ToursException("No puede realizarse la compra");
+        }
     }
 
     @Override
@@ -211,7 +219,14 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public Review addReviewToPurchase(int rating, String comment, Purchase purchase) throws ToursException {
-        return null;
+        try {
+            Review review = new Review(rating, comment, purchase);
+            purchase.setReview(review);
+            //this.toursRepository.updatePurchase(purchase);
+            return this.toursRepository.saveReview(review);
+        }catch (Exception e){
+            throw new ToursException("No se puede agregar la reseña");
+        }
     }
 
     // CONSULTAS HQL

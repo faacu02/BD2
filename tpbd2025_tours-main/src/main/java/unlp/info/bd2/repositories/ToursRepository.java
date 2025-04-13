@@ -39,9 +39,14 @@ public interface ToursRepository {
     List<Route> findRouteBelowPrice(float price);
 
     //PURCHASES
-    Purchase savePurchase(Purchase purchase);
+    Purchase savePurchase(Purchase purchase) throws ToursException;
     Optional<Purchase> findPurchaseByCode(String code) throws ToursException;
     void deletePurchase(Purchase purchase);
+    Purchase updatePurchase(Purchase purchase);
+    int getCountOfPurchasesInRouteAndDate(Route route, Date date);
+
+    //REVIEWS
+    Review saveReview(Review review);
 
     //ITEM SERVICE
     ItemService saveItemService(ItemService itemService) throws ToursException;
