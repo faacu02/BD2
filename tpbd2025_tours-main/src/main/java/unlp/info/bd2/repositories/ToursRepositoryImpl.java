@@ -358,10 +358,15 @@ public class ToursRepositoryImpl implements ToursRepository {
 
 
     @Transactional
-    public Purchase savePurchase(Purchase purchase){
-        Session session = sessionFactory.getCurrentSession();
-        session.persist(purchase);
-        return purchase;
+    public Purchase savePurchase(Purchase purchase) throws ToursException{
+        try{
+            Session session = sessionFactory.getCurrentSession();
+            session.persist(purchase);
+            return purchase;
+        }catch (Exception e){
+            throw new ToursException("Error saving purchase");
+        }
+
     }
 
     @Transactional(readOnly = true)
@@ -384,6 +389,16 @@ public class ToursRepositoryImpl implements ToursRepository {
         Session session = sessionFactory.getCurrentSession();
         session.merge(purchase);
         return purchase;
+    }
+
+    public int getCountOfPurchasesInRouteAndDate(Route route, Date date) {
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "SELECT COUNT(p) FROM Purchase p WHERE p.route = :route AND p.date = :date";
+        return session.createQuery(hql, Long.class)
+                .setParameter("route", route)
+                .setParameter("date", date)
+                .uniqueResult()
+                .intValue();
     }
 
     //REVIEW
