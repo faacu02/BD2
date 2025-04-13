@@ -253,7 +253,7 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public long getCountOfPurchasesBetweenDates(Date start, Date end) {
-        return 0;
+        return this.toursRepository.getCountOfPurchasesBetweenDates(start, end);
     }
     //Routes
     @Override
@@ -273,7 +273,7 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public List<Route> getTop3RoutesWithMaxRating() {
-        return List.of();
+        return this.toursRepository.getTop3RoutesWithMaxRating();
     }
 
     @Override
@@ -288,6 +288,6 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public List<TourGuideUser> getTourGuidesWithRating1() {
-        return List.of();
+        return this.toursRepository.getTourGuidesWithRating1();
     }
 }

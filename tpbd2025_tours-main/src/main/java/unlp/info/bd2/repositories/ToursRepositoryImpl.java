@@ -252,6 +252,26 @@ public class ToursRepositoryImpl implements ToursRepository {
         return result != null ? result.longValue() : 0L;
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<Route> getTop3RoutesWithMaxRating() {
+        String hql = """
+        SELECT r
+        FROM Review rev
+        JOIN rev.purchase p
+        JOIN p.route r
+        GROUP BY r.id
+        ORDER BY AVG(rev.rating) DESC
+    """;
+
+        return sessionFactory
+                .getCurrentSession()
+                .createQuery(hql, Route.class)
+                .setMaxResults(3)
+                .list();
+    }
+
+
 
     @Transactional(readOnly = true)
     @Override
@@ -303,6 +323,36 @@ public class ToursRepositoryImpl implements ToursRepository {
         Query<Supplier> query = session.createQuery(hql, Supplier.class);
         query.setMaxResults(n);
         return query.list();
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public long getCountOfPurchasesBetweenDates(Date start, Date end) {
+        String hql = "SELECT COUNT(p) FROM Purchase p WHERE p.date BETWEEN :start AND :end";
+        return sessionFactory
+                .getCurrentSession()
+                .createQuery(hql, Long.class)
+                .setParameter("start", start)
+                .setParameter("end", end)
+                .uniqueResult();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<TourGuideUser> getTourGuidesWithRating1() {
+        String hql = """
+        SELECT DISTINCT tgu
+        FROM Review r
+        JOIN r.purchase p
+        JOIN p.route rt
+        JOIN rt.tourGuideList tgu
+        WHERE r.rating = 1
+    """;
+
+        return sessionFactory
+                .getCurrentSession()
+                .createQuery(hql, TourGuideUser.class)
+                .list();
     }
 
 
