@@ -12,12 +12,14 @@ import org.springframework.boot.autoconfigure.security.SecurityProperties;
 
 public interface ToursRepository {
 
-    Supplier saveSupplier(Supplier supplier);
-    Optional<Supplier> findSupplierByAuthorizationNumber(String authorizationNumber);
+    //Supplier
+    Supplier saveSupplier(Supplier supplier) throws ToursException;
+    Optional<Supplier> findSupplierByAuthorizationNumber(String authorizationNumber) ;
     Optional<Supplier> findSupplierById(Long id);
 
-    Service saveService(Service service);
-    Optional<Service> findServiceByNameAndSupplierId(String name, Long supplierId);
+    //Service
+    Service saveService(Service service) throws ToursException;
+    Optional<Service> findServiceByNameAndSupplierId(String name, Long supplierId) throws ToursException;
     Service updatePriceService(Long id, float newPrice) throws ToursException;
 
     //User
@@ -36,12 +38,6 @@ public interface ToursRepository {
     Optional<Route> findRouteById(Long id);
     List<Route> findRouteBelowPrice(float price);
 
-    //HQL
-
-    //ROUTES
-    List<Route> findRoutesWithStop(Stop stop);
-    Long findMaxStopOfRoutes();
-
     //PURCHASES
     Purchase savePurchase(Purchase purchase);
     Optional<Purchase> findPurchaseByCode(String code) throws ToursException;
@@ -50,4 +46,32 @@ public interface ToursRepository {
 
     //REVIEWS
     Review saveReview(Review review);
+
+    //ITEM SERVICE
+    ItemService saveItemService(ItemService itemService) throws ToursException;
+
+    //HQL
+    //Users
+    List<User> getTop5UsersMorePurchases();
+    List<User> getUserSpendingMoreThan(float mount);
+
+    //ROUTES
+    List<Route> findRoutesWithStop(Stop stop);
+    Long findMaxStopOfRoutes();
+    List<Route> getTop3RoutesWithMaxRating();
+
+
+    //Service
+    Service getMostDemandedService();
+    List<Service> getServiceNoAddedToPurchases();
+
+    //Supplier
+    List<Supplier> getTopNSuppliersInPurchases(int n);
+
+    //Purchase
+    long getCountOfPurchasesBetweenDates(Date start, Date end);
+
+    //TourGuide
+    List<TourGuideUser> getTourGuidesWithRating1();
+
 }

@@ -54,14 +54,19 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public void deleteUser(User user) throws ToursException {
-        //if(user.getPurchases.size() = 0){
-        this.toursRepository.deleteUser(user);
-        /*}
-        else{
-        user.setActive(false)
-        this.toursRepository.saveUser(user)
+        if (user instanceof TourGuideUser && !((TourGuideUser) user).getRoutes().isEmpty()) {
+            throw new ToursException("TourGuideUser has routes");
         }
-         */
+        if(user.isActive()) {
+            if (user.getPurchaseList().isEmpty()) {
+                this.toursRepository.deleteUser(user);
+            } else {
+                user.setActive(false);
+                this.toursRepository.saveUser(user);
+            }
+        }else {
+            throw new ToursException("User is not active");
+        }
     }
 
     @Override
@@ -133,14 +138,10 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public Supplier createSupplier(String businessName, String authorizationNumber) throws ToursException {
-        try {
-            Supplier supplier = new Supplier(businessName, authorizationNumber);
-            return toursRepository.saveSupplier(supplier);
-        } catch (PersistenceException e) {
-            // 🔁 Convertirla en una excepción propia
-            throw new ToursException("El proveedor ya existe con ese número de autorización");
-        }
+        Supplier supplier = new Supplier(businessName, authorizationNumber);
+        return toursRepository.saveSupplier(supplier);
     }
+
 
     @Override
     public Service addServiceToSupplier(String name, float price, String description, Supplier supplier) throws ToursException {
@@ -155,7 +156,7 @@ public class ToursServiceImpl implements ToursService {
     }
 
     @Override
-    public Optional<Supplier> getSupplierById(Long id) {
+    public Optional<Supplier> getSupplierById(Long id){
         return this.toursRepository.findSupplierById(id);
     }
 
@@ -172,20 +173,26 @@ public class ToursServiceImpl implements ToursService {
     @Override
     public Purchase createPurchase(String code, Route route, User user) throws ToursException {
         Purchase purchase = new Purchase(code, route, user);
+        user.addPurchase(purchase);
+        this.toursRepository.saveUser(user);
         return this.toursRepository.savePurchase(purchase);
     }
 
     @Override
     public Purchase createPurchase(String code, Date date, Route route, User user) throws ToursException {
         Purchase purchase = new Purchase(code, date, route, user);
-        user.getPurchaseList().add(purchase);
-        //this.toursRepository.updateUser(user);
+        user.addPurchase(purchase);
+        this.toursRepository.saveUser(user);
         return this.toursRepository.savePurchase(purchase);
     }
 
     @Override
     public ItemService addItemToPurchase(Service service, int quantity, Purchase purchase) throws ToursException {
-        return null;
+        ItemService item = new ItemService(quantity, purchase, service);
+        purchase.getItemServiceList().add(item);
+        service.getItemServiceList().add(item);
+        return this.toursRepository.saveItemService(item);
+
     }
 
     @Override
@@ -214,17 +221,27 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public List<Purchase> getAllPurchasesOfUsername(String username) {
-        return List.of();
+        Optional<User> user;
+        try {
+            user = this.getUserByUsername(username);
+        }catch (ToursException e){
+            return null;
+        }
+            if(user.isEmpty()){
+                return null;
+            }else{
+               return user.get().getPurchaseList();
+            }
     }
 
     @Override
     public List<User> getUserSpendingMoreThan(float amount) {
-        return List.of();
+        return this.toursRepository.getUserSpendingMoreThan(amount);
     }
 
     @Override
     public List<Supplier> getTopNSuppliersInPurchases(int n) {
-        return List.of();
+        return this.toursRepository.getTopNSuppliersInPurchases(n);
     }
 
     @Override
@@ -234,12 +251,12 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public List<User> getTop5UsersMorePurchases() {
-        return List.of();
+        return this.toursRepository.getTop5UsersMorePurchases();
     }
 
     @Override
     public long getCountOfPurchasesBetweenDates(Date start, Date end) {
-        return 0;
+        return this.toursRepository.getCountOfPurchasesBetweenDates(start, end);
     }
     //Routes
     @Override
@@ -259,21 +276,21 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public List<Route> getTop3RoutesWithMaxRating() {
-        return List.of();
+        return this.toursRepository.getTop3RoutesWithMaxRating();
     }
 
     @Override
     public Service getMostDemandedService() {
-        return null;
+        return this.toursRepository.getMostDemandedService();
     }
 
     @Override
     public List<Service> getServiceNoAddedToPurchases() {
-        return List.of();
+        return this.toursRepository.getServiceNoAddedToPurchases();
     }
 
     @Override
     public List<TourGuideUser> getTourGuidesWithRating1() {
-        return List.of();
+        return this.toursRepository.getTourGuidesWithRating1();
     }
 }
