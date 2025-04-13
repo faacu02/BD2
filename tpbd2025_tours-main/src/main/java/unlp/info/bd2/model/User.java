@@ -38,7 +38,7 @@ public class User {
     @Column(nullable = false)
     private boolean active;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
     private List<Purchase> purchaseList = new ArrayList<>();
 
     // Constructores

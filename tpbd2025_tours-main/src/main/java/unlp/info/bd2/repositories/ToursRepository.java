@@ -49,6 +49,8 @@ public interface ToursRepository {
     //HQL
     //Users
     List<User> getTop5UsersMorePurchases();
+    List<User> getUserSpendingMoreThan(float mount);
+
     //ROUTES
     List<Route> findRoutesWithStop(Stop stop);
     Long findMaxStopOfRoutes();

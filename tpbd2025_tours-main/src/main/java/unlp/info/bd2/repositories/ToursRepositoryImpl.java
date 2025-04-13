@@ -339,5 +339,15 @@ public class ToursRepositoryImpl implements ToursRepository {
                 .limit(5)
                 .collect(Collectors.toList());
     }
-
+    @Transactional(readOnly = true)
+    @Override
+    public List<User> getUserSpendingMoreThan(float amount) {
+        Session session = sessionFactory.getCurrentSession();
+        List<User> allUsers = session.createQuery("FROM User", User.class).getResultList();
+        return allUsers.stream()
+                .filter(user -> user.getPurchaseList().stream()
+                        .mapToDouble(Purchase::getTotalPrice)
+                        .sum() > amount)
+                .collect(Collectors.toList());
+    }
 }

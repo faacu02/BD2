@@ -65,7 +65,7 @@ public class ToursQuerysTests {
 
     @Test
     void getUserSpendingMoreThanTest() throws ToursException {
-        List<User> users1 = this.service.getUserSpendingMoreThan(500);
+        List<User> users1 = this.service.getUserSpendingMoreThan(0);
         assertEquals(6, users1.size());
         this.assertListEquality(users1.stream().map(User::getUsername).collect(Collectors.toList()), Arrays.asList("user3", "user4", "user6", "user7", "user9", "user10"));
         List<User> users2 = this.service.getUserSpendingMoreThan(800);

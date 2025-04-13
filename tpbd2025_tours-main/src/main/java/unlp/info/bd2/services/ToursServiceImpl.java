@@ -233,7 +233,7 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public List<User> getUserSpendingMoreThan(float amount) {
-        return List.of();
+        return this.toursRepository.getUserSpendingMoreThan(amount);
     }
 
     @Override
