@@ -11,6 +11,7 @@ import unlp.info.bd2.model.*;
 import unlp.info.bd2.model.TourGuideUser;
 import unlp.info.bd2.utils.ToursException;
 
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -369,6 +370,25 @@ public class ToursRepositoryImpl implements ToursRepository {
 
     }
 
+    @Transactional
+    @Override
+    public List<Purchase> findTop10MoreExpensivePurchasesInServices() {
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "FROM Purchase";
+        List<Purchase> purchases = session.createQuery(hql, Purchase.class).getResultList();
+        return purchases.stream()
+                .sorted(Comparator.comparingDouble(this::getTotalServicesCost).reversed())
+                .limit(10)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    protected double getTotalServicesCost(Purchase purchase) {
+        return purchase.getItemServiceList().stream()
+                .mapToDouble(item -> item.getService().getPrice() * item.getQuantity())
+                .sum();
+    }
+
     @Transactional(readOnly = true)
     @Override
     public Optional<Purchase> findPurchaseByCode(String code) {
@@ -429,4 +449,13 @@ public class ToursRepositoryImpl implements ToursRepository {
                         .anyMatch(purchase -> purchase.getTotalPrice() >= amount))
                 .collect(Collectors.toList());
     }
+
+    @Transactional
+    @Override
+    public List<Route> findRoutsNotSells() {
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "SELECT r FROM Route r WHERE r NOT IN (SELECT p.route FROM Purchase p)";
+        return session.createQuery(hql, Route.class).list();
+    }
+
 }

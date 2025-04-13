@@ -258,7 +258,7 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public List<Purchase> getTop10MoreExpensivePurchasesInServices() {
-        return List.of();
+        return this.toursRepository.findTop10MoreExpensivePurchasesInServices();
     }
 
     @Override
@@ -283,7 +283,7 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public List<Route> getRoutsNotSell() {
-        return List.of();
+        return this.toursRepository.findRoutsNotSells();
     }
 
     @Override
