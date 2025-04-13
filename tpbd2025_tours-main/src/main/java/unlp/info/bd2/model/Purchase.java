@@ -69,6 +69,13 @@ public class Purchase {
     public float getTotalPrice() {
         return totalPrice;
     }
+    public float calculateTotalPrice() {
+        float total = 0;
+        for (ItemService item : itemServiceList) {
+            total += item.getQuantity() * item.getService().getPrice();
+        }
+        return total;
+    }
 
     public void setTotalPrice(float totalPrice) {
         this.totalPrice = totalPrice;
