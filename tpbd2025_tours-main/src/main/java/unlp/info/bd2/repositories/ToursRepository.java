@@ -54,6 +54,7 @@ public interface ToursRepository {
     //ROUTES
     List<Route> findRoutesWithStop(Stop stop);
     Long findMaxStopOfRoutes();
+    List<Route> getTop3RoutesWithMaxRating();
 
 
     //Service
@@ -62,5 +63,11 @@ public interface ToursRepository {
 
     //Supplier
     List<Supplier> getTopNSuppliersInPurchases(int n);
+
+    //Purchase
+    long getCountOfPurchasesBetweenDates(Date start, Date end);
+
+    //TourGuide
+    List<TourGuideUser> getTourGuidesWithRating1();
 
 }
