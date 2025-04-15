@@ -375,13 +375,14 @@ public class ToursRepositoryImpl implements ToursRepository {
     @Override
     public List<Purchase> findTop10MoreExpensivePurchasesInServices() {
         Session session = sessionFactory.getCurrentSession();
-        String hql = "FROM Purchase";
+        String hql = "SELECT p FROM Purchase p JOIN FETCH p.route JOIN FETCH p.itemServiceList";
         List<Purchase> purchases = session.createQuery(hql, Purchase.class).getResultList();
         return purchases.stream()
                 .sorted(Comparator.comparingDouble(Purchase::getTotalPrice).reversed())
                 .limit(10)
                 .collect(Collectors.toList());
     }
+
     @Transactional(readOnly = true)
     @Override
     public Optional<Purchase> findPurchaseByCode(String code) {

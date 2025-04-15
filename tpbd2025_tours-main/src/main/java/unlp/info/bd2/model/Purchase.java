@@ -120,6 +120,4 @@ public class Purchase {
         this.itemServiceList = itemServiceList;
     }
 
-
-
 }
