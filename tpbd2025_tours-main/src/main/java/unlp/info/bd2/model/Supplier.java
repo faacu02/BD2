@@ -12,10 +12,10 @@ public class Supplier {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false,name = "business_name")
     private String businessName;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false,name = "authorization_number")
     private String authorizationNumber;
 
     @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -61,6 +61,10 @@ public class Supplier {
 
     public void setServices(List<Service> services) {
         this.services = services;
+    }
+
+    public void addService(Service service) {
+        services.add(service);
     }
 
 

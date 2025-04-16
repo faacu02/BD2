@@ -16,7 +16,7 @@ public class Purchase {
     @Column(nullable = false, unique = true)
     private String code;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "total_price")
     private float totalPrice;
 
     @Column(nullable = false)
@@ -120,4 +120,7 @@ public class Purchase {
         this.itemServiceList = itemServiceList;
     }
 
+    public void addItemService(ItemService itemService) {
+        this.itemServiceList.add(itemService);
+    }
 }

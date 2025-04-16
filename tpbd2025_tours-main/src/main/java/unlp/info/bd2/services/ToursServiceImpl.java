@@ -54,7 +54,7 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public void deleteUser(User user) throws ToursException {
-        if (user instanceof TourGuideUser && !((TourGuideUser) user).getRoutes().isEmpty()) {
+        if (user instanceof TourGuideUser && !((TourGuideUser) user).getRoutes().isEmpty()) { //Drive user?
             throw new ToursException("TourGuideUser has routes");
         }
         if(user.isActive()) {
@@ -146,7 +146,7 @@ public class ToursServiceImpl implements ToursService {
     @Override
     public Service addServiceToSupplier(String name, float price, String description, Supplier supplier) throws ToursException {
         Service service = new Service(name, price, description, supplier);
-        supplier.getServices().add(service);
+        supplier.addService(service);
         return this.toursRepository.saveService(service);
     }
 
@@ -174,14 +174,14 @@ public class ToursServiceImpl implements ToursService {
     public Purchase createPurchase(String code, Route route, User user) throws ToursException {
         Purchase purchase = new Purchase(code, route, user);
         user.addPurchase(purchase);
-        this.toursRepository.saveUser(user);
+        this.toursRepository.saveUser(user); // Necesario? En user ta puesto persist y merge
         return this.toursRepository.savePurchase(purchase);
     }
 
     @Override
     public Purchase createPurchase(String code, Date date, Route route, User user) throws ToursException {
         try{
-            if(this.toursRepository.getCountOfPurchasesInRouteAndDate(route,date) < route.getMaxNumberUsers()){
+            if(this.toursRepository.getCountOfPurchasesInRouteAndDate(route,date) < route.getMaxNumberUsers()){ //???
                 Purchase purchase = new Purchase(code, date, route, user);
                 user.addPurchase(purchase);
                 //this.toursRepository.saveUser(user);
@@ -197,19 +197,15 @@ public class ToursServiceImpl implements ToursService {
     @Override
     public ItemService addItemToPurchase(Service service, int quantity, Purchase purchase) throws ToursException {
         ItemService item = new ItemService(quantity, purchase, service);
-        purchase.getItemServiceList().add(item);
-        service.getItemServiceList().add(item);
+        purchase.addItemService(item);
+        service.addItemService(item);
         return this.toursRepository.saveItemService(item);
 
     }
 
     @Override
     public Optional<Purchase> getPurchaseByCode(String code){
-        try {
-            return this.toursRepository.findPurchaseByCode(code);
-        } catch (ToursException e) {
-            throw new RuntimeException(e);
-        }
+        return this.toursRepository.findPurchaseByCode(code);
     }
 
     @Override

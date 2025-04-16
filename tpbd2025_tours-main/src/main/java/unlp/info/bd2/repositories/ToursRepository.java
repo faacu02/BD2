@@ -40,8 +40,8 @@ public interface ToursRepository {
 
     //PURCHASES
     Purchase savePurchase(Purchase purchase) throws ToursException;
-    Optional<Purchase> findPurchaseByCode(String code) throws ToursException;
-    void deletePurchase(Purchase purchase);
+    Optional<Purchase> findPurchaseByCode(String code);
+    void deletePurchase(Purchase purchase) throws ToursException;
     Purchase updatePurchase(Purchase purchase);
     int getCountOfPurchasesInRouteAndDate(Route route, Date date);
 

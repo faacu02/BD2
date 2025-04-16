@@ -88,4 +88,7 @@ public class Service {
         this.supplier = supplier;
     }
 
+    public void addItemService(ItemService itemService) {
+        this.itemServiceList.add(itemService);
+    }
 }

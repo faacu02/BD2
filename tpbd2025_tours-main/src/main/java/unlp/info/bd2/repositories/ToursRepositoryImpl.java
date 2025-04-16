@@ -61,7 +61,7 @@ public class ToursRepositoryImpl implements ToursRepository {
 
     @Override
     @Transactional
-    public Service saveService(Service service) {
+    public Service saveService(Service service) { //Hace falta tirar excepciones?
         Session session = sessionFactory.getCurrentSession();
         session.persist(service);
         return service;
@@ -148,7 +148,7 @@ public class ToursRepositoryImpl implements ToursRepository {
             Session session = sessionFactory.getCurrentSession();
             session.delete(user);
         } catch (Exception e) {
-            throw new ToursException("Error deleting user");
+            throw new ToursException("Error deleting user"); //Ta bien esto?
         }
     }
 
@@ -394,9 +394,13 @@ public class ToursRepositoryImpl implements ToursRepository {
 
     @Transactional
     @Override
-    public void deletePurchase(Purchase purchase) {
-        Session session = sessionFactory.getCurrentSession();
-        session.delete(purchase);
+    public void deletePurchase(Purchase purchase) throws ToursException{
+        try {
+            Session session = sessionFactory.getCurrentSession();
+            session.delete(purchase);
+        } catch (Exception e) {
+            throw new ToursException("Error deleting purchase");
+        }
     }
     @Transactional
     @Override
