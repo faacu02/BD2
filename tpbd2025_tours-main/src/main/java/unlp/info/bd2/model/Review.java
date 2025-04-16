@@ -1,15 +1,35 @@
 package unlp.info.bd2.model;
 
+import jakarta.persistence.*;
 
+
+@Entity
+@Table(name = "review")
 public class Review {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private int rating;
 
+    @Column(length = 1000)
     private String comment;
 
+    @OneToOne //Va esto o no?
     private Purchase purchase;
+
+    // Constructores
+    public Review() {
+        // Constructor vacío requerido por JPA
+    }
+
+    public Review(int rating, String comment, Purchase purchase) {
+        this.rating = rating;
+        this.comment = comment;
+        this.purchase = purchase;
+    }
 
 
     public Long getId() {

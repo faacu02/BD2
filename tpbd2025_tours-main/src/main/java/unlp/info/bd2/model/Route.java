@@ -1,25 +1,71 @@
 package unlp.info.bd2.model;
 
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "route")
 public class Route {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, length = 100)
     private String name;
 
+    @Column(nullable = false)
     private float price;
 
+    @Column(nullable = false, name = "total_km")
     private float totalKm;
 
+    @Column(nullable = false, name = "max_number_users")
     private int maxNumberUsers;
 
-    private List<Stop> stops;
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}) //MERGE????
+    @JoinTable(
+            name = "route_stop",
+            joinColumns = @JoinColumn(name = "route_id"),
+            inverseJoinColumns = @JoinColumn(name = "stop_id")
+    )
+    private List<Stop> stops = new ArrayList<>();
 
-    private List<DriverUser> driverList;
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(
+            name = "route_driver",
+            joinColumns = @JoinColumn(name = "route_id"),
+            inverseJoinColumns = @JoinColumn(name = "driver_id")
+    )
+    private List<DriverUser> driverList = new ArrayList<>();
 
-    private List<TourGuideUser> tourGuideList;
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(
+            name = "route_tour_guide",
+            joinColumns = @JoinColumn(name = "route_id"),
+            inverseJoinColumns = @JoinColumn(name = "tour_guide_id")
+    )
+    private List<TourGuideUser> tourGuideList = new ArrayList<>();
+
+    // Constructores
+    public Route() {
+    }
+
+    public Route(String name, float price, float totalKm, int maxNumberUsers) {
+        this.name = name;
+        this.price = price;
+        this.totalKm = totalKm;
+        this.maxNumberUsers = maxNumberUsers;
+    }
+
+    public Route(String name, float price, float totalKm, int maxNumberOfUsers, List<Stop> stops) {
+        this.name = name;
+        this.price = price;
+        this.totalKm = totalKm;
+        this.maxNumberUsers = maxNumberOfUsers;
+        this.stops = stops;
+    }
 
     public Long getId() {
         return id;
@@ -85,4 +131,13 @@ public class Route {
         this.tourGuideList = tourGuideList;
     }
 
+    public void addStop(Stop stop) {
+        this.stops.add(stop);
+    }
+    public void addDriver(DriverUser driver) {
+        this.driverList.add(driver);
+    }
+    public void addTourGuide(TourGuideUser tourGuideUser) {
+        this.tourGuideList.add(tourGuideUser);
+    }
 }
