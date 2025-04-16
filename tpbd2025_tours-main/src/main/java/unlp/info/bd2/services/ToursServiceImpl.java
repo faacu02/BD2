@@ -218,7 +218,6 @@ public class ToursServiceImpl implements ToursService {
         try {
             Review review = new Review(rating, comment, purchase);
             purchase.setReview(review);
-            //this.toursRepository.updatePurchase(purchase);
             return this.toursRepository.saveReview(review);
         }catch (Exception e){
             throw new ToursException("No se puede agregar la reseña");

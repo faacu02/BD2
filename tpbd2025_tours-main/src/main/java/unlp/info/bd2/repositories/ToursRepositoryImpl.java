@@ -61,9 +61,14 @@ public class ToursRepositoryImpl implements ToursRepository {
 
     @Override
     @Transactional
-    public Service saveService(Service service) { //Hace falta tirar excepciones?
-        Session session = sessionFactory.getCurrentSession();
-        session.persist(service);
+    public Service saveService(Service service) throws ToursException{ //Hace falta tirar excepciones?
+        try{
+            Session session = sessionFactory.getCurrentSession();
+            session.persist(service);
+        }catch(Exception e){
+            throw new ToursException("Error al guardar el servicio.");
+        }
+
         return service;
     }
 
@@ -136,7 +141,6 @@ public class ToursRepositoryImpl implements ToursRepository {
                     .setParameter("username", username)
                     .uniqueResultOptional();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             throw new ToursException("Error finding user by username");
         }
     }
@@ -148,7 +152,7 @@ public class ToursRepositoryImpl implements ToursRepository {
             Session session = sessionFactory.getCurrentSession();
             session.delete(user);
         } catch (Exception e) {
-            throw new ToursException("Error deleting user"); //Ta bien esto?
+            throw new ToursException("Error deleting user");
         }
     }
 
@@ -292,7 +296,6 @@ public class ToursRepositoryImpl implements ToursRepository {
 
         String mostDemandedServiceName = (String) results.get(0)[0];
 
-        // Obtener una instancia de Service con ese nombre
         String hqlService = "FROM Service s WHERE s.name = :name";
         return session.createQuery(hqlService, Service.class)
                 .setParameter("name", mostDemandedServiceName)
@@ -402,6 +405,7 @@ public class ToursRepositoryImpl implements ToursRepository {
             throw new ToursException("Error deleting purchase");
         }
     }
+
     @Transactional
     @Override
     public Purchase updatePurchase(Purchase purchase) {
@@ -409,6 +413,7 @@ public class ToursRepositoryImpl implements ToursRepository {
         session.merge(purchase);
         return purchase;
     }
+
     @Transactional(readOnly = true)
     @Override
     public int getCountOfPurchasesInRouteAndDate(Route route, Date date) {
@@ -429,6 +434,7 @@ public class ToursRepositoryImpl implements ToursRepository {
         session.persist(review);
         return review;
     }
+
     @Transactional(readOnly = true)
     @Override
     public List<User> getTop5UsersMorePurchases() {
@@ -439,6 +445,7 @@ public class ToursRepositoryImpl implements ToursRepository {
                 .limit(5)
                 .collect(Collectors.toList());
     }
+
     @Transactional(readOnly = true)
     @Override
     public List<User> getUserSpendingMoreThan(float amount) {
