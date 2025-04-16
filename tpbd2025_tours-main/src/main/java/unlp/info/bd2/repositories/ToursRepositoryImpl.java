@@ -11,6 +11,7 @@ import unlp.info.bd2.model.*;
 import unlp.info.bd2.model.TourGuideUser;
 import unlp.info.bd2.utils.ToursException;
 
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +27,7 @@ public class ToursRepositoryImpl implements ToursRepository {
 
     public ToursRepositoryImpl() {
     }
-
+    @Transactional
     @Override
     public Supplier saveSupplier(Supplier supplier) throws ToursException {
         try {
@@ -358,6 +359,7 @@ public class ToursRepositoryImpl implements ToursRepository {
 
 
     @Transactional
+    @Override
     public Purchase savePurchase(Purchase purchase) throws ToursException{
         try{
             Session session = sessionFactory.getCurrentSession();
@@ -367,6 +369,18 @@ public class ToursRepositoryImpl implements ToursRepository {
             throw new ToursException("Error saving purchase");
         }
 
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<Purchase> findTop10MoreExpensivePurchasesInServices() {
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "SELECT p FROM Purchase p JOIN FETCH p.route JOIN FETCH p.itemServiceList";
+        List<Purchase> purchases = session.createQuery(hql, Purchase.class).getResultList();
+        return purchases.stream()
+                .sorted(Comparator.comparingDouble(Purchase::getTotalPrice).reversed())
+                .limit(10)
+                .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
@@ -384,13 +398,15 @@ public class ToursRepositoryImpl implements ToursRepository {
         Session session = sessionFactory.getCurrentSession();
         session.delete(purchase);
     }
-
+    @Transactional
+    @Override
     public Purchase updatePurchase(Purchase purchase) {
         Session session = sessionFactory.getCurrentSession();
         session.merge(purchase);
         return purchase;
     }
-
+    @Transactional(readOnly = true)
+    @Override
     public int getCountOfPurchasesInRouteAndDate(Route route, Date date) {
         Session session = sessionFactory.getCurrentSession();
         String hql = "SELECT COUNT(p) FROM Purchase p WHERE p.route = :route AND p.date = :date";
@@ -429,4 +445,13 @@ public class ToursRepositoryImpl implements ToursRepository {
                         .anyMatch(purchase -> purchase.getTotalPrice() >= amount))
                 .collect(Collectors.toList());
     }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<Route> findRoutsNotSells() {
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "SELECT r FROM Route r WHERE r NOT IN (SELECT p.route FROM Purchase p)";
+        return session.createQuery(hql, Route.class).list();
+    }
+
 }

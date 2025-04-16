@@ -70,7 +70,7 @@ public class Purchase {
 
     public float getTotalPrice() {
         float total = (float) this.itemServiceList.stream()
-                .mapToDouble(item -> item.getPrice())
+                .mapToDouble(ItemService::getPrice)
                 .sum();
         this.totalPrice = total + this.route.getPrice();
         return this.totalPrice;
