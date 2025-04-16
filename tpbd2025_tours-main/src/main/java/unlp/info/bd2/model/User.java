@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "user")
-@Inheritance(strategy = InheritanceType.JOINED) // Investigar la mejor opcion
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE) // Investigar la mejor opcion
 public class User {
 
     @Id
@@ -38,7 +38,7 @@ public class User {
     @Column(nullable = false)
     private boolean active;
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST}) //probar si anda sin los cascade Type
     private List<Purchase> purchaseList = new ArrayList<>();
 
     // Constructores

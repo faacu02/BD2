@@ -58,6 +58,7 @@ public class ToursServiceImpl implements ToursService {
             throw new ToursException("TourGuideUser has routes");
         }
         if(user.isActive()) {
+            //user.can be deleted
             if (user.getPurchaseList().isEmpty()) {
                 this.toursRepository.deleteUser(user);
             } else {
@@ -174,7 +175,6 @@ public class ToursServiceImpl implements ToursService {
     public Purchase createPurchase(String code, Route route, User user) throws ToursException {
         Purchase purchase = new Purchase(code, route, user);
         user.addPurchase(purchase);
-        this.toursRepository.saveUser(user); // Necesario? En user ta puesto persist y merge
         return this.toursRepository.savePurchase(purchase);
     }
 

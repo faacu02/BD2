@@ -285,7 +285,7 @@ public class ToursRepositoryImpl implements ToursRepository {
 
         String hql = "SELECT isv.service.name, COUNT(isv.id) " +
                 "FROM ItemService isv " +
-                "GROUP BY isv.service.name " +
+                "GROUP BY isv.service.name " + //sumg
                 "ORDER BY COUNT(isv.id) DESC";
 
         List<Object[]> results = session.createQuery(hql, Object[].class)
@@ -461,7 +461,8 @@ public class ToursRepositoryImpl implements ToursRepository {
     @Override
     public List<Route> findRoutsNotSells() {
         Session session = sessionFactory.getCurrentSession();
-        String hql = "SELECT r FROM Route r WHERE r NOT IN (SELECT p.route FROM Purchase p)";
+        String hql = "SELECT r FROM Route r WHERE r NOT IN (SELECT p.route FROM Purchase p)"; //left Join and Right JOin
+
         return session.createQuery(hql, Route.class).list();
     }
 
