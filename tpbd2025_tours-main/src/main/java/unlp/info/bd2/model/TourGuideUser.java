@@ -11,7 +11,7 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name = "user_id")
 public class TourGuideUser extends User {
 
-    @Column(nullable = false, length = 100)
+    @Column(length = 100)
     private String education;
 
     @ManyToMany(mappedBy = "tourGuideList", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -45,5 +45,9 @@ public class TourGuideUser extends User {
 
     public void addRoute(Route route) {
         this.routes.add(route);
+    }
+
+    public boolean canBeDeleted() {
+        return this.routes.isEmpty();
     }
 }

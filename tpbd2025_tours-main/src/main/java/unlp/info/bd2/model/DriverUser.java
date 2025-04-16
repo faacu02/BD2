@@ -11,7 +11,7 @@ import java.util.List;
 
 public class DriverUser extends User {
 
-    @Column(nullable = false, length = 50)
+    @Column(length = 50)
     private String expedient;
 ;
     @ManyToMany(mappedBy = "driverList", cascade =  {CascadeType.MERGE,CascadeType.PERSIST}) //Justificar

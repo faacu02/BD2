@@ -137,4 +137,7 @@ public class User {
     public void addPurchase(Purchase purchase) {
         this.purchaseList.add(purchase);
     }
+    public boolean canBeDeleted() {
+        return true;
+    }
 }

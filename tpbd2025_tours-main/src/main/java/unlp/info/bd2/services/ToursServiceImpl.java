@@ -54,16 +54,16 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public void deleteUser(User user) throws ToursException {
-        if (user instanceof TourGuideUser && !((TourGuideUser) user).getRoutes().isEmpty()) { //Drive user?
-            throw new ToursException("TourGuideUser has routes");
-        }
         if(user.isActive()) {
-            //user.can be deleted
-            if (user.getPurchaseList().isEmpty()) {
-                this.toursRepository.deleteUser(user);
+            if(user.canBeDeleted()) {
+                if (user.getPurchaseList().isEmpty()) {
+                    this.toursRepository.deleteUser(user);
+                } else {
+                    user.setActive(false);
+                    this.toursRepository.saveUser(user);
+                }
             } else {
-                user.setActive(false);
-                this.toursRepository.saveUser(user);
+                throw new ToursException("TourGuideUser has no routes");
             }
         }else {
             throw new ToursException("User is not active");
