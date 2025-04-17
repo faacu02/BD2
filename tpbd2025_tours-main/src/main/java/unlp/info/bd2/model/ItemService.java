@@ -13,15 +13,15 @@ public class ItemService {
     @Column(nullable = false)
     private int quantity;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "purchase_id", nullable = false)
     private Purchase purchase;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "service_id", nullable = false)
     private Service service;
 
-    // Constructores
+
     public ItemService() {
     }
 

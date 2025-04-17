@@ -19,11 +19,9 @@ public class Stop {
     @Column(length = 500)
     private String description;
 
-    @ManyToMany(mappedBy = "stops",fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE}) //mappedBy va?
+    @ManyToMany(mappedBy = "stops",fetch = FetchType.LAZY)
     private List<Route> routes = new ArrayList<>();
-    // Constructores
     public Stop() {
-        // Constructor vacío requerido por JPA
     }
 
     public Stop(String name, String description, List<Route> routes) {

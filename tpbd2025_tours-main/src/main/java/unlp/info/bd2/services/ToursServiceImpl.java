@@ -54,16 +54,16 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public void deleteUser(User user) throws ToursException {
-        if (user instanceof TourGuideUser && !((TourGuideUser) user).getRoutes().isEmpty()) { //Drive user?
-            throw new ToursException("TourGuideUser has routes");
-        }
         if(user.isActive()) {
-            //user.can be deleted
-            if (user.getPurchaseList().isEmpty()) {
-                this.toursRepository.delete(user);
+            if(user.canBeDeleted()) {
+                if (user.getPurchaseList().isEmpty()) {
+                    this.toursRepository.delete(user);
+                } else {
+                    user.setActive(false);
+                    this.updateUser(user);
+                }
             } else {
-                user.setActive(false);
-                this.toursRepository.save(user);
+                throw new ToursException("TourGuideUser has no routes");
             }
         }else {
             throw new ToursException("User is not active");
@@ -102,7 +102,7 @@ public class ToursServiceImpl implements ToursService {
         User user = this.getUserByUsername(username)
                 .orElseThrow(() -> new ToursException("User not found"));
 
-        if (!(user instanceof DriverUser)) {
+        if (!user.soyDriver()) {
             throw new ToursException("User is not a driver");
         }
 
@@ -112,9 +112,6 @@ public class ToursServiceImpl implements ToursService {
         DriverUser userD = (DriverUser) user;
         userD.addRoute(route);
         route.addDriver(userD);
-
-        this.toursRepository.save(userD);
-        this.toursRepository.save(route);
     }
 
     @Override
@@ -122,7 +119,7 @@ public class ToursServiceImpl implements ToursService {
         User user = this.getUserByUsername(username)
                 .orElseThrow(() -> new ToursException("User not found"));
 
-        if (!(user instanceof TourGuideUser)) {
+        if (!user.soyGuide()) {
             throw new ToursException("User is not a tour guide");
         }
 
@@ -132,9 +129,6 @@ public class ToursServiceImpl implements ToursService {
         TourGuideUser tourGuide = (TourGuideUser) user;
         tourGuide.addRoute(route);
         route.addTourGuide(tourGuide);
-
-        this.toursRepository.save(tourGuide);
-        this.toursRepository.save(route);
     }
 
     @Override
@@ -181,7 +175,7 @@ public class ToursServiceImpl implements ToursService {
     @Override
     public Purchase createPurchase(String code, Date date, Route route, User user) throws ToursException {
         try{
-            if(this.toursRepository.getCountOfPurchasesInRouteAndDate(route,date) < route.getMaxNumberUsers()){ //???
+            if(this.toursRepository.getCountOfPurchasesInRouteAndDate(route,date) < route.getMaxNumberUsers()){
                 Purchase purchase = new Purchase(code, date, route, user);
                 user.addPurchase(purchase);
                 return (Purchase) this.toursRepository.save(purchase);

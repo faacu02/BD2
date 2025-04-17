@@ -6,20 +6,15 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "driver_user")
-@PrimaryKeyJoinColumn(name = "user_id")
-
 public class DriverUser extends User {
 
-    @Column(nullable = false, length = 50)
+    @Column(length = 50)
     private String expedient;
 ;
-    @ManyToMany(mappedBy = "driverList", cascade =  {CascadeType.MERGE,CascadeType.PERSIST}) //Justificar
+    @ManyToMany(mappedBy = "driverList")
     private List<Route> routes = new ArrayList<>();
 
-    // Constructores
     public DriverUser() {
-        // Constructor vacío requerido por JPA
     }
     public DriverUser(String username, String password, String fullName, String email, Date birthdate, String phoneNumber, String expedient) {
         super(username, password, fullName, email, birthdate, phoneNumber);
@@ -45,5 +40,8 @@ public class DriverUser extends User {
 
     public void addRoute(Route route) {
         this.routes.add(route);
+    }
+    public boolean soyDriver(){
+        return true;
     }
 }

@@ -109,6 +109,7 @@ public class ToursRepositoryImpl implements ToursRepository {
             }
 
             existingService.setPrice(newPrice);
+            session.merge(existingService);
             return existingService;
 
         } catch (Exception e) {
@@ -222,24 +223,11 @@ public class ToursRepositoryImpl implements ToursRepository {
     public Service getMostDemandedService() {
         Session session = sessionFactory.getCurrentSession();
 
-        String hql = "SELECT isv.service.name, COUNT(isv.id) " +
-                "FROM ItemService isv " +
-                "GROUP BY isv.service.name " + //sumg
-                "ORDER BY COUNT(isv.id) DESC";
-
-        List<Object[]> results = session.createQuery(hql, Object[].class)
+        String hql = "SELECT i.service FROM ItemService i GROUP BY i.service ORDER BY SUM(i.quantity) DESC";
+        return session.createQuery(hql, Service.class)
                 .setMaxResults(1)
-                .getResultList();
-
-        if (results.isEmpty()) return null;
-
-        String mostDemandedServiceName = (String) results.get(0)[0];
-
-        String hqlService = "FROM Service s WHERE s.name = :name";
-        return session.createQuery(hqlService, Service.class)
-                .setParameter("name", mostDemandedServiceName)
-                .setMaxResults(1)
-                .uniqueResult();
+                .uniqueResultOptional()
+                .orElse(null);
     }
 
 
@@ -359,9 +347,11 @@ public class ToursRepositoryImpl implements ToursRepository {
     @Override
     public List<Route> findRoutsNotSells() {
         Session session = sessionFactory.getCurrentSession();
-        String hql = "SELECT r FROM Route r WHERE r NOT IN (SELECT p.route FROM Purchase p)"; //left Join and Right JOin
+
+        String hql = "SELECT r FROM Route r LEFT JOIN Purchase p ON r = p.route WHERE p.id IS NULL";
 
         return session.createQuery(hql, Route.class).list();
     }
+
 
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "user")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE) // Investigar la mejor opcion
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class User {
 
     @Id
@@ -38,14 +38,13 @@ public class User {
     @Column(nullable = false)
     private boolean active;
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST}) //probar si anda sin los cascade Type
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
     private List<Purchase> purchaseList = new ArrayList<>();
 
-    // Constructores
     public User() {
     }
 
-     public User(String username, String password, String name, String email) { //
+     public User(String username, String password, String name, String email) {
         this.username = username;
         this.password = password;
         this.name = name;
@@ -61,7 +60,7 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.active = true;
     }
-    // Getters y Setters
+
     public Long getId() {
         return id;
     }
@@ -136,5 +135,14 @@ public class User {
 
     public void addPurchase(Purchase purchase) {
         this.purchaseList.add(purchase);
+    }
+    public boolean canBeDeleted() {
+        return true;
+    }
+    public boolean soyDriver(){
+        return false;
+    }
+    public boolean soyGuide(){
+        return false;
     }
 }
