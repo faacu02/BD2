@@ -27,18 +27,39 @@ public class ToursRepositoryImpl implements ToursRepository {
 
     public ToursRepositoryImpl() {
     }
+
     @Transactional
     @Override
-    public Supplier saveSupplier(Supplier supplier) throws ToursException {
+    public Object save(Object entity) throws ToursException {
         try {
             Session session = sessionFactory.getCurrentSession();
-            session.persist(supplier);
-            return supplier;
-        } catch (PersistenceException e) {
-            throw new ToursException("No se pudo guardar el proveedor. Puede que ya exista uno con ese número de autorización.");
+            session.persist(entity);
+            return entity;
+        } catch (Exception e) {
+            throw new ToursException("Error al guardar el objeto.");
         }
     }
 
+    @Transactional
+    public Object update(Object entity) throws ToursException {
+        try {
+            Session session = sessionFactory.getCurrentSession();
+            session.merge(entity);
+            return entity;
+        } catch (Exception e) {
+            throw new ToursException("Error al actualizar el objeto.");
+        }
+    }
+
+    @Transactional
+    public void delete(Object entity) throws ToursException {
+        try {
+            Session session = sessionFactory.getCurrentSession();
+            session.delete(entity);
+        } catch (Exception e) {
+            throw new ToursException("Error al eliminar el objeto.");
+        }
+    }
 
     @Override
     @Transactional(readOnly = true)
@@ -57,19 +78,6 @@ public class ToursRepositoryImpl implements ToursRepository {
         Session session = sessionFactory.getCurrentSession();
         Supplier supplier = session.find(Supplier.class, id);
         return Optional.ofNullable(supplier);
-    }
-
-    @Override
-    @Transactional
-    public Service saveService(Service service) throws ToursException{ //Hace falta tirar excepciones?
-        try{
-            Session session = sessionFactory.getCurrentSession();
-            session.persist(service);
-        }catch(Exception e){
-            throw new ToursException("Error al guardar el servicio.");
-        }
-
-        return service;
     }
 
     @Override
@@ -108,18 +116,6 @@ public class ToursRepositoryImpl implements ToursRepository {
         }
     }
 
-    @Transactional
-    @Override
-    public User saveUser(User user) throws ToursException {
-        try {
-            Session session = sessionFactory.getCurrentSession();
-            session.persist(user);
-            return user;
-        } catch (Exception e) {
-            throw new ToursException("Error saving user");
-        }
-    }
-
 
     @Override
     @Transactional(readOnly = true)
@@ -145,41 +141,7 @@ public class ToursRepositoryImpl implements ToursRepository {
         }
     }
 
-    @Transactional()
-    @Override
-    public void deleteUser(User user) throws ToursException {
-        try {
-            Session session = sessionFactory.getCurrentSession();
-            session.delete(user);
-        } catch (Exception e) {
-            throw new ToursException("Error deleting user");
-        }
-    }
-
-    @Transactional
-    @Override
-    public User updateUser(User user) throws ToursException {
-        try {
-            Session session = sessionFactory.getCurrentSession();
-            session.merge(user);
-            return user;
-        } catch (Exception e) {
-            throw new ToursException("Error updating user");
-        }
-    }
-
     //Stops
-    @Transactional
-    @Override
-    public Stop saveStop(Stop stop) throws ToursException {
-        try {
-            Session session = sessionFactory.getCurrentSession();
-            session.persist(stop);
-            return stop;
-        } catch (Exception e) {
-            throw new ToursException("Error updating stop");
-        }
-    }
 
     @Transactional(readOnly = true)
     @Override
@@ -191,17 +153,6 @@ public class ToursRepositoryImpl implements ToursRepository {
     }
 
     //Route
-    @Transactional
-    @Override
-    public Route saveRoute(Route route) throws ToursException {
-        try {
-            Session session = sessionFactory.getCurrentSession();
-            session.persist(route);
-            return route;
-        } catch (Exception e) {
-            throw new ToursException("Error updating route");
-        }
-    }
 
     @Transactional(readOnly = true)
     @Override
@@ -218,18 +169,6 @@ public class ToursRepositoryImpl implements ToursRepository {
         return session.createQuery("FROM Route WHERE price < :price", Route.class)
                 .setParameter("price", price)
                 .list();
-    }
-
-    @Override
-    @Transactional
-    public ItemService saveItemService(ItemService itemService) throws ToursException {
-        try {
-            Session session = sessionFactory.getCurrentSession();  // ¡no se cierra!
-            session.persist(itemService);
-            return itemService;
-        } catch (Exception e) {
-            throw new ToursException("Error saving item service");
-        }
     }
 
 
@@ -359,21 +298,6 @@ public class ToursRepositoryImpl implements ToursRepository {
                 .list();
     }
 
-
-
-    @Transactional
-    @Override
-    public Purchase savePurchase(Purchase purchase) throws ToursException{
-        try{
-            Session session = sessionFactory.getCurrentSession();
-            session.persist(purchase);
-            return purchase;
-        }catch (Exception e){
-            throw new ToursException("Error saving purchase");
-        }
-
-    }
-
     @Transactional(readOnly = true)
     @Override
     public List<Purchase> findTop10MoreExpensivePurchasesInServices() {
@@ -395,25 +319,6 @@ public class ToursRepositoryImpl implements ToursRepository {
         return query.uniqueResultOptional();
     }
 
-    @Transactional
-    @Override
-    public void deletePurchase(Purchase purchase) throws ToursException{
-        try {
-            Session session = sessionFactory.getCurrentSession();
-            session.delete(purchase);
-        } catch (Exception e) {
-            throw new ToursException("Error deleting purchase");
-        }
-    }
-
-    @Transactional
-    @Override
-    public Purchase updatePurchase(Purchase purchase) {
-        Session session = sessionFactory.getCurrentSession();
-        session.merge(purchase);
-        return purchase;
-    }
-
     @Transactional(readOnly = true)
     @Override
     public int getCountOfPurchasesInRouteAndDate(Route route, Date date) {
@@ -427,13 +332,6 @@ public class ToursRepositoryImpl implements ToursRepository {
     }
 
     //REVIEW
-    @Transactional
-    @Override
-    public Review saveReview(Review review) {
-        Session session = sessionFactory.getCurrentSession();
-        session.persist(review);
-        return review;
-    }
 
     @Transactional(readOnly = true)
     @Override

@@ -22,19 +22,19 @@ public class ToursServiceImpl implements ToursService {
     @Override
     public User createUser(String username, String password, String fullName, String email, Date birthdate, String phoneNumber) throws ToursException {
         User user = new User(username, password, fullName, email, birthdate, phoneNumber);
-        return this.toursRepository.saveUser(user);
+        return (User) this.toursRepository.save(user);
     }
 
     @Override
     public DriverUser createDriverUser(String username, String password, String fullName, String email, Date birthdate, String phoneNumber, String expedient) throws ToursException {
         DriverUser user = new DriverUser(username, password, fullName, email, birthdate, phoneNumber,expedient);
-        return (DriverUser) this.toursRepository.saveUser(user);
+        return (DriverUser) this.toursRepository.save(user);
     }
 
     @Override
     public TourGuideUser createTourGuideUser(String username, String password, String fullName, String email, Date birthdate, String phoneNumber, String education) throws ToursException {
         TourGuideUser user = new TourGuideUser(username, password, fullName, email, birthdate, phoneNumber,education);
-        return (TourGuideUser) this.toursRepository.saveUser(user);
+        return (TourGuideUser) this.toursRepository.save(user);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public User updateUser(User user) throws ToursException {
-        return this.toursRepository.updateUser(user);
+        return (User) this.toursRepository.update(user);
     }
 
     @Override
@@ -60,10 +60,10 @@ public class ToursServiceImpl implements ToursService {
         if(user.isActive()) {
             //user.can be deleted
             if (user.getPurchaseList().isEmpty()) {
-                this.toursRepository.deleteUser(user);
+                this.toursRepository.delete(user);
             } else {
                 user.setActive(false);
-                this.toursRepository.saveUser(user);
+                this.toursRepository.save(user);
             }
         }else {
             throw new ToursException("User is not active");
@@ -73,7 +73,7 @@ public class ToursServiceImpl implements ToursService {
     @Override
     public Stop createStop(String name, String description) throws ToursException {
         Stop stop = new Stop(name,description);
-        return this.toursRepository.saveStop(stop);
+        return (Stop) this.toursRepository.save(stop);
     }
 
     @Override
@@ -84,7 +84,7 @@ public class ToursServiceImpl implements ToursService {
     @Override
     public Route createRoute(String name, float price, float totalKm, int maxNumberOfUsers, List<Stop> stops) throws ToursException {
         Route route = new Route(name,price,totalKm,maxNumberOfUsers,stops);
-        return this.toursRepository.saveRoute(route);
+        return (Route) this.toursRepository.save(route);
     }
 
     @Override
@@ -113,8 +113,8 @@ public class ToursServiceImpl implements ToursService {
         userD.addRoute(route);
         route.addDriver(userD);
 
-        this.toursRepository.saveUser(userD);
-        this.toursRepository.saveRoute(route);
+        this.toursRepository.save(userD);
+        this.toursRepository.save(route);
     }
 
     @Override
@@ -133,14 +133,14 @@ public class ToursServiceImpl implements ToursService {
         tourGuide.addRoute(route);
         route.addTourGuide(tourGuide);
 
-        this.toursRepository.saveUser(tourGuide);
-        this.toursRepository.saveRoute(route);
+        this.toursRepository.save(tourGuide);
+        this.toursRepository.save(route);
     }
 
     @Override
     public Supplier createSupplier(String businessName, String authorizationNumber) throws ToursException {
         Supplier supplier = new Supplier(businessName, authorizationNumber);
-        return toursRepository.saveSupplier(supplier);
+        return (Supplier) toursRepository.save(supplier);
     }
 
 
@@ -148,7 +148,7 @@ public class ToursServiceImpl implements ToursService {
     public Service addServiceToSupplier(String name, float price, String description, Supplier supplier) throws ToursException {
         Service service = new Service(name, price, description, supplier);
         supplier.addService(service);
-        return this.toursRepository.saveService(service);
+        return (Service) this.toursRepository.save(service);
     }
 
     @Override
@@ -175,7 +175,7 @@ public class ToursServiceImpl implements ToursService {
     public Purchase createPurchase(String code, Route route, User user) throws ToursException {
         Purchase purchase = new Purchase(code, route, user);
         user.addPurchase(purchase);
-        return this.toursRepository.savePurchase(purchase);
+        return (Purchase) this.toursRepository.save(purchase);
     }
 
     @Override
@@ -184,8 +184,7 @@ public class ToursServiceImpl implements ToursService {
             if(this.toursRepository.getCountOfPurchasesInRouteAndDate(route,date) < route.getMaxNumberUsers()){ //???
                 Purchase purchase = new Purchase(code, date, route, user);
                 user.addPurchase(purchase);
-                //this.toursRepository.saveUser(user);
-                return this.toursRepository.savePurchase(purchase);
+                return (Purchase) this.toursRepository.save(purchase);
             } else{
                 throw new ToursException("No hay lugares disponibles");
             }
@@ -199,7 +198,7 @@ public class ToursServiceImpl implements ToursService {
         ItemService item = new ItemService(quantity, purchase, service);
         purchase.addItemService(item);
         service.addItemService(item);
-        return this.toursRepository.saveItemService(item);
+        return (ItemService) this.toursRepository.save(item);
 
     }
 
@@ -210,7 +209,7 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public void deletePurchase(Purchase purchase) throws ToursException {
-        this.toursRepository.deletePurchase(purchase);
+        this.toursRepository.delete(purchase);
     }
 
     @Override
@@ -218,7 +217,7 @@ public class ToursServiceImpl implements ToursService {
         try {
             Review review = new Review(rating, comment, purchase);
             purchase.setReview(review);
-            return this.toursRepository.saveReview(review);
+            return (Review) this.toursRepository.save(review);
         }catch (Exception e){
             throw new ToursException("No se puede agregar la reseña");
         }
