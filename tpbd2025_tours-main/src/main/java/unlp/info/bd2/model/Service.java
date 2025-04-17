@@ -21,14 +21,14 @@ public class Service {
     @Column(length = 500)
     private String description;
 
-    @OneToMany(mappedBy = "service", cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REMOVE}, orphanRemoval = true) // o CascadeType.ALL?
+    @OneToMany(mappedBy = "service", orphanRemoval = true)
     private List<ItemService> itemServiceList = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "supplier_id", nullable = false)
     private Supplier supplier;
 
-    // Constructores
+
     public Service() {
     }
 
@@ -38,8 +38,7 @@ public class Service {
         this.description = description;
         this.supplier = supplier;
     }
-
-    // Getters y Setters (los que ya tenías)
+    
     public Long getId() {
         return id;
     }

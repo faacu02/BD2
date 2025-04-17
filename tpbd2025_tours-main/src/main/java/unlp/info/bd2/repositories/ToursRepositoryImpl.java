@@ -101,6 +101,7 @@ public class ToursRepositoryImpl implements ToursRepository {
             }
 
             existingService.setPrice(newPrice);
+            session.merge(existingService);
             return existingService;
 
         } catch (Exception e) {
@@ -224,7 +225,7 @@ public class ToursRepositoryImpl implements ToursRepository {
     @Transactional
     public ItemService saveItemService(ItemService itemService) throws ToursException {
         try {
-            Session session = sessionFactory.getCurrentSession();  // ¡no se cierra!
+            Session session = sessionFactory.getCurrentSession();
             session.persist(itemService);
             return itemService;
         } catch (Exception e) {

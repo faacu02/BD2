@@ -17,12 +17,12 @@ public class Review {
     @Column(length = 1000)
     private String comment;
 
-    @OneToOne //Va esto o no?
+    @OneToOne
     private Purchase purchase;
 
-    // Constructores
+
     public Review() {
-        // Constructor vacío requerido por JPA
+
     }
 
     public Review(int rating, String comment, Purchase purchase) {

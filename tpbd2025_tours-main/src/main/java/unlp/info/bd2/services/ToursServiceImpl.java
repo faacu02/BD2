@@ -60,7 +60,7 @@ public class ToursServiceImpl implements ToursService {
                     this.toursRepository.deleteUser(user);
                 } else {
                     user.setActive(false);
-                    this.toursRepository.saveUser(user);
+                    this.updateUser(user);
                 }
             } else {
                 throw new ToursException("TourGuideUser has no routes");
@@ -102,7 +102,7 @@ public class ToursServiceImpl implements ToursService {
         User user = this.getUserByUsername(username)
                 .orElseThrow(() -> new ToursException("User not found"));
 
-        if (!(user instanceof DriverUser)) {
+        if (!user.soyDriver()) {
             throw new ToursException("User is not a driver");
         }
 
@@ -112,9 +112,6 @@ public class ToursServiceImpl implements ToursService {
         DriverUser userD = (DriverUser) user;
         userD.addRoute(route);
         route.addDriver(userD);
-
-        this.toursRepository.saveUser(userD);
-        this.toursRepository.saveRoute(route);
     }
 
     @Override
@@ -122,7 +119,7 @@ public class ToursServiceImpl implements ToursService {
         User user = this.getUserByUsername(username)
                 .orElseThrow(() -> new ToursException("User not found"));
 
-        if (!(user instanceof TourGuideUser)) {
+        if (!user.soyGuide()) {
             throw new ToursException("User is not a tour guide");
         }
 
@@ -132,9 +129,6 @@ public class ToursServiceImpl implements ToursService {
         TourGuideUser tourGuide = (TourGuideUser) user;
         tourGuide.addRoute(route);
         route.addTourGuide(tourGuide);
-
-        this.toursRepository.saveUser(tourGuide);
-        this.toursRepository.saveRoute(route);
     }
 
     @Override
@@ -181,10 +175,9 @@ public class ToursServiceImpl implements ToursService {
     @Override
     public Purchase createPurchase(String code, Date date, Route route, User user) throws ToursException {
         try{
-            if(this.toursRepository.getCountOfPurchasesInRouteAndDate(route,date) < route.getMaxNumberUsers()){ //???
+            if(this.toursRepository.getCountOfPurchasesInRouteAndDate(route,date) < route.getMaxNumberUsers()){
                 Purchase purchase = new Purchase(code, date, route, user);
                 user.addPurchase(purchase);
-                //this.toursRepository.saveUser(user);
                 return this.toursRepository.savePurchase(purchase);
             } else{
                 throw new ToursException("No hay lugares disponibles");

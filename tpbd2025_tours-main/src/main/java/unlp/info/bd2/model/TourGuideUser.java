@@ -7,19 +7,15 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "tour_guide_user")
-@PrimaryKeyJoinColumn(name = "user_id")
 public class TourGuideUser extends User {
 
     @Column(length = 100)
     private String education;
 
-    @ManyToMany(mappedBy = "tourGuideList", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(mappedBy = "tourGuideList")
     private List<Route> routes = new ArrayList<>();
 
-    // Constructores
     public TourGuideUser() {
-        // Constructor vacío requerido por JPA
     }
 
     public TourGuideUser(String username, String password, String fullName, String email, Date birthdate, String phoneNumber, String education) {
@@ -49,5 +45,8 @@ public class TourGuideUser extends User {
 
     public boolean canBeDeleted() {
         return this.routes.isEmpty();
+    }
+    public boolean soyGuide() {
+        return true;
     }
 }

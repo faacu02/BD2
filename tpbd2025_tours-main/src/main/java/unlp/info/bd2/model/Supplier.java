@@ -18,10 +18,10 @@ public class Supplier {
     @Column(unique = true, nullable = false,name = "authorization_number")
     private String authorizationNumber;
 
-    @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "supplier", orphanRemoval = true)
     private List<Service> services = new ArrayList<>();
 
-    // Constructores
+
     public Supplier() {
     }
 
@@ -29,8 +29,7 @@ public class Supplier {
         this.businessName = businessName;
         this.authorizationNumber = authorizationNumber;
     }
-
-    // Getters y Setters
+    
     public Long getId() {
         return id;
     }
