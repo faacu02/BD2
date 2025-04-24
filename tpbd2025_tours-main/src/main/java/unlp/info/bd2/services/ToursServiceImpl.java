@@ -1,6 +1,7 @@
 package unlp.info.bd2.services;
 import jakarta.persistence.PersistenceException;
 import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import unlp.info.bd2.model.*;
 import unlp.info.bd2.utils.ToursException;
 import unlp.info.bd2.repositories.*;
@@ -15,6 +16,8 @@ import java.util.Optional;
 public class ToursServiceImpl implements ToursService {
 
     private ToursRepository toursRepository;
+    @Autowired
+    private UserRepository userRepository;
     public ToursServiceImpl(ToursRepository toursRepository) {
         this.toursRepository = toursRepository;
     }
@@ -24,35 +27,39 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public User createUser(String username, String password, String fullName, String email, Date birthdate, String phoneNumber) throws ToursException {
-        User user = new User(username, password, fullName, email, birthdate, phoneNumber);
-        return (User) this.toursRepository.save(user);
+       try {
+           User user = new User(username, password, fullName, email, birthdate, phoneNumber);
+           return this.userRepository.save(user);
+       } catch (Exception e) {
+           throw new ToursException("Error Guardando Usuario");
+       }
     }
 
     @Override
     public DriverUser createDriverUser(String username, String password, String fullName, String email, Date birthdate, String phoneNumber, String expedient) throws ToursException {
         DriverUser user = new DriverUser(username, password, fullName, email, birthdate, phoneNumber,expedient);
-        return (DriverUser) this.toursRepository.save(user);
+        return (DriverUser) this.userRepository.save(user);
     }
 
     @Override
     public TourGuideUser createTourGuideUser(String username, String password, String fullName, String email, Date birthdate, String phoneNumber, String education) throws ToursException {
         TourGuideUser user = new TourGuideUser(username, password, fullName, email, birthdate, phoneNumber,education);
-        return (TourGuideUser) this.toursRepository.save(user);
+        return (TourGuideUser) this.userRepository.save(user);
     }
 
     @Override
     public Optional<User> getUserById(Long id) throws ToursException {
-        return this.toursRepository.findUserById(id);
+        return this.userRepository.findById(id);
     }
 
     @Override
     public Optional<User> getUserByUsername(String username) throws ToursException {
-        return this.toursRepository.findUserByUsername(username);
+        return this.userRepository.findByUsername(username);
     }
 
     @Override
     public User updateUser(User user) throws ToursException {
-        return (User) this.toursRepository.update(user);
+        return this.userRepository.save(user);
     }
 
     @Override
@@ -60,7 +67,7 @@ public class ToursServiceImpl implements ToursService {
         if(user.isActive()) {
             if(user.canBeDeleted()) {
                 if (user.getPurchaseList().isEmpty()) {
-                    this.toursRepository.delete(user);
+                    this.userRepository.delete(user);
                 } else {
                     user.setActive(false);
                     this.updateUser(user);
