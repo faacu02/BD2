@@ -1,13 +1,26 @@
 package unlp.info.bd2.services;
-import jakarta.persistence.PersistenceException;
-import org.hibernate.exception.ConstraintViolationException;
-import org.springframework.beans.factory.annotation.Autowired;
-import unlp.info.bd2.model.*;
-import unlp.info.bd2.utils.ToursException;
-import unlp.info.bd2.repositories.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+
+import unlp.info.bd2.model.DriverUser;
+import unlp.info.bd2.model.ItemService;
+import unlp.info.bd2.model.Purchase;
+import unlp.info.bd2.model.Review;
+import unlp.info.bd2.model.Route;
+import unlp.info.bd2.model.Service;
+import unlp.info.bd2.model.Stop;
+import unlp.info.bd2.model.Supplier;
+import unlp.info.bd2.model.TourGuideUser;
+import unlp.info.bd2.model.User;
+import unlp.info.bd2.repositories.RouteRepository;
+import unlp.info.bd2.repositories.StopRepository;
+import unlp.info.bd2.repositories.ToursRepository;
+import unlp.info.bd2.repositories.UserRepository;
+import unlp.info.bd2.utils.ToursException;
 
 
 
@@ -18,6 +31,11 @@ public class ToursServiceImpl implements ToursService {
     private ToursRepository toursRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private RouteRepository routeRepository;
+    @Autowired
+    private StopRepository stopRepository;
+
     public ToursServiceImpl(ToursRepository toursRepository) {
         this.toursRepository = toursRepository;
     }
@@ -83,28 +101,28 @@ public class ToursServiceImpl implements ToursService {
     @Override
     public Stop createStop(String name, String description) throws ToursException {
         Stop stop = new Stop(name,description);
-        return (Stop) this.toursRepository.save(stop);
+        return this.stopRepository.save(stop);
     }
 
     @Override
     public List<Stop> getStopByNameStart(String name) {
-        return this.toursRepository.findStopByName(name);
+        return this.stopRepository.getStopByNameStart(name);
     }
 
     @Override
     public Route createRoute(String name, float price, float totalKm, int maxNumberOfUsers, List<Stop> stops) throws ToursException {
         Route route = new Route(name,price,totalKm,maxNumberOfUsers,stops);
-        return (Route) this.toursRepository.save(route);
+        return this.routeRepository.save(route);
     }
 
     @Override
     public Optional<Route> getRouteById(Long id) {
-        return this.toursRepository.findRouteById(id);
+        return this.routeRepository.findById(id);
     }
 
     @Override
     public List<Route> getRoutesBelowPrice(float price) {
-        return this.toursRepository.findRouteBelowPrice(price);
+        return this.routeRepository.findByPriceLessThan(price);
     }
 
     @Override
@@ -246,7 +264,8 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public List<User> getUserSpendingMoreThan(float amount) {
-        return this.toursRepository.getUserSpendingMoreThan(amount);
+        //return this.toursRepository.getUserSpendingMoreThan(amount);
+        return this.userRepository.findUsersByPurchaseListTotalPriceGreaterThan(amount);
     }
 
     @Override
@@ -261,7 +280,8 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public List<User> getTop5UsersMorePurchases() {
-        return this.toursRepository.getTop5UsersMorePurchases();
+        //return this.toursRepository.getTop5UsersMorePurchases();
+        return this.userRepository.findTop5UsersWithMostPurchases(Pageable.ofSize(5));
     }
 
     @Override
