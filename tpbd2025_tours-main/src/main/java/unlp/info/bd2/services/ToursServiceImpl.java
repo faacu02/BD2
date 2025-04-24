@@ -230,7 +230,7 @@ public class ToursServiceImpl implements ToursService {
             if(user.isEmpty()){
                 return null;
             }else{
-               return user.get().getPurchaseList();
+                return user.get().getPurchaseList();
             }
     }
 
@@ -245,7 +245,7 @@ public class ToursServiceImpl implements ToursService {
     }
 
     @Override
-    public List<Purchase> getTop10MoreExpensivePurchasesInServices() {
+    public List<Purchase> getTop10MoreExpensivePurchasesWithServices() { // le saque In le puse With
         return this.toursRepository.findTop10MoreExpensivePurchasesInServices();
     }
 
@@ -255,7 +255,7 @@ public class ToursServiceImpl implements ToursService {
     }
 
     @Override
-    public long getCountOfPurchasesBetweenDates(Date start, Date end) {
+    public Long getCountOfPurchasesBetweenDates(Date start, Date end) {
         return this.toursRepository.getCountOfPurchasesBetweenDates(start, end);
     }
     //Routes
@@ -274,7 +274,7 @@ public class ToursServiceImpl implements ToursService {
         return this.toursRepository.findRoutsNotSells();
     }
 
-    @Override
+    //@Override
     public List<Route> getTop3RoutesWithMaxRating() {
         return this.toursRepository.getTop3RoutesWithMaxRating();
     }
@@ -292,5 +292,42 @@ public class ToursServiceImpl implements ToursService {
     @Override
     public List<TourGuideUser> getTourGuidesWithRating1() {
         return this.toursRepository.getTourGuidesWithRating1();
+    }
+    @Override
+    public DriverUser getDriverUserWithMoreRoutes() {
+        return null;
+    }
+    @Override
+    public Route getMostBestSellingRoute() {
+        return null;
+    }
+    @Override
+    public List<Supplier> getTopNSuppliersItemsSold(int n) {
+        return null;
+    }
+
+    @Override
+    public List<Purchase> getPurchaseWithService(Service service) {
+        return null;
+    }
+    @Override
+    public Long getMaxServicesOfSupplier() {
+        return null;
+    }
+    @Override
+    public List<Route> getTop3RoutesWithMoreStops() {
+        return null;
+    }
+    @Override
+    public List<Route> getRoutesWithMinRating() {
+        return null;
+    }
+    @Override
+    public List<Route> getTop3RoutesWithMaxAverageRating() {
+        return null;
+    }
+    @Override
+    public List<User> getUsersWithNumberOfPurchases(int number) {
+        return null;
     }
 }

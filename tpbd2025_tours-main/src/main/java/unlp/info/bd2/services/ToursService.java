@@ -1,11 +1,11 @@
 package unlp.info.bd2.services;
-import jakarta.transaction.Transactional;
 import unlp.info.bd2.model.*;
 import unlp.info.bd2.utils.ToursException;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
 public interface ToursService {
 
     User createUser(String username, String password, String fullName, String email, Date birthdate, String phoneNumber) throws ToursException;
@@ -38,16 +38,24 @@ public interface ToursService {
     // CONSULTAS HQL
     List<Purchase> getAllPurchasesOfUsername(String username);
     List<User> getUserSpendingMoreThan(float mount);
+    List<User> getUsersWithNumberOfPurchases(int number);
     List<Supplier> getTopNSuppliersInPurchases(int n);
-    List<Purchase> getTop10MoreExpensivePurchasesInServices();
+    List<Supplier> getTopNSuppliersItemsSold(int n);
+    List<Purchase> getTop10MoreExpensivePurchasesWithServices();
     List<User> getTop5UsersMorePurchases();
-    long getCountOfPurchasesBetweenDates(Date start, Date end);
+    List<Route> getTop3RoutesWithMoreStops();
+    Long getCountOfPurchasesBetweenDates(Date start, Date end);
     List<Route> getRoutesWithStop(Stop stop);
+    List<Purchase> getPurchaseWithService(Service service);
     Long getMaxStopOfRoutes();
+    Long getMaxServicesOfSupplier();
     List<Route> getRoutsNotSell();
-    List<Route> getTop3RoutesWithMaxRating();
+    List<Route> getTop3RoutesWithMaxAverageRating();
+    List<Route> getRoutesWithMinRating();
     Service getMostDemandedService();
+    Route getMostBestSellingRoute();
     List<Service> getServiceNoAddedToPurchases();
     List<TourGuideUser> getTourGuidesWithRating1();
+    DriverUser getDriverUserWithMoreRoutes();
 
 }

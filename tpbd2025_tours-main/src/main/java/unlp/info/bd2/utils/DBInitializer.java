@@ -17,8 +17,6 @@ public class DBInitializer {
 
     @Transactional
     public void prepareDB() throws ToursException {
-
-
         Calendar cal1 = Calendar.getInstance();
         cal1.set(1980, Calendar.APRIL, 5);
         Date dob1 = cal1.getTime();
@@ -43,28 +41,29 @@ public class DBInitializer {
         Service service7 = this.toursService.addServiceToSupplier("souvenir t-shirt", 10, "I love Argentina t-shirt", supplier1);
         Service service8 = this.toursService.addServiceToSupplier("souvenir photograph", 5, "Souvenir photo at tourist spot", supplier3);
         Service service9 = this.toursService.addServiceToSupplier("souvenir retrato", 5, "Another Souvenir", supplier3);
+        Service service10 = this.toursService.addServiceToSupplier("souvenir retrato 2", 5, "Another Souvenir 2", supplier3);
 
-
-        Stop stop1 = this.toursService.createStop("Diagonal Norte", "Obelisco / Catedral Metropolitana / Casa Rosada / Museo del Bicentenario / Galería Güemes / Cabildo de Buenos Aires");
-        Stop stop2 = this.toursService.createStop("Avenida de Mayo", "Casa Rosada / Museo del Bicentenario / Café Tortoni / Manzana de las Luces / Cabildo de Buenos Aires / Teatro Avenida");
-        Stop stop3 = this.toursService.createStop("Plaza del Congreso", "Congreso de la Nación Argentina / Palacio Barolo / Pasaje Rivarola / Hotel Castelar / Monumento a los Dos Congresos");
-        Stop stop4 = this.toursService.createStop("Paseo de la Historieta", "Escultura de Mafalda / Puente de la Mujer / Fragata Sarmiento / Basílica de San Francisco /  Plaza de Mayo");
-        Stop stop5 = this.toursService.createStop("Usina del Arte", "Caminito / Museo Quinquela Martín / Museo del Cine / La Torre del Fantasma / Estadio Boca Juniors");
-        Stop stop6 = this.toursService.createStop("Puerto Madero", "Puente de la Mujer / Buque Escuela Corbeta Uruguay / Museo del Humor / Centro Cultural Néstor Kirchner / Experiencias Náuticas");
-        Stop stop7 = this.toursService.createStop("Río de la Plata", "Reserva Ecológica / Colección de Arte Amalia Lacroze de Fortabat / Circuitos Gastronómicos Peatonales / Centro Cultural Néstor Kirchner / Galerías Pacífico");
-        Stop stop8 = this.toursService.createStop("Museo Nacional de Bellas Artes", "Floralis Genérica / Biblioteca Nacional / Basílica Nuestra Señora del Pilar / Centro Cultural Recoleta / Cementerio de la Recoleta");
-        Stop stop9 = this.toursService.createStop("Teatro Colón", "Obelisco / Teatro Colón / Teatro Cervantes / Galerías Pacífico / Plaza San Martín");
-        Stop stop10 = this.toursService.createStop("Planetario", "Planetario Galileo Galileo / Museo de Artes Plásticas Sívori / Paseo el Rosedal / Ecoparque Interactivo / Jardín Japonés");
-        Stop stop11 = this.toursService.createStop("Bosques de Palermo", "Mezquita Centro Cultural Islámico Rey Fahd / Campo de Polo / Hipódromo Argentino / Rosedal / Planetario Galileo Galilei");
-        Stop stop12 = this.toursService.createStop("San Telmo", "Plaza Dorrego / Iglesia San Pedro Telmo / Museo MAMBA / Museo MACBA / Mercado de San Telmo");
-        Stop stop13 = this.toursService.createStop("La Boca - Caminito", "Usina del Arte / Museo Quinquela Martín / Teatro de la Ribera / Puente Transbordador / Estadio Boca Juniors");
-        Stop stop14 = this.toursService.createStop("Belgrano - Barrio Chino", "Museo Enrique Larreta / Arco Inaugural Barrio Chino / Barrancas de Belgrano / Museo Sarmiento / Iglesia Inmaculada Concepción del Belgrano");
-        Stop stop15 = this.toursService.createStop("Recoleta", "Centro Cultural Recoleta / Cementerio de la Recoleta / Basílica Nuestra Señora del Pilar / Museo Nacional de Bellas Artes / Floralis Genérica");
-        Stop stop16 = this.toursService.createStop("El Monumental (Estadio River Plate)", "Museo Deportivo River / Jardín de Esculturas / Paseo de las Américas y Converse Skate Plaza / Museo Islas Malvinas e Islas del Atlántico Sur / Centro Cultural de la Memoria Haroldo Conti / Club Hípico Argentino");
-        Stop stop17 = this.toursService.createStop("Costanera Sur", "Paseo de la Gloria / Monumento al Tango / Puente de la Mujer / Fragata Sarmiento / Parque Micaela Bastidas");
-        Stop stop18 = this.toursService.createStop("Av 9 de Julio", "Peatonal Florida / Teatro Colón / Plaza San Martín / Galerías Pacífico / Museo de Arte Hispanoamericano Isaac Fernández Blanco");
-        Stop stop19 = this.toursService.createStop("Plaza Italia", "Museo Evita / Jardín Japonés / Jardín Botánico Carlos Thays / Rosedal / Ecoparque Interactivo");
-        Stop stop20 = this.toursService.createStop("Delta", "Delta / Tigre");
+        // Stops
+        Stop stop1 = this.toursService.createStop ("Diagonal Norte",	"Obelisco / Catedral Metropolitana / Casa Rosada / Museo del Bicentenario / Galería Güemes / Cabildo de Buenos Aires");
+        Stop stop2 = this.toursService.createStop ("Avenida de Mayo",	"Casa Rosada / Museo del Bicentenario / Café Tortoni / Manzana de las Luces / Cabildo de Buenos Aires / Teatro Avenida");
+        Stop stop3 = this.toursService.createStop ("Plaza del Congreso",	"Congreso de la Nación Argentina / Palacio Barolo / Pasaje Rivarola / Hotel Castelar / Monumento a los Dos Congresos");
+        Stop stop4 = this.toursService.createStop ("Paseo de la Historieta",	"Escultura de Mafalda / Puente de la Mujer / Fragata Sarmiento / Basílica de San Francisco /  Plaza de Mayo");
+        Stop stop5 = this.toursService.createStop ("Usina del Arte",	"Caminito / Museo Quinquela Martín / Museo del Cine / La Torre del Fantasma / Estadio Boca Juniors");
+        Stop stop6 = this.toursService.createStop ("Puerto Madero",	"Puente de la Mujer / Buque Escuela Corbeta Uruguay / Museo del Humor / Centro Cultural Néstor Kirchner / Experiencias Náuticas");
+        Stop stop7 = this.toursService.createStop ("Río de la Plata",	"Reserva Ecológica / Colección de Arte Amalia Lacroze de Fortabat / Circuitos Gastronómicos Peatonales / Centro Cultural Néstor Kirchner / Galerías Pacífico");
+        Stop stop8 = this.toursService.createStop ("Museo Nacional de Bellas Artes",	"Floralis Genérica / Biblioteca Nacional / Basílica Nuestra Señora del Pilar / Centro Cultural Recoleta / Cementerio de la Recoleta");
+        Stop stop9 = this.toursService.createStop ("Teatro Colón",	"Obelisco / Teatro Colón / Teatro Cervantes / Galerías Pacífico / Plaza San Martín");
+        Stop stop10 = this.toursService.createStop ("Planetario",	"Planetario Galileo Galileo / Museo de Artes Plásticas Sívori / Paseo el Rosedal / Ecoparque Interactivo / Jardín Japonés");
+        Stop stop11 = this.toursService.createStop ("Bosques de Palermo",	"Mezquita Centro Cultural Islámico Rey Fahd / Campo de Polo / Hipódromo Argentino / Rosedal / Planetario Galileo Galilei");
+        Stop stop12 = this.toursService.createStop ("San Telmo",	"Plaza Dorrego / Iglesia San Pedro Telmo / Museo MAMBA / Museo MACBA / Mercado de San Telmo");
+        Stop stop13 = this.toursService.createStop ("La Boca - Caminito",	"Usina del Arte / Museo Quinquela Martín / Teatro de la Ribera / Puente Transbordador / Estadio Boca Juniors");
+        Stop stop14 = this.toursService.createStop ("Belgrano - Barrio Chino",	"Museo Enrique Larreta / Arco Inaugural Barrio Chino / Barrancas de Belgrano / Museo Sarmiento / Iglesia Inmaculada Concepción del Belgrano");
+        Stop stop15 = this.toursService.createStop ("Recoleta",	"Centro Cultural Recoleta / Cementerio de la Recoleta / Basílica Nuestra Señora del Pilar / Museo Nacional de Bellas Artes / Floralis Genérica");
+        Stop stop16 = this.toursService.createStop ("El Monumental (Estadio River Plate)",	"Museo Deportivo River / Jardín de Esculturas / Paseo de las Américas y Converse Skate Plaza / Museo Islas Malvinas e Islas del Atlántico Sur / Centro Cultural de la Memoria Haroldo Conti / Club Hípico Argentino");
+        Stop stop17 = this.toursService.createStop ("Costanera Sur",	"Paseo de la Gloria / Monumento al Tango / Puente de la Mujer / Fragata Sarmiento / Parque Micaela Bastidas");
+        Stop stop18 = this.toursService.createStop ("Av 9 de Julio",	"Peatonal Florida / Teatro Colón / Plaza San Martín / Galerías Pacífico / Museo de Arte Hispanoamericano Isaac Fernández Blanco");
+        Stop stop19 = this.toursService.createStop ("Plaza Italia",	"Museo Evita / Jardín Japonés / Jardín Botánico Carlos Thays / Rosedal / Ecoparque Interactivo");
+        Stop stop20 = this.toursService.createStop ("Delta",	"Delta / Tigre");
 
         // Users
         User user1 = this.toursService.createUser("user1", "1234", "Usuario Uno", "user1@gmail.com", dob1, "000111222333");
@@ -111,18 +110,17 @@ public class DBInitializer {
 
         List<Stop> stopsRoute4 = new ArrayList<Stop>(Arrays.asList(stop7, stop11, stop20));
         Route route4 = this.toursService.createRoute("Delta Tour", 800, 75,10, stopsRoute4);
+        route2.addDriver(driverUser2);
         route4.addDriver(driverUser4);
-        route4.addTourGuide(tourGuideUser1);
+        route4.addTourGuide(tourGuideUser3);
         route4.addTourGuide(tourGuideUser4);
 
         List<Stop> stopsRoute5 = new ArrayList<>(Arrays.asList(stop1, stop2));
         Route route5 = this.toursService.createRoute("Ruta vacia", 900, 20, 5, stopsRoute5);
 
-
-
         // Purchases
         Purchase purchase1 = this.toursService.createPurchase("P001", java.sql.Date.valueOf(today.minusDays(30)), route1, user1);
-        Purchase purchase2 = this.toursService.createPurchase("P002", java.sql.Date.valueOf(today.minusDays(30)), route2, user2);
+        Purchase purchase2 = this.toursService.createPurchase("P002", java.sql.Date.valueOf(today.minusDays(30)), route1, user2);
         Purchase purchase3 = this.toursService.createPurchase("P003", java.sql.Date.valueOf(today.minusDays(28)), route3, user3);
         Purchase purchase4 = this.toursService.createPurchase("P004", java.sql.Date.valueOf(today.minusDays(27)), route4, user4);
         Purchase purchase5 = this.toursService.createPurchase("P005", java.sql.Date.valueOf(today.minusDays(27)), route1, user1);
@@ -184,8 +182,4 @@ public class DBInitializer {
         Review review15 = this.toursService.addReviewToPurchase(3, "Estuvo bien, aunque esperaba más.", purchase17);
         Review review16 = this.toursService.addReviewToPurchase(1, "Muy caro para lo que se brinda.", purchase18);
     }
-
-
 }
-
-
