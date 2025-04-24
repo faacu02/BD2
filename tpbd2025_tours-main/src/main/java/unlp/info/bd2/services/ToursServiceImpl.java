@@ -18,6 +18,9 @@ public class ToursServiceImpl implements ToursService {
     public ToursServiceImpl(ToursRepository toursRepository) {
         this.toursRepository = toursRepository;
     }
+    public ToursServiceImpl (){
+
+    }
 
     @Override
     public User createUser(String username, String password, String fullName, String email, Date birthdate, String phoneNumber) throws ToursException {
