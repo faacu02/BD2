@@ -28,7 +28,6 @@ public class ToursRepositoryImpl implements ToursRepository {
     public ToursRepositoryImpl() {
     }
 
-    @Transactional
     @Override
     public Object save(Object entity) throws ToursException {
         try {
@@ -40,7 +39,6 @@ public class ToursRepositoryImpl implements ToursRepository {
         }
     }
 
-    @Transactional
     public Object update(Object entity) throws ToursException {
         try {
             Session session = sessionFactory.getCurrentSession();
@@ -51,7 +49,6 @@ public class ToursRepositoryImpl implements ToursRepository {
         }
     }
 
-    @Transactional
     public void delete(Object entity) throws ToursException {
         try {
             Session session = sessionFactory.getCurrentSession();
@@ -62,7 +59,6 @@ public class ToursRepositoryImpl implements ToursRepository {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Optional<Supplier> findSupplierByAuthorizationNumber(String authorizationNumber) {
         Session session = sessionFactory.getCurrentSession();
         org.hibernate.query.Query<Supplier> query = session.createQuery(
@@ -73,7 +69,6 @@ public class ToursRepositoryImpl implements ToursRepository {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Optional<Supplier> findSupplierById(Long id) {
         Session session = sessionFactory.getCurrentSession();
         Supplier supplier = session.find(Supplier.class, id);
@@ -81,7 +76,6 @@ public class ToursRepositoryImpl implements ToursRepository {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Optional<Service> findServiceByNameAndSupplierId(String name, Long supplierId) throws ToursException {
         Session session = sessionFactory.getCurrentSession();
         try {
@@ -98,7 +92,6 @@ public class ToursRepositoryImpl implements ToursRepository {
 
 
     @Override
-    @Transactional
     public Service updatePriceService(Long id, float newPrice) throws ToursException {
         try {
             Session session = sessionFactory.getCurrentSession();
@@ -119,7 +112,6 @@ public class ToursRepositoryImpl implements ToursRepository {
 
 
     @Override
-    @Transactional(readOnly = true)
     public Optional<User> findUserById(Long id) throws ToursException {
         try {
             Session session = sessionFactory.getCurrentSession();
@@ -130,7 +122,6 @@ public class ToursRepositoryImpl implements ToursRepository {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Optional<User> findUserByUsername(String username) throws ToursException {
         try {
             Session session = sessionFactory.getCurrentSession();
@@ -143,8 +134,6 @@ public class ToursRepositoryImpl implements ToursRepository {
     }
 
     //Stops
-
-    @Transactional(readOnly = true)
     @Override
     public List<Stop> findStopByName(String name) {
         Session session = sessionFactory.getCurrentSession();
@@ -154,8 +143,6 @@ public class ToursRepositoryImpl implements ToursRepository {
     }
 
     //Route
-
-    @Transactional(readOnly = true)
     @Override
     public Optional<Route> findRouteById(Long id) {
         Session session = sessionFactory.getCurrentSession();
@@ -163,7 +150,6 @@ public class ToursRepositoryImpl implements ToursRepository {
 
     }
 
-    @Transactional(readOnly = true)
     @Override
     public List<Route> findRouteBelowPrice(float price) {
         Session session = sessionFactory.getCurrentSession();
@@ -177,7 +163,6 @@ public class ToursRepositoryImpl implements ToursRepository {
 
     //HQL
     //ROUTES
-    @Transactional(readOnly = true)
     @Override
     public List<Route> findRoutesWithStop(Stop stop) {
         Session session = sessionFactory.getCurrentSession();
@@ -186,7 +171,6 @@ public class ToursRepositoryImpl implements ToursRepository {
                 .list();
     }
 
-    @Transactional(readOnly = true)
     @Override
     public Long findMaxStopOfRoutes() {
         Session session = sessionFactory.getCurrentSession();
@@ -198,7 +182,6 @@ public class ToursRepositoryImpl implements ToursRepository {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Route> getTop3RoutesWithMaxRating() {
         String hql = """
         SELECT r
@@ -216,9 +199,6 @@ public class ToursRepositoryImpl implements ToursRepository {
                 .list();
     }
 
-
-
-    @Transactional(readOnly = true)
     @Override
     public Service getMostDemandedService() {
         Session session = sessionFactory.getCurrentSession();
@@ -230,8 +210,6 @@ public class ToursRepositoryImpl implements ToursRepository {
                 .orElse(null);
     }
 
-
-    @Transactional(readOnly = true)
     @Override
     public List<Service> getServiceNoAddedToPurchases() {
         Session session = sessionFactory.getCurrentSession();
@@ -241,7 +219,6 @@ public class ToursRepositoryImpl implements ToursRepository {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Supplier> getTopNSuppliersInPurchases(int n) {
         Session session = sessionFactory.getCurrentSession();
         String hql = """
@@ -256,7 +233,6 @@ public class ToursRepositoryImpl implements ToursRepository {
         return query.list();
     }
 
-    @Transactional(readOnly = true)
     @Override
     public long getCountOfPurchasesBetweenDates(Date start, Date end) {
         String hql = "SELECT COUNT(p) FROM Purchase p WHERE p.date BETWEEN :start AND :end";
@@ -269,7 +245,6 @@ public class ToursRepositoryImpl implements ToursRepository {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<TourGuideUser> getTourGuidesWithRating1() {
         String hql = """
         SELECT DISTINCT tgu
@@ -286,7 +261,6 @@ public class ToursRepositoryImpl implements ToursRepository {
                 .list();
     }
 
-    @Transactional(readOnly = true)
     @Override
     public List<Purchase> findTop10MoreExpensivePurchasesInServices() {
         Session session = sessionFactory.getCurrentSession();
@@ -298,7 +272,6 @@ public class ToursRepositoryImpl implements ToursRepository {
                 .collect(Collectors.toList());
     }
 
-    @Transactional(readOnly = true)
     @Override
     public Optional<Purchase> findPurchaseByCode(String code) {
         Session session = sessionFactory.getCurrentSession();
@@ -307,7 +280,6 @@ public class ToursRepositoryImpl implements ToursRepository {
         return query.uniqueResultOptional();
     }
 
-    @Transactional(readOnly = true)
     @Override
     public int getCountOfPurchasesInRouteAndDate(Route route, Date date) {
         Session session = sessionFactory.getCurrentSession();
@@ -320,8 +292,6 @@ public class ToursRepositoryImpl implements ToursRepository {
     }
 
     //REVIEW
-
-    @Transactional(readOnly = true)
     @Override
     public List<User> getTop5UsersMorePurchases() {
         Session session = sessionFactory.getCurrentSession();
@@ -332,7 +302,6 @@ public class ToursRepositoryImpl implements ToursRepository {
                 .collect(Collectors.toList());
     }
 
-    @Transactional(readOnly = true)
     @Override
     public List<User> getUserSpendingMoreThan(float amount) {
         Session session = sessionFactory.getCurrentSession();
@@ -343,7 +312,6 @@ public class ToursRepositoryImpl implements ToursRepository {
                 .collect(Collectors.toList());
     }
 
-    @Transactional(readOnly = true)
     @Override
     public List<Route> findRoutsNotSells() {
         Session session = sessionFactory.getCurrentSession();
