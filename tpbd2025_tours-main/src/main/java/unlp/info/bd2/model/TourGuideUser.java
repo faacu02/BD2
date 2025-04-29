@@ -7,12 +7,13 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@DiscriminatorValue("Guide")
 public class TourGuideUser extends User {
 
     @Column(length = 100)
     private String education;
 
-    @ManyToMany(mappedBy = "tourGuideList")
+    @ManyToMany(mappedBy = "tourGuideList",fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Route> routes = new ArrayList<>();
 
     public TourGuideUser() {

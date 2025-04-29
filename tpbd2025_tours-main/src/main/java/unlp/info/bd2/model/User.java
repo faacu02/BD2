@@ -9,6 +9,7 @@ import java.util.List;
 @Entity
 @Table(name = "user")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "user_type")
 public class User {
 
     @Id
@@ -31,14 +32,13 @@ public class User {
     @Temporal(TemporalType.DATE)
     private Date birthdate;
 
-    @Column(name = "phone_number", length = 20)
-
+    @Column(name = "phone_number", length = 20) //unique?
     private String phoneNumber;
 
     @Column(nullable = false)
     private boolean active;
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE}) //agrege cascade, ¿delete?
     private List<Purchase> purchaseList = new ArrayList<>();
 
     public User() {
@@ -139,10 +139,17 @@ public class User {
     public boolean canBeDeleted() {
         return true;
     }
+    public boolean canBeDeactivated() {
+        return true;
+    }
     public boolean soyDriver(){
         return false;
     }
     public boolean soyGuide(){
         return false;
+    }
+    @Transient // Va?
+    public String getUserType() {
+        return this.getClass().getAnnotation(DiscriminatorValue.class).value();
     }
 }

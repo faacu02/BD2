@@ -6,12 +6,13 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@DiscriminatorValue("Driver")
 public class DriverUser extends User {
 
     @Column(length = 50)
     private String expedient;
 ;
-    @ManyToMany(mappedBy = "driverList")
+    @ManyToMany(mappedBy = "driverList",fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Route> routes = new ArrayList<>();
 
     public DriverUser() {

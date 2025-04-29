@@ -59,8 +59,10 @@ public class ToursServiceImpl implements ToursService {
                 if (user.getPurchaseList().isEmpty()) {
                     this.toursRepository.delete(user);
                 } else {
-                    user.setActive(false);
-                    this.updateUser(user);
+                    if(user.canBeDeactivated()) { //Va esto?
+                        user.setActive(false);
+                        this.updateUser(user);
+                    }
                 }
             } else {
                 throw new ToursException("TourGuideUser has no routes");
@@ -102,7 +104,7 @@ public class ToursServiceImpl implements ToursService {
         User user = this.getUserByUsername(username)
                 .orElseThrow(() -> new ToursException("User not found"));
 
-        if (!user.soyDriver()) {
+        if (!user.getUserType().equals("Driver")) { //esta bien
             throw new ToursException("User is not a driver");
         }
 
@@ -119,7 +121,7 @@ public class ToursServiceImpl implements ToursService {
         User user = this.getUserByUsername(username)
                 .orElseThrow(() -> new ToursException("User not found"));
 
-        if (!user.soyGuide()) {
+        if (!user.getUserType().equals("Guide")) {
             throw new ToursException("User is not a tour guide");
         }
 

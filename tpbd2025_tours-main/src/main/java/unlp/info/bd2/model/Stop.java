@@ -19,15 +19,15 @@ public class Stop {
     @Column(length = 500)
     private String description;
 
-    @ManyToMany(mappedBy = "stops",fetch = FetchType.LAZY)
-    private List<Route> routes = new ArrayList<>();
+    //@ManyToMany(mappedBy = "stops",fetch = FetchType.LAZY) se van?
+    //private List<Route> routes = new ArrayList<>();
     public Stop() {
     }
 
     public Stop(String name, String description, List<Route> routes) {
         this.name = name;
         this.description = description;
-        this.routes = routes;
+        //this.routes = routes;
     }
 
     public Stop(String name, String description) {
