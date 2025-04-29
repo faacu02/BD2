@@ -1,6 +1,4 @@
 package unlp.info.bd2.services;
-import jakarta.persistence.PersistenceException;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.transaction.annotation.Transactional;
 import unlp.info.bd2.model.*;
 import unlp.info.bd2.utils.ToursException;
@@ -160,14 +158,30 @@ public class ToursServiceImpl implements ToursService {
     public Service addServiceToSupplier(String name, float price, String description, Supplier supplier) throws ToursException {
         Service service = new Service(name, price, description, supplier);
         supplier.addService(service);
+        //this.toursRepository.update(supplier); esto va? o con las cascadas lo arreglo y es la mejor opcion ?
         return (Service) this.toursRepository.save(service);
     }
 
     @Transactional
     @Override
     public Service updateServicePriceById(Long id, float newPrice) throws ToursException {
-        return this.toursRepository.updatePriceService(id, newPrice);
+        try {
+            Service existingService = toursRepository.findServiceById(id)
+                    .orElseThrow(() -> new ToursException("No existe el producto"));
+
+            existingService.setPrice(newPrice);
+            toursRepository.update(existingService);
+
+            return existingService;
+
+        } catch (Exception e) {
+            throw new ToursException("Error al actualizar el precio del servicio");
+        }
     }
+
+
+
+
 
     @Transactional(readOnly = true)
     @Override

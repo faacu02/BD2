@@ -21,7 +21,7 @@ public interface ToursRepository {
 
     //Service
     Optional<Service> findServiceByNameAndSupplierId(String name, Long supplierId) throws ToursException;
-    Service updatePriceService(Long id, float newPrice) throws ToursException;
+    Optional<Service> findServiceById(Long id) ;
 
     //User
     Optional<User> findUserById(Long id) throws ToursException;

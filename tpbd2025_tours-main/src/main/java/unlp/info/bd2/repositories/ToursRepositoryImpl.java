@@ -1,12 +1,10 @@
 package unlp.info.bd2.repositories;
 
-import jakarta.persistence.PersistenceException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import unlp.info.bd2.model.*;
 import unlp.info.bd2.model.TourGuideUser;
 import unlp.info.bd2.utils.ToursException;
@@ -16,8 +14,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import org.hibernate.Session;
 
 @Repository
 public class ToursRepositoryImpl implements ToursRepository {
@@ -52,7 +48,7 @@ public class ToursRepositoryImpl implements ToursRepository {
     public void delete(Object entity) throws ToursException {
         try {
             Session session = sessionFactory.getCurrentSession();
-            session.delete(entity);
+            session.remove(entity);
         } catch (Exception e) {
             throw new ToursException("Error al eliminar el objeto.");
         }
@@ -91,23 +87,12 @@ public class ToursRepositoryImpl implements ToursRepository {
     }
 
 
+
     @Override
-    public Service updatePriceService(Long id, float newPrice) throws ToursException {
-        try {
-            Session session = sessionFactory.getCurrentSession();
-            Service existingService = session.get(Service.class, id);
-
-            if (existingService == null) {
-                throw new ToursException("El servicio con ID " + id + " no existe.");
-            }
-
-            existingService.setPrice(newPrice);
-            session.merge(existingService);
-            return existingService;
-
-        } catch (Exception e) {
-            throw new ToursException("Error al actualizar el precio del servicio");
-        }
+    public Optional<Service> findServiceById(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        Service existingService = session.get(Service.class, id);
+        return Optional.ofNullable(existingService);
     }
 
 
