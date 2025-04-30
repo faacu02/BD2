@@ -10,7 +10,7 @@ import java.util.List;
 public class DriverUser extends User {
 
     @Column(length = 50)
-    private String expedient;
+    private String expedient; // Unique
 ;
     @ManyToMany(mappedBy = "driverList",fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Route> routes = new ArrayList<>();

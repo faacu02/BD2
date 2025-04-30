@@ -65,7 +65,7 @@ public class ToursServiceImpl implements ToursService {
                 if (user.getPurchaseList().isEmpty()) {
                     this.toursRepository.delete(user);
                 } else {
-                    if(user.canBeDeactivated()) { //Va esto?
+                    if(user.canBeDesactive()) { //Va esto?
                         user.setActive(false);
                         this.updateUser(user);
                     }
@@ -167,7 +167,7 @@ public class ToursServiceImpl implements ToursService {
     public Service updateServicePriceById(Long id, float newPrice) throws ToursException {
         try {
             Service existingService = toursRepository.findServiceById(id)
-                    .orElseThrow(() -> new ToursException("No existe el producto"));
+                    .orElseThrow(() -> new ToursException("No existe el producto"));  // Ta bien que lo tire aca?
 
             existingService.setPrice(newPrice);
             toursRepository.update(existingService);
@@ -231,7 +231,7 @@ public class ToursServiceImpl implements ToursService {
         ItemService item = new ItemService(quantity, purchase, service);
         purchase.addItemService(item);
         service.addItemService(item);
-        return (ItemService) this.toursRepository.save(item);
+        return (ItemService) this.toursRepository.save(item); //cascade type presist en item -> purchase se arrelga? y que pasa con service?
 
     }
 

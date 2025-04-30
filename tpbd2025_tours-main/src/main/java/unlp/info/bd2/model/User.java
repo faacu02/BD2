@@ -139,7 +139,7 @@ public class User {
     public boolean canBeDeleted() {
         return true;
     }
-    public boolean canBeDeactivated() {
+    public boolean canBeDesactive() {
         return true;
     }
     public boolean soyDriver(){
