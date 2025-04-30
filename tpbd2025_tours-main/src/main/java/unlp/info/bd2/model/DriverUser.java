@@ -10,7 +10,7 @@ import java.util.List;
 public class DriverUser extends User {
 
     @Column(length = 50)
-    private String expedient; // Unique
+    private String expedient;
 ;
     @ManyToMany(mappedBy = "driverList",fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Route> routes = new ArrayList<>();
@@ -42,7 +42,8 @@ public class DriverUser extends User {
     public void addRoute(Route route) {
         this.routes.add(route);
     }
-    public boolean soyDriver(){
-        return true;
+    @Override
+    public boolean canBeDeleted() {
+        return this.routes.isEmpty();
     }
 }

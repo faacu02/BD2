@@ -26,7 +26,8 @@ public interface ToursRepository {
     //User
     Optional<User> findUserById(Long id) throws ToursException;
     Optional<User> findUserByUsername(String username) throws ToursException;
-
+    Optional<TourGuideUser> findTourGuideUserByUsername(String username) throws ToursException;
+    Optional<DriverUser> findDriverUserByUsername(String username) throws ToursException;
     //Stops
     List<Stop> findStopByName(String name);
 
