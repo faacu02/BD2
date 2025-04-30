@@ -65,13 +65,13 @@ public class ToursServiceImpl implements ToursService {
                 if (user.getPurchaseList().isEmpty()) {
                     this.toursRepository.delete(user);
                 } else {
-                    if(user.canBeDesactive()) { //Va esto?
+                   // if(user.canBeDesactive()) { //Va esto?
                         user.setActive(false);
                         this.updateUser(user);
-                    }
+                    //}
                 }
             } else {
-                throw new ToursException("TourGuideUser has no routes");
+                throw new ToursException("User has  routes");
             }
         }else {
             throw new ToursException("User is not active");
@@ -126,6 +126,7 @@ public class ToursServiceImpl implements ToursService {
         DriverUser userD = (DriverUser) user;
         userD.addRoute(route);
         route.addDriver(userD);
+        this.toursRepository.update(route);
     }
 
     @Transactional

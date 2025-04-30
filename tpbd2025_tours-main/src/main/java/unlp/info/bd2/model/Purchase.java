@@ -23,7 +23,7 @@ public class Purchase {
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER) //cascada merge y persist
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
