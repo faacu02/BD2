@@ -43,11 +43,8 @@ public class TourGuideUser extends User {
     public void addRoute(Route route) {
         this.routes.add(route);
     }
-
+    @Override
     public boolean canBeDeleted() {
         return this.routes.isEmpty();
-    }
-    public boolean soyGuide() {
-        return true;
     }
 }

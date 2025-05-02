@@ -117,6 +117,28 @@ public class ToursRepositoryImpl implements ToursRepository {
             throw new ToursException("Error finding user by username");
         }
     }
+    @Override
+    public Optional<TourGuideUser> findTourGuideUserByUsername(String username) throws ToursException {
+        try {
+            Session session = sessionFactory.getCurrentSession();
+            return session.createQuery("FROM TourGuideUser WHERE username = :username", TourGuideUser.class)
+                    .setParameter("username", username)
+                    .uniqueResultOptional();
+        } catch (Exception e) {
+            throw new ToursException("Error finding user by username");
+        }
+    }
+    @Override
+    public Optional<DriverUser> findDriverUserByUsername(String username) throws ToursException {
+        try {
+            Session session = sessionFactory.getCurrentSession();
+            return session.createQuery("FROM DriverUser WHERE username = :username", DriverUser.class)
+                    .setParameter("username", username)
+                    .uniqueResultOptional();
+        } catch (Exception e) {
+            throw new ToursException("Error finding user by username");
+        }
+    }
 
     //Stops
     @Override

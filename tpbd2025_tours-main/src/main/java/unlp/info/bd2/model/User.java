@@ -139,17 +139,5 @@ public class User {
     public boolean canBeDeleted() {
         return true;
     }
-    public boolean canBeDesactive() {
-        return true;
-    }
-    public boolean soyDriver(){
-        return false;
-    }
-    public boolean soyGuide(){
-        return false;
-    }
-    @Transient // Va?
-    public String getUserType() {
-        return this.getClass().getAnnotation(DiscriminatorValue.class).value();
-    }
+
 }
