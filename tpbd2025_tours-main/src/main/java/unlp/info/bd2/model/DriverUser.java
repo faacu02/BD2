@@ -6,12 +6,13 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@DiscriminatorValue("Driver")
 public class DriverUser extends User {
 
     @Column(length = 50)
     private String expedient;
 ;
-    @ManyToMany(mappedBy = "driverList")
+    @ManyToMany(mappedBy = "driverList",fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Route> routes = new ArrayList<>();
 
     public DriverUser() {
@@ -41,7 +42,8 @@ public class DriverUser extends User {
     public void addRoute(Route route) {
         this.routes.add(route);
     }
-    public boolean soyDriver(){
-        return true;
+    @Override
+    public boolean canBeDeleted() {
+        return this.routes.isEmpty();
     }
 }

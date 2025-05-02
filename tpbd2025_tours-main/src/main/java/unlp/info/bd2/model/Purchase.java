@@ -23,18 +23,18 @@ public class Purchase {
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {})
     @JoinColumn(name = "route_id")
     private Route route;
 
-    @OneToOne(mappedBy = "purchase", orphanRemoval = true)
+    @OneToOne(mappedBy = "purchase", orphanRemoval = true,cascade = {CascadeType.REMOVE,CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.EAGER)
     private Review review;
 
-    @OneToMany(mappedBy = "purchase", orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "purchase", orphanRemoval = true, fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE})
     private List<ItemService> itemServiceList = new ArrayList<>();
     public Purchase() {}
     public Purchase(String code, Route route, User user) {

@@ -1,5 +1,4 @@
 package unlp.info.bd2.services;
-import jakarta.transaction.Transactional;
 import unlp.info.bd2.model.*;
 import unlp.info.bd2.utils.ToursException;
 
