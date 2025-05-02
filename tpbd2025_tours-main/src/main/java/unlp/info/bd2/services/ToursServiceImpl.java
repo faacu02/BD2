@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import unlp.info.bd2.model.*;
 import unlp.info.bd2.utils.ToursException;
 import unlp.info.bd2.repositories.*;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -190,9 +191,7 @@ public class ToursServiceImpl implements ToursService {
     @Transactional
     @Override
     public Purchase createPurchase(String code, Route route, User user) throws ToursException {
-        Purchase purchase = new Purchase(code, route, user);
-        user.addPurchase(purchase);
-        return (Purchase) this.toursRepository.save(purchase);
+        return this.createPurchase(code, new Date(), route, user);
     }
 
     @Transactional
