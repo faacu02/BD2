@@ -17,7 +17,7 @@ public class Review {
     @Column(length = 1000)
     private String comment;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.EAGER)
     private Purchase purchase;
 
 

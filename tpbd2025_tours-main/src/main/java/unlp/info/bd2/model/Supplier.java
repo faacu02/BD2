@@ -18,7 +18,7 @@ public class Supplier {
     @Column(unique = true, nullable = false,name = "authorization_number")
     private String authorizationNumber;
 
-    @OneToMany(mappedBy = "supplier", orphanRemoval = true)
+    @OneToMany(mappedBy = "supplier", orphanRemoval = true, cascade = { CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER )
     private List<Service> services = new ArrayList<>();
 
 
