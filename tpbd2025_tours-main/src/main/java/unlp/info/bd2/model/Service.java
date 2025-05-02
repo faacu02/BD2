@@ -21,7 +21,7 @@ public class Service {
     @Column(length = 500)
     private String description;
 
-    @OneToMany(mappedBy = "service", orphanRemoval = true, fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE} )
+    @OneToMany(mappedBy = "service", orphanRemoval = true, fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
     private List<ItemService> itemServiceList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE})

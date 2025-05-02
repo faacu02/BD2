@@ -150,7 +150,6 @@ public class ToursServiceImpl implements ToursService {
     public Service addServiceToSupplier(String name, float price, String description, Supplier supplier) throws ToursException {
         Service service = new Service(name, price, description, supplier);
         supplier.addService(service);
-        //this.toursRepository.update(supplier); esto va? o con las cascadas lo arreglo y es la mejor opcion ?
         return (Service) this.toursRepository.save(service);
     }
 
@@ -159,7 +158,7 @@ public class ToursServiceImpl implements ToursService {
     public Service updateServicePriceById(Long id, float newPrice) throws ToursException {
         try {
             Service existingService = toursRepository.findServiceById(id)
-                    .orElseThrow(() -> new ToursException("No existe el producto"));  // Ta bien que lo tire aca?
+                    .orElseThrow(() -> new ToursException("No existe el producto"));
 
             existingService.setPrice(newPrice);
             toursRepository.update(existingService);
@@ -221,7 +220,7 @@ public class ToursServiceImpl implements ToursService {
         ItemService item = new ItemService(quantity, purchase, service);
         purchase.addItemService(item);
         service.addItemService(item);
-        return (ItemService) this.toursRepository.save(item); //cascade type presist en item -> purchase se arrelga? y que pasa con service?
+        return (ItemService) this.toursRepository.save(item);
 
     }
 
