@@ -23,11 +23,11 @@ public class Purchase {
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
-    @ManyToOne(fetch = FetchType.EAGER) //cascada merge y persist
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {})
     @JoinColumn(name = "route_id")
     private Route route;
 
