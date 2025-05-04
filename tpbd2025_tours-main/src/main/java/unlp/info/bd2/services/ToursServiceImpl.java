@@ -40,6 +40,12 @@ public class ToursServiceImpl implements ToursService {
     private RouteRepository routeRepository;
     @Autowired
     private StopRepository stopRepository;
+    @Autowired
+    private SupplierRepository supplierRepository;
+    @Autowired
+    private ServiceRepository serviceRepository;
+    @Autowired
+    private ItemServiceRepository itemServiceRepository;
 
     public ToursServiceImpl(ToursRepository toursRepository) {
         this.toursRepository = toursRepository;
@@ -175,7 +181,7 @@ public class ToursServiceImpl implements ToursService {
     @Override
     public Supplier createSupplier(String businessName, String authorizationNumber) throws ToursException {
         Supplier supplier = new Supplier(businessName, authorizationNumber);
-        return (Supplier) toursRepository.save(supplier);
+        return (Supplier) supplierRepository.save(supplier);
     }
 
     @Transactional
@@ -183,20 +189,18 @@ public class ToursServiceImpl implements ToursService {
     public Service addServiceToSupplier(String name, float price, String description, Supplier supplier) throws ToursException {
         Service service = new Service(name, price, description, supplier);
         supplier.addService(service);
-        return (Service) this.toursRepository.save(service);
+        return (Service) this.serviceRepository.save(service);
     }
 
     @Transactional
     @Override
     public Service updateServicePriceById(Long id, float newPrice) throws ToursException {
         try {
-            Service existingService = toursRepository.findServiceById(id)
-                    .orElseThrow(() -> new ToursException("No existe el producto"));
+            Service existingService = serviceRepository.findById(id)
+                    .orElseThrow(() -> new ToursException("No existe el servicio"));
 
             existingService.setPrice(newPrice);
-            toursRepository.update(existingService);
-
-            return existingService;
+            return serviceRepository.save(existingService);
 
         } catch (Exception e) {
             throw new ToursException("Error al actualizar el precio del servicio");
@@ -207,23 +211,31 @@ public class ToursServiceImpl implements ToursService {
 
 
 
+
     @Transactional(readOnly = true)
     @Override
     public Optional<Supplier> getSupplierById(Long id){
-        return this.toursRepository.findSupplierById(id);
+        return this.supplierRepository.findById(id);
     }
 
     @Transactional(readOnly = true)
     @Override
     public Optional<Supplier> getSupplierByAuthorizationNumber(String authorizationNumber) {
-        return this.toursRepository.findSupplierByAuthorizationNumber(authorizationNumber);
+        return this.supplierRepository.findByAuthorizationNumber(authorizationNumber);
     }
+
+
 
     @Transactional(readOnly = true)
     @Override
     public Optional<Service> getServiceByNameAndSupplierId(String name, Long id) throws ToursException {
-        return this.toursRepository.findServiceByNameAndSupplierId(name, id);
+        try {
+            return serviceRepository.findByNameAndSupplierId(name, id);
+        } catch (Exception e) {
+            throw new ToursException("Error al buscar el servicio");
+        }
     }
+
 
     @Transactional
     @Override
@@ -253,7 +265,7 @@ public class ToursServiceImpl implements ToursService {
         ItemService item = new ItemService(quantity, purchase, service);
         purchase.addItemService(item);
         service.addItemService(item);
-        return (ItemService) this.toursRepository.save(item);
+        return (ItemService) this.itemServiceRepository.save(item);
 
     }
 
