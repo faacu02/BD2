@@ -193,9 +193,14 @@ public class ToursServiceImpl implements ToursService {
     @Transactional
     @Override
     public Service addServiceToSupplier(String name, float price, String description, Supplier supplier) throws ToursException {
-        Service service = new Service(name, price, description, supplier);
-        supplier.addService(service);
-        return (Service) this.serviceRepository.save(service);
+        try {
+            Service service = new Service(name, price, description, supplier);
+            supplier.addService(service);
+            return this.serviceRepository.save(service);
+        }
+        catch (Exception e) {
+            throw new ToursException("Error al crear el service");
+        }
     }
 
     @Transactional
@@ -268,10 +273,15 @@ public class ToursServiceImpl implements ToursService {
     @Transactional
     @Override
     public ItemService addItemToPurchase(Service service, int quantity, Purchase purchase) throws ToursException {
-        ItemService item = new ItemService(quantity, purchase, service);
-        purchase.addItemService(item);
-        service.addItemService(item);
-        return (ItemService) this.itemServiceRepository.save(item);
+        try {
+            ItemService item = new ItemService(quantity, purchase, service);
+            purchase.addItemService(item);
+            service.addItemService(item);
+            return this.itemServiceRepository.save(item);
+        }
+        catch (Exception e){
+            throw new ToursException("No se puede agregar el item");
+        }
 
     }
 
