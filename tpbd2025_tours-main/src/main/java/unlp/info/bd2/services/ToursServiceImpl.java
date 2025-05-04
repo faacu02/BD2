@@ -1,4 +1,5 @@
 package unlp.info.bd2.services;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.annotation.Transactional;
 import unlp.info.bd2.model.*;
 import unlp.info.bd2.utils.ToursException;
@@ -180,9 +181,14 @@ public class ToursServiceImpl implements ToursService {
     @Transactional
     @Override
     public Supplier createSupplier(String businessName, String authorizationNumber) throws ToursException {
-        Supplier supplier = new Supplier(businessName, authorizationNumber);
-        return (Supplier) supplierRepository.save(supplier);
+        try {
+            Supplier supplier = new Supplier(businessName, authorizationNumber);
+            return supplierRepository.save(supplier);
+        } catch (Exception e) {
+            throw new ToursException("Error al crear el supplier");
+        }
     }
+
 
     @Transactional
     @Override
