@@ -12,7 +12,7 @@ public class Route {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 100) //Unique
     private String name;
 
     @Column(nullable = false)
@@ -24,7 +24,7 @@ public class Route {
     @Column(nullable = false, name = "max_number_users")
     private int maxNumberUsers;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "route_stop",
             joinColumns = @JoinColumn(name = "route_id"),
@@ -32,7 +32,7 @@ public class Route {
     )
     private List<Stop> stops = new ArrayList<>();
 
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "route_driver",
             joinColumns = @JoinColumn(name = "route_id"),
@@ -40,7 +40,7 @@ public class Route {
     )
     private List<DriverUser> driverList = new ArrayList<>();
 
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "route_tour_guide",
             joinColumns = @JoinColumn(name = "route_id"),
