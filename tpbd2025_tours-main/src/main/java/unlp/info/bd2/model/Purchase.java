@@ -31,10 +31,10 @@ public class Purchase {
     @JoinColumn(name = "route_id")
     private Route route;
 
-    @OneToOne(mappedBy = "purchase", orphanRemoval = true,cascade = {CascadeType.REMOVE,CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "purchase", orphanRemoval = true,cascade = {CascadeType.REMOVE},fetch = FetchType.EAGER)
     private Review review;
 
-    @OneToMany(mappedBy = "purchase", orphanRemoval = true, fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE})
+    @OneToMany(mappedBy = "purchase", orphanRemoval = true, fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE, CascadeType.MERGE, CascadeType.PERSIST})
     private List<ItemService> itemServiceList = new ArrayList<>();
 
     public Purchase() {}

@@ -1,5 +1,6 @@
 package unlp.info.bd2.services;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 import unlp.info.bd2.model.*;
 import unlp.info.bd2.utils.ToursException;
@@ -8,6 +9,7 @@ import unlp.info.bd2.repositories.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -255,7 +257,14 @@ public class ToursServiceImpl implements ToursService {
     @Transactional
     @Override
     public Purchase createPurchase(String code, Route route, User user) throws ToursException {
-        return this.createPurchase(code, new Date(), route, user);
+        try {
+            Purchase purchase = new Purchase(code, route, user);
+            user.addPurchase(purchase);
+            return this.purchaseRepository.save(purchase);
+        }
+        catch (Exception e) {
+            throw new ToursException("Error al crear el purchase");
+        }
     }
 
     @Transactional
@@ -298,7 +307,14 @@ public class ToursServiceImpl implements ToursService {
     @Transactional
     @Override
     public void deletePurchase(Purchase purchase) throws ToursException {
-        this.purchaseRepository.delete(purchase);
+        try {
+            System.out.println("va el delte");
+            this.purchaseRepository.delete(purchase);
+            System.out.println("El purchase ha sido eliminado");
+        }
+        catch (Exception e){
+            throw new ToursException("Error al eliminar el purchase");
+        }
     }
 
     @Transactional
@@ -341,7 +357,7 @@ public class ToursServiceImpl implements ToursService {
     @Transactional(readOnly = true)
     @Override
     public List<Supplier> getTopNSuppliersInPurchases(int n) {
-        return this.toursRepository.getTopNSuppliersInPurchases(n);
+        return this.supplierRepository.findTopSuppliers(PageRequest.of(0, n));
     }
 
     @Transactional(readOnly = true)
@@ -360,7 +376,7 @@ public class ToursServiceImpl implements ToursService {
     @Transactional(readOnly = true)
     @Override
     public Long getCountOfPurchasesBetweenDates(Date start, Date end) {
-        return this.toursRepository.getCountOfPurchasesBetweenDates(start, end);
+        return this.purchaseRepository.countByDateBetween(start, end);
     }
 
     //Routes
@@ -382,22 +398,17 @@ public class ToursServiceImpl implements ToursService {
         return this.toursRepository.findRoutsNotSells();
     }
 
-    @Transactional(readOnly = true)
-    //@Override
-    public List<Route> getTop3RoutesWithMaxRating() {
-        return this.toursRepository.getTop3RoutesWithMaxRating();
-    }
 
     @Transactional(readOnly = true)
     @Override
     public Service getMostDemandedService() {
-        return this.toursRepository.getMostDemandedService();
+        return this.serviceRepository.findMostDemandedService(PageRequest.of(0, 1)).get(0);
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<Service> getServiceNoAddedToPurchases() {
-        return this.toursRepository.getServiceNoAddedToPurchases();
+        return this.serviceRepository.findServicesNotInAnyPurchase();
     }
 
     @Transactional(readOnly = true)
@@ -415,17 +426,22 @@ public class ToursServiceImpl implements ToursService {
     }
     @Override
     public List<Supplier> getTopNSuppliersItemsSold(int n) {
-        return null;
+        List<Object[]> results = itemServiceRepository.findTopSuppliersByItemsSold();
+        return results.stream()
+                .limit(n)
+                .map(result -> (Supplier) result[0])
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<Purchase> getPurchaseWithService(Service service) {
-        return null;
+        return this.itemServiceRepository.findPurchasesByService(service);
     }
     @Override
     public Long getMaxServicesOfSupplier() {
-        return null;
+        return this.supplierRepository.findMaxServicesPerSupplier();
     }
+
     @Override
     public List<Route> getTop3RoutesWithMoreStops() {
         return null;
@@ -436,7 +452,10 @@ public class ToursServiceImpl implements ToursService {
     }
     @Override
     public List<Route> getTop3RoutesWithMaxAverageRating() {
-        return null;
+        List<Object[]> results = routeRepository.findTop3RoutesByAverageRating();
+        return results.stream()
+                .map(result -> (Route) result[0])
+                .collect(Collectors.toList());
     }
     @Override
     public List<User> getUsersWithNumberOfPurchases(int number) {
