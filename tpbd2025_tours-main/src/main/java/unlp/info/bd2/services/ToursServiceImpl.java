@@ -459,6 +459,6 @@ public class ToursServiceImpl implements ToursService {
     }
     @Override
     public List<User> getUsersWithNumberOfPurchases(int number) {
-        return null;
+        return userRepository.findUsersByPurchaseCount(number);
     }
 }

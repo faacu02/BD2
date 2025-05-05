@@ -47,9 +47,16 @@ public interface UserRepository extends CrudRepository<User, Long> {
         SELECT DISTINCT u
         FROM User u
         JOIN u.purchaseList p
-        WHERE p.totalPrice > :amount
+        WHERE p.totalPrice >= :amount
     """)
     List<User> findUsersWithAnyPurchaseOverAmount(@Param("amount") float amount);
+
+    @Query("""
+        SELECT u
+        FROM User u
+        WHERE SIZE(u.purchaseList) <= :number
+    """)
+    List<User> findUsersByPurchaseCount(@Param("number") int number);
 
 
 
