@@ -158,7 +158,7 @@ public class ToursServiceImpl implements ToursService {
     @Transactional
     @Override
     public void assignDriverByUsername(String username, Long idRoute) throws ToursException {
-        DriverUser user = this.toursRepository.findDriverUserByUsername(username)
+        DriverUser user = this.userRepository.findDriverUserByUsername(username)
                 .orElseThrow(() -> new ToursException("User not found"));
 
         Route route = this.getRouteById(idRoute)
@@ -166,13 +166,13 @@ public class ToursServiceImpl implements ToursService {
 
         user.addRoute(route);
         route.addDriver(user);
-        this.toursRepository.update(route);
+        this.updateUser(user);
     }
 
     @Transactional
     @Override
     public void assignTourGuideByUsername(String username, Long idRoute) throws ToursException {
-        TourGuideUser user = this.toursRepository.findTourGuideUserByUsername(username)
+        TourGuideUser user = this.userRepository.findTourGuideUserByUsername(username)
                 .orElseThrow(() -> new ToursException("User not found"));
 
 
@@ -181,7 +181,7 @@ public class ToursServiceImpl implements ToursService {
 
         user.addRoute(route);
         route.addTourGuide(user);
-        this.toursRepository.update(route);
+        this.updateUser(user);
     }
 
     @Transactional

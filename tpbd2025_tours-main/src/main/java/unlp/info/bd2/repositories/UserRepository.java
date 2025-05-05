@@ -10,6 +10,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import unlp.info.bd2.model.TourGuideUser;
+import unlp.info.bd2.model.DriverUser;
+import unlp.info.bd2.model.TourGuideUser;
 import unlp.info.bd2.model.User;
 
 @Repository
@@ -52,4 +54,9 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
 
 
+
+    @Query("FROM TourGuideUser WHERE username = :username")
+    Optional<TourGuideUser> findTourGuideUserByUsername(String username);
+    @Query("FROM DriverUser WHERE username = :username")
+    Optional<DriverUser> findDriverUserByUsername(String username);
 }
