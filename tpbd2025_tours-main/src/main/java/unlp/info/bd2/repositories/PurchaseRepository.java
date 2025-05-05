@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import unlp.info.bd2.model.Purchase;
 import unlp.info.bd2.model.Route;
+import unlp.info.bd2.model.User;
 import unlp.info.bd2.utils.ToursException;
 
 import java.util.Date;
@@ -21,6 +22,8 @@ public interface PurchaseRepository extends CrudRepository<Purchase, Long> {
     long getCountOfPurchasesInRouteAndDate(@Param("route") Route route, @Param("date") Date date);
 
     Long countByDateBetween(Date start, Date end);
+
+
 
 
 

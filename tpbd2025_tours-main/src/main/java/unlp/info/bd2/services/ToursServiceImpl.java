@@ -350,8 +350,7 @@ public class ToursServiceImpl implements ToursService {
     @Transactional(readOnly = true)
     @Override
     public List<User> getUserSpendingMoreThan(float amount) {
-        //return this.toursRepository.getUserSpendingMoreThan(amount);
-        return this.userRepository.findUsersByPurchaseListTotalPriceGreaterThan(amount);
+        return this.userRepository.findUsersWithAnyPurchaseOverAmount(amount);
     }
 
     @Transactional(readOnly = true)
@@ -414,11 +413,12 @@ public class ToursServiceImpl implements ToursService {
     @Transactional(readOnly = true)
     @Override
     public List<TourGuideUser> getTourGuidesWithRating1() {
-        return this.toursRepository.getTourGuidesWithRating1();
+        return this.userRepository.findTourGuidesWithRating1();
     }
     @Override
     public DriverUser getDriverUserWithMoreRoutes() {
-        return null;
+        List<Object[]> results = this.userRepository.findDriverWithMostRoutes();
+        return results.isEmpty() ? null : (DriverUser) results.get(0)[0];
     }
     @Override
     public Route getMostBestSellingRoute() {
