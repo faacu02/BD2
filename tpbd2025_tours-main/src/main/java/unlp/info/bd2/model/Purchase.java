@@ -36,6 +36,7 @@ public class Purchase {
 
     @OneToMany(mappedBy = "purchase", orphanRemoval = true, fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE})
     private List<ItemService> itemServiceList = new ArrayList<>();
+
     public Purchase() {}
     public Purchase(String code, Route route, User user) {
         this.code = code;

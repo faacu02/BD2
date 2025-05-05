@@ -47,6 +47,10 @@ public class ToursServiceImpl implements ToursService {
     private ServiceRepository serviceRepository;
     @Autowired
     private ItemServiceRepository itemServiceRepository;
+    @Autowired
+    private PurchaseRepository purchaseRepository;
+    @Autowired
+    private ReviewRepository reviewRepository;
 
     public ToursServiceImpl(ToursRepository toursRepository) {
         this.toursRepository = toursRepository;
@@ -258,10 +262,10 @@ public class ToursServiceImpl implements ToursService {
     @Override
     public Purchase createPurchase(String code, Date date, Route route, User user) throws ToursException {
         try{
-            if(this.toursRepository.getCountOfPurchasesInRouteAndDate(route,date) < route.getMaxNumberUsers()){
+            if(this.purchaseRepository.getCountOfPurchasesInRouteAndDate(route,date) < route.getMaxNumberUsers()){
                 Purchase purchase = new Purchase(code, date, route, user);
                 user.addPurchase(purchase);
-                return (Purchase) this.toursRepository.save(purchase);
+                return this.purchaseRepository.save(purchase);
             } else{
                 throw new ToursException("No hay lugares disponibles");
             }
@@ -288,13 +292,13 @@ public class ToursServiceImpl implements ToursService {
     @Transactional(readOnly = true)
     @Override
     public Optional<Purchase> getPurchaseByCode(String code){
-        return this.toursRepository.findPurchaseByCode(code);
+        return this.purchaseRepository.findByCode(code);
     }
 
     @Transactional
     @Override
     public void deletePurchase(Purchase purchase) throws ToursException {
-        this.toursRepository.delete(purchase);
+        this.purchaseRepository.delete(purchase);
     }
 
     @Transactional
@@ -303,7 +307,7 @@ public class ToursServiceImpl implements ToursService {
         try {
             Review review = new Review(rating, comment, purchase);
             purchase.setReview(review);
-            return (Review) this.toursRepository.save(review);
+            return this.reviewRepository.save(review);
         }catch (Exception e){
             throw new ToursException("No se puede agregar la reseña");
         }
