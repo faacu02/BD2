@@ -40,15 +40,23 @@ public interface RouteRepository extends CrudRepository<Route, Long> {
 
     @Query("SELECT r FROM Route r LEFT JOIN Purchase p ON r = p.route WHERE p.id IS NULL")
     List<Route> findRoutsNotSells();
-
     @Query("""
-     SELECT r
+    SELECT r
     FROM Review rev
     JOIN rev.purchase p
     JOIN p.route r
     GROUP BY r.id
-    ORDER BY AVG(rev.rating) ASC
-    """)
+    HAVING AVG(rev.rating) = (
+        SELECT MIN(avgRating)
+        FROM (
+            SELECT AVG(rev2.rating) as avgRating
+            FROM Review rev2
+            JOIN rev2.purchase p2
+            JOIN p2.route r2
+            GROUP BY r2.id
+        )
+    )
+""")
     List<Route> getRouteWithMinRating();
 
     @Query("""
