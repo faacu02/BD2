@@ -8,6 +8,7 @@ import unlp.info.bd2.model.Purchase;
 import unlp.info.bd2.model.Route;
 import unlp.info.bd2.model.User;
 import unlp.info.bd2.utils.ToursException;
+import org.springframework.data.domain.Pageable;
 
 import java.util.Date;
 
@@ -23,6 +24,8 @@ public interface PurchaseRepository extends CrudRepository<Purchase, Long> {
 
     Long countByDateBetween(Date start, Date end);
 
+    @Query("SELECT p FROM Purchase p JOIN FETCH p.route JOIN FETCH p.itemServiceList ORDER BY p.totalPrice DESC")
+    List<Purchase> getTop10MoreExpensivePurchasesInService(Pageable pageable);
 
 
 

@@ -362,7 +362,8 @@ public class ToursServiceImpl implements ToursService {
     @Transactional(readOnly = true)
     @Override
     public List<Purchase> getTop10MoreExpensivePurchasesWithServices() { // le saque In le puse With
-        return this.toursRepository.findTop10MoreExpensivePurchasesInServices();
+        Pageable pageable = PageRequest.of(0, 10);
+        return this.purchaseRepository.getTop10MoreExpensivePurchasesInService(pageable);
     }
 
     @Transactional(readOnly = true)
@@ -382,7 +383,7 @@ public class ToursServiceImpl implements ToursService {
     @Transactional(readOnly = true)
     //@Override
     public List<Route> getRoutesWithStop(Stop stop) {
-        return this.toursRepository.findRoutesWithStop(stop);
+        return this.routeRepository.findRoutesWithStop(stop.getId());
     }
 
     @Transactional(readOnly = true)
