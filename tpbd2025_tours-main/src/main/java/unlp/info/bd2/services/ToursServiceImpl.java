@@ -395,7 +395,7 @@ public class ToursServiceImpl implements ToursService {
     @Transactional(readOnly = true)
     @Override
     public List<Route> getRoutsNotSell() {
-        return this.toursRepository.findRoutsNotSells();
+        return this.routeRepository.findRoutsNotSells();
     }
 
 
@@ -445,11 +445,11 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public List<Route> getTop3RoutesWithMoreStops() {
-        return null;
+        return this.routeRepository.getTop3RoutesWithMoreStops();
     }
     @Override
     public List<Route> getRoutesWithMinRating() {
-        return null;
+        return this.routeRepository.getRouteWithMinRating();
     }
     @Override
     public List<Route> getTop3RoutesWithMaxAverageRating() {

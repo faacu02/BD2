@@ -38,4 +38,27 @@ public interface RouteRepository extends CrudRepository<Route, Long> {
     @Query("SELECT MAX(size(r.stops)) FROM Route r")
     Long findMaxStopOfRoutes();
 
+    @Query("SELECT r FROM Route r LEFT JOIN Purchase p ON r = p.route WHERE p.id IS NULL")
+    List<Route> findRoutsNotSells();
+
+    @Query("""
+     SELECT r
+    FROM Review rev
+    JOIN rev.purchase p
+    JOIN p.route r
+    GROUP BY r.id
+    ORDER BY AVG(rev.rating) ASC
+    """)
+    List<Route> getRouteWithMinRating();
+
+    @Query("""
+    SELECT r, COUNT(s) AS stopCount
+    FROM Route r
+    JOIN r.stops s
+    GROUP BY r
+    ORDER BY stopCount DESC
+    LIMIT 3
+""")
+    List<Route> getTop3RoutesWithMoreStops();
+
 }
