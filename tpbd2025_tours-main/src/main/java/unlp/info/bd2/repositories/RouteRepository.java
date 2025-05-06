@@ -69,4 +69,16 @@ public interface RouteRepository extends CrudRepository<Route, Long> {
 """)
     List<Route> getTop3RoutesWithMoreStops();
 
+    @Query(value = """
+    SELECT r.*
+    FROM route r
+    JOIN purchase p ON p.route_id = r.id
+    GROUP BY r.id
+    ORDER BY COUNT(p.id) DESC
+    LIMIT 1
+    """, nativeQuery = true)
+    Route findMostSoldRoute();
+
+
+
 }

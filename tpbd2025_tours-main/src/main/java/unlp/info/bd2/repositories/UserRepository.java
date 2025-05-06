@@ -52,11 +52,13 @@ public interface UserRepository extends CrudRepository<User, Long> {
     List<User> findUsersWithAnyPurchaseOverAmount(@Param("amount") float amount);
 
     @Query("""
-        SELECT u
-        FROM User u
-        WHERE SIZE(u.purchaseList) <= :number
-    """)
-    List<User> findUsersByPurchaseCount(@Param("number") int number);
+    SELECT u
+    FROM User u
+    JOIN u.purchaseList p
+    GROUP BY u
+    HAVING COUNT(p) = :number
+""")
+    List<User> findUsersWithExactlyNumberOfPurchases(@Param("number") long number);
 
 
 

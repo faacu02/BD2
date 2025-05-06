@@ -1,8 +1,6 @@
 package unlp.info.bd2.services;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
-import unlp.info.bd2.model.*;
 import unlp.info.bd2.utils.ToursException;
 import unlp.info.bd2.repositories.*;
 
@@ -26,17 +24,13 @@ import unlp.info.bd2.model.TourGuideUser;
 import unlp.info.bd2.model.User;
 import unlp.info.bd2.repositories.RouteRepository;
 import unlp.info.bd2.repositories.StopRepository;
-import unlp.info.bd2.repositories.ToursRepository;
 import unlp.info.bd2.repositories.UserRepository;
-import unlp.info.bd2.utils.ToursException;
-
 
 
 @org.springframework.stereotype.Service
 
 public class ToursServiceImpl implements ToursService {
 
-    private ToursRepository toursRepository;
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -54,9 +48,6 @@ public class ToursServiceImpl implements ToursService {
     @Autowired
     private ReviewRepository reviewRepository;
 
-    public ToursServiceImpl(ToursRepository toursRepository) {
-        this.toursRepository = toursRepository;
-    }
     public ToursServiceImpl (){
 
     }
@@ -423,7 +414,7 @@ public class ToursServiceImpl implements ToursService {
     }
     @Override
     public Route getMostBestSellingRoute() {
-        return null;
+        return this.routeRepository.findMostSoldRoute();
     }
     @Override
     public List<Supplier> getTopNSuppliersItemsSold(int n) {
@@ -460,6 +451,6 @@ public class ToursServiceImpl implements ToursService {
     }
     @Override
     public List<User> getUsersWithNumberOfPurchases(int number) {
-        return userRepository.findUsersByPurchaseCount(number);
+        return userRepository.findUsersWithExactlyNumberOfPurchases(number);
     }
 }
