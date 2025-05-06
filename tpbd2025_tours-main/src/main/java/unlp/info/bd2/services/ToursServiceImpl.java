@@ -389,7 +389,7 @@ public class ToursServiceImpl implements ToursService {
     @Transactional(readOnly = true)
     @Override
     public Long getMaxStopOfRoutes() {
-        return this.toursRepository.findMaxStopOfRoutes();
+        return this.routeRepository.findMaxStopOfRoutes();
     }
 
     @Transactional(readOnly = true)

@@ -35,4 +35,7 @@ public interface RouteRepository extends CrudRepository<Route, Long> {
     //"SELECT r FROM Route r JOIN r.stops s WHERE s.id = :stopId"
     List<Route> findRoutesWithStop(@Param("stopId") Long stopId);
 
+    @Query("SELECT MAX(size(r.stops)) FROM Route r")
+    Long findMaxStopOfRoutes();
+
 }
