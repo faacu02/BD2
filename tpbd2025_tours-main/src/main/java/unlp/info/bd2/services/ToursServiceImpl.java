@@ -281,6 +281,7 @@ public class ToursServiceImpl implements ToursService {
             ItemService item = new ItemService(quantity, purchase, service);
             purchase.addItemService(item);
             service.addItemService(item);
+            this.purchaseRepository.save(purchase);// no anda la cascada
             return this.itemServiceRepository.save(item);
         }
         catch (Exception e){
