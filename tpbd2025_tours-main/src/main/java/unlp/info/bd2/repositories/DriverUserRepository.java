@@ -1,5 +1,6 @@
 package unlp.info.bd2.repositories;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -15,6 +16,16 @@ import java.util.Optional;
 @Repository
 public interface DriverUserRepository extends CrudRepository<DriverUser, Long> {
     Optional<DriverUser> findByUsername(String username);
+
+    @Query("SELECT d FROM DriverUser d LEFT JOIN d.routes r GROUP BY d ORDER BY COUNT(r) DESC")
+    Page<DriverUser> findTopDriverByRouteCount(Pageable pageable);
+
+
+
+
+
+
+
 
 
 }

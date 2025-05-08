@@ -1,5 +1,7 @@
 package unlp.info.bd2.services;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 import unlp.info.bd2.utils.ToursException;
 import unlp.info.bd2.repositories.*;
@@ -47,7 +49,6 @@ public class ToursServiceImpl implements ToursService {
     private PurchaseRepository purchaseRepository;
     @Autowired
     private ReviewRepository reviewRepository;
-
     @Autowired
     private DriverUserRepository driverUserRepository;
     @Autowired
@@ -71,21 +72,36 @@ public class ToursServiceImpl implements ToursService {
     @Transactional
     @Override
     public DriverUser createDriverUser(String username, String password, String fullName, String email, Date birthdate, String phoneNumber, String expedient) throws ToursException {
-        DriverUser user = new DriverUser(username, password, fullName, email, birthdate, phoneNumber,expedient);
-        return (DriverUser) this.userRepository.save(user);
+        try {
+            DriverUser user = new DriverUser(username, password, fullName, email, birthdate, phoneNumber, expedient);
+            return (DriverUser) this.userRepository.save(user);
+        }
+        catch (Exception e) {
+            throw new ToursException("Error Guardando Usuario");
+        }
     }
 
     @Transactional
     @Override
     public TourGuideUser createTourGuideUser(String username, String password, String fullName, String email, Date birthdate, String phoneNumber, String education) throws ToursException {
-        TourGuideUser user = new TourGuideUser(username, password, fullName, email, birthdate, phoneNumber,education);
-        return (TourGuideUser) this.userRepository.save(user);
+        try {
+            TourGuideUser user = new TourGuideUser(username, password, fullName, email, birthdate, phoneNumber, education);
+            return (TourGuideUser) this.userRepository.save(user);
+        }
+        catch (Exception e) {
+            throw new ToursException("Error Guardando Usuario");
+        }
     }
 
     @Transactional(readOnly = true)
     @Override
     public Optional<User> getUserById(Long id) throws ToursException {
-        return this.userRepository.findById(id);
+        try {
+            return this.userRepository.findById(id);
+        }
+        catch (Exception e) {
+            throw new ToursException("Error buscando Usuario");
+        }
     }
 
     @Transactional(readOnly = true)
@@ -97,7 +113,12 @@ public class ToursServiceImpl implements ToursService {
     @Transactional
     @Override
     public User updateUser(User user) throws ToursException {
-        return this.userRepository.save(user);
+        try {
+            return this.userRepository.save(user);
+        }
+        catch (Exception e) {
+            throw new ToursException("Error guardando Usuario");
+        }
     }
 
     @Transactional
@@ -122,8 +143,13 @@ public class ToursServiceImpl implements ToursService {
     @Transactional
     @Override
     public Stop createStop(String name, String description) throws ToursException {
-        Stop stop = new Stop(name,description);
-        return this.stopRepository.save(stop);
+        try {
+            Stop stop = new Stop(name, description);
+            return this.stopRepository.save(stop);
+        }
+        catch (Exception e) {
+            throw new ToursException("Error guardando Stop");
+        }
     }
 
     @Transactional(readOnly = true)
@@ -135,8 +161,13 @@ public class ToursServiceImpl implements ToursService {
     @Transactional
     @Override
     public Route createRoute(String name, float price, float totalKm, int maxNumberOfUsers, List<Stop> stops) throws ToursException {
-        Route route = new Route(name,price,totalKm,maxNumberOfUsers,stops);
-        return this.routeRepository.save(route);
+        try {
+            Route route = new Route(name, price, totalKm, maxNumberOfUsers, stops);
+            return this.routeRepository.save(route);
+        }
+        catch (Exception e) {
+            throw new ToursException("Error guardando Route");
+        }
     }
 
     @Transactional(readOnly = true)
@@ -305,7 +336,7 @@ public class ToursServiceImpl implements ToursService {
             System.out.println("va el delte");
             User user = purchase.getUser();
             if (user != null) {
-                user.removePurchase(purchase);  // Use the managed method
+                user.removePurchase(purchase);
             }
             purchase.getItemServiceList().forEach(i->{i.setPurchase(null);
             this.itemServiceRepository.delete(i);});
@@ -363,15 +394,13 @@ public class ToursServiceImpl implements ToursService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<Purchase> getTop10MoreExpensivePurchasesWithServices() { // le saque In le puse With
-        Pageable pageable = PageRequest.of(0, 10);
-        return this.purchaseRepository.getTop10MoreExpensivePurchasesInService(pageable);
+    public List<Purchase> getTop10MoreExpensivePurchasesWithServices() {
+        return this.purchaseRepository.findTop10ByItemServiceListIsNotEmptyOrderByTotalPriceDesc();
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<User> getTop5UsersMorePurchases() {
-        //return this.toursRepository.getTop5UsersMorePurchases();
         return this.userRepository.findTop5UsersWithMostPurchases(Pageable.ofSize(5));
     }
 
@@ -385,7 +414,7 @@ public class ToursServiceImpl implements ToursService {
     @Transactional(readOnly = true)
     //@Override
     public List<Route> getRoutesWithStop(Stop stop) {
-        return this.routeRepository.findRoutesWithStop(stop.getId());
+        return this.routeRepository.findByStopsContaining(stop);
     }
 
     @Transactional(readOnly = true)
@@ -404,7 +433,8 @@ public class ToursServiceImpl implements ToursService {
     @Transactional(readOnly = true)
     @Override
     public Service getMostDemandedService() {
-        return this.serviceRepository.findMostDemandedService(PageRequest.of(0, 1)).get(0);
+        Pageable pageable = PageRequest.of(0, 1);
+        return this.serviceRepository.findMostDemandedService(pageable).get(0);
     }
 
     @Transactional(readOnly = true)
@@ -416,16 +446,21 @@ public class ToursServiceImpl implements ToursService {
     @Transactional(readOnly = true)
     @Override
     public List<TourGuideUser> getTourGuidesWithRating1() {
-        return this.userRepository.findTourGuidesWithRating1();
+        return this.tourGuideUserRepository.findTourGuidesWithRating1();
     }
     @Override
     public DriverUser getDriverUserWithMoreRoutes() {
-        List<Object[]> results = this.userRepository.findDriverWithMostRoutes();
-        return results.isEmpty() ? null : (DriverUser) results.get(0)[0];
+        PageRequest pageRequest = PageRequest.of(0, 1);
+        Page<DriverUser> driver = this.driverUserRepository.findTopDriverByRouteCount(pageRequest);
+        return  driver.isEmpty() ? null : driver.get().iterator().next();
+
     }
     @Override
     public Route getMostBestSellingRoute() {
-        return this.routeRepository.findMostSoldRoute();
+        PageRequest pageRequest = PageRequest.of(0, 1);
+        Page<Route> route = this.routeRepository.getMostBoughtRoute(pageRequest);
+        return route.isEmpty() ? null : route.get().iterator().next();
+
     }
     @Override
     public List<Supplier> getTopNSuppliersItemsSold(int n) {

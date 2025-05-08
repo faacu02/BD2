@@ -2,6 +2,8 @@ package unlp.info.bd2.repositories;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -26,14 +28,8 @@ public interface RouteRepository extends CrudRepository<Route, Long> {
     """)
     List<Object[]> findTop3RoutesByAverageRating();
 
-    @Query("""
-        SELECT r
-        FROM Route r
-        JOIN r.stops s
-        WHERE s.id = :stopId
-    """)
-    //"SELECT r FROM Route r JOIN r.stops s WHERE s.id = :stopId"
-    List<Route> findRoutesWithStop(@Param("stopId") Long stopId);
+    List<Route> findByStopsContaining(Stop stop);
+
 
     @Query("SELECT MAX(size(r.stops)) FROM Route r")
     Long findMaxStopOfRoutes();
@@ -59,15 +55,11 @@ public interface RouteRepository extends CrudRepository<Route, Long> {
 """)
     List<Route> getTop3RoutesWithMoreStops();
 
-    @Query(value = """
-    SELECT r.*
-    FROM route r
-    JOIN purchase p ON p.route_id = r.id
-    GROUP BY r.id
-    ORDER BY COUNT(p.id) DESC
-    LIMIT 1
-    """, nativeQuery = true)
-    Route findMostSoldRoute();
+
+
+    @Query("SELECT r FROM Route r LEFT JOIN Purchase p ON p.route = r GROUP BY r ORDER BY COUNT(p) DESC")
+    Page<Route> getMostBoughtRoute(Pageable pageable);
+
 
 
 

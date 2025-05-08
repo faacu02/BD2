@@ -25,8 +25,8 @@ public interface PurchaseRepository extends CrudRepository<Purchase, Long> {
 
     Long countByDateBetween(Date start, Date end);
 
-    @Query("SELECT p FROM Purchase p JOIN FETCH p.route JOIN FETCH p.itemServiceList ORDER BY p.totalPrice DESC")
-    List<Purchase> getTop10MoreExpensivePurchasesInService(Pageable pageable);
+    List<Purchase> findTop10ByItemServiceListIsNotEmptyOrderByTotalPriceDesc();
+
 
 
 
