@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import unlp.info.bd2.model.Purchase;
 import unlp.info.bd2.model.Route;
+import unlp.info.bd2.model.Service;
 import unlp.info.bd2.model.User;
 import unlp.info.bd2.utils.ToursException;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +27,8 @@ public interface PurchaseRepository extends CrudRepository<Purchase, Long> {
     Long countByDateBetween(Date start, Date end);
 
     List<Purchase> findTop10ByItemServiceListIsNotEmptyOrderByTotalPriceDesc();
+
+    List<Purchase> findByItemServiceListService(Service service);
 
 
 

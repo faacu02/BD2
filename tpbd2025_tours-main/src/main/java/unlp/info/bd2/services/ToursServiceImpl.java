@@ -464,16 +464,14 @@ public class ToursServiceImpl implements ToursService {
     }
     @Override
     public List<Supplier> getTopNSuppliersItemsSold(int n) {
-        List<Object[]> results = itemServiceRepository.findTopSuppliersByItemsSold();
-        return results.stream()
-                .limit(n)
-                .map(result -> (Supplier) result[0])
-                .collect(Collectors.toList());
+        PageRequest pageRequest = PageRequest.of(0, n);
+        Page<Supplier> results = itemServiceRepository.findTopSuppliersByItemsSold(pageRequest);
+        return results.getContent();
     }
 
     @Override
     public List<Purchase> getPurchaseWithService(Service service) {
-        return this.itemServiceRepository.findPurchasesByService(service);
+        return this.purchaseRepository.findByItemServiceListService(service);
     }
     @Override
     public Long getMaxServicesOfSupplier() {
@@ -490,10 +488,7 @@ public class ToursServiceImpl implements ToursService {
     }
     @Override
     public List<Route> getTop3RoutesWithMaxAverageRating() {
-        List<Object[]> results = routeRepository.findTop3RoutesByAverageRating();
-        return results.stream()
-                .map(result -> (Route) result[0])
-                .collect(Collectors.toList());
+        return this.routeRepository.findTop3RoutesByAverageRating();
     }
     @Override
     public List<User> getUsersWithNumberOfPurchases(int number) {

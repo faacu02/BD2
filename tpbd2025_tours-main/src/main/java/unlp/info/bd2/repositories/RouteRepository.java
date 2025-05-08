@@ -26,7 +26,7 @@ public interface RouteRepository extends CrudRepository<Route, Long> {
         ORDER BY avgRating DESC
         LIMIT 3
     """)
-    List<Object[]> findTop3RoutesByAverageRating();
+    List<Route> findTop3RoutesByAverageRating();
 
     List<Route> findByStopsContaining(Stop stop);
 
