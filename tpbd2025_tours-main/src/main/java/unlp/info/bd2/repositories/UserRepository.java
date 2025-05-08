@@ -59,13 +59,4 @@ public interface UserRepository extends CrudRepository<User, Long> {
     HAVING COUNT(p) = :number
 """)
     List<User> findUsersWithExactlyNumberOfPurchases(@Param("number") long number);
-
-
-
-
-
-    @Query("FROM TourGuideUser WHERE username = :username")
-    Optional<TourGuideUser> findTourGuideUserByUsername(String username);
-    @Query("FROM DriverUser WHERE username = :username")
-    Optional<DriverUser> findDriverUserByUsername(String username);
 }
