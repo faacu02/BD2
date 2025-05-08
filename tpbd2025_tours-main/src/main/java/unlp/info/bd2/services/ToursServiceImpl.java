@@ -307,6 +307,10 @@ public class ToursServiceImpl implements ToursService {
             if (user != null) {
                 user.removePurchase(purchase);  // Use the managed method
             }
+            purchase.getItemServiceList().forEach(i->{i.setPurchase(null);
+            this.itemServiceRepository.delete(i);});
+            purchase.setItemServiceList(null);
+            this.purchaseRepository.save(purchase);
             this.purchaseRepository.delete(purchase);
             System.out.println("El purchase ha sido eliminado");
         }
