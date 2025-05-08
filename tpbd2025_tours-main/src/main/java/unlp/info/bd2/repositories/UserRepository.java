@@ -56,7 +56,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
     FROM User u
     JOIN u.purchaseList p
     GROUP BY u
-    HAVING COUNT(p) = :number
+    HAVING COUNT(p) >= :number
 """)
     List<User> findUsersWithExactlyNumberOfPurchases(@Param("number") long number);
 }
