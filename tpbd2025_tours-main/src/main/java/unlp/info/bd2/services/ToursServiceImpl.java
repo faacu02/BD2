@@ -303,6 +303,10 @@ public class ToursServiceImpl implements ToursService {
     public void deletePurchase(Purchase purchase) throws ToursException {
         try {
             System.out.println("va el delte");
+            User user = purchase.getUser();
+            if (user != null) {
+                user.removePurchase(purchase);  // Use the managed method
+            }
             this.purchaseRepository.delete(purchase);
             System.out.println("El purchase ha sido eliminado");
         }
