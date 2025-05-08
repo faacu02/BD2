@@ -250,7 +250,6 @@ public class ToursServiceImpl implements ToursService {
     public Purchase createPurchase(String code, Route route, User user) throws ToursException {
         try {
             Purchase purchase = new Purchase(code, route, user);
-            user.addPurchase(purchase);
             return this.purchaseRepository.save(purchase);
         }
         catch (Exception e) {
@@ -264,7 +263,6 @@ public class ToursServiceImpl implements ToursService {
         try{
             if(this.purchaseRepository.getCountOfPurchasesInRouteAndDate(route,date) < route.getMaxNumberUsers()){
                 Purchase purchase = new Purchase(code, date, route, user);
-                user.addPurchase(purchase);
                 return this.purchaseRepository.save(purchase);
             } else{
                 throw new ToursException("No hay lugares disponibles");
@@ -281,7 +279,6 @@ public class ToursServiceImpl implements ToursService {
             ItemService item = new ItemService(quantity, purchase, service);
             purchase.addItemService(item);
             service.addItemService(item);
-            this.purchaseRepository.save(purchase);// no anda la cascada
             return this.itemServiceRepository.save(item);
         }
         catch (Exception e){

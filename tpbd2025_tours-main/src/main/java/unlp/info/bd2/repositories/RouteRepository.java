@@ -45,17 +45,7 @@ public interface RouteRepository extends CrudRepository<Route, Long> {
     FROM Review rev
     JOIN rev.purchase p
     JOIN p.route r
-    GROUP BY r.id
-    HAVING AVG(rev.rating) = (
-        SELECT MIN(avgRating)
-        FROM (
-            SELECT AVG(rev2.rating) as avgRating
-            FROM Review rev2
-            JOIN rev2.purchase p2
-            JOIN p2.route r2
-            GROUP BY r2.id
-        )
-    )
+    where rev.rating = 1
 """)
     List<Route> getRouteWithMinRating();
 

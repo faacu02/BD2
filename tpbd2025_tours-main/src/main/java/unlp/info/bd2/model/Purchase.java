@@ -30,10 +30,11 @@ public class Purchase {
     @JoinColumn(name = "route_id")
     private Route route;
 
-    @OneToOne(mappedBy = "purchase", orphanRemoval = true,cascade = {},fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "purchase", orphanRemoval = true,cascade = {CascadeType.REMOVE},fetch = FetchType.EAGER)
+    @JoinColumn(name = "review_id",nullable = true)
     private Review review;
 
-    @OneToMany(mappedBy = "purchase", orphanRemoval = true, fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToMany(mappedBy = "purchase", orphanRemoval = true, fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST,CascadeType.REMOVE })
     private List<ItemService> itemServiceList = new ArrayList<>();
 
     public Purchase() {}
@@ -42,6 +43,7 @@ public class Purchase {
         this.route = route;
         this.user = user;
         this.totalPrice = route.getPrice();
+        this.user.addPurchase(this);
     }
 
     public Purchase(String code, Date date, Route route, User user) {
@@ -50,6 +52,7 @@ public class Purchase {
         this.route = route;
         this.user = user;
         this.totalPrice = route.getPrice();
+        this.user.addPurchase(this);
     }
 
     public Long getId() {
