@@ -297,7 +297,7 @@ public class ToursServiceImpl implements ToursService {
     @Override
     public Purchase createPurchase(String code, Date date, Route route, User user) throws ToursException {
         try{
-            if(this.purchaseRepository.getCountOfPurchasesInRouteAndDate(route,date) < route.getMaxNumberUsers()){
+            if(this.purchaseRepository.countByRouteAndDate(route,date) < route.getMaxNumberUsers()){
                 Purchase purchase = new Purchase(code, date, route, user);
                 return this.purchaseRepository.save(purchase);
             } else{

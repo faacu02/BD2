@@ -21,8 +21,7 @@ import java.util.Optional;
 public interface PurchaseRepository extends CrudRepository<Purchase, Long> {
     Optional<Purchase> findByCode(String code);
 
-    @Query("SELECT COUNT(p) FROM Purchase p WHERE p.route = :route AND p.date = :date")
-    long getCountOfPurchasesInRouteAndDate(@Param("route") Route route, @Param("date") Date date);
+    Long countByRouteAndDate(Route route, Date date);
 
     Long countByDateBetween(Date start, Date end);
 
