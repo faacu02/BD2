@@ -24,14 +24,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
     List<User> findTop5UsersWithMostPurchases(Pageable pageable);
 
 
-
-    @Query("""
-        SELECT DISTINCT u
-        FROM User u
-        JOIN u.purchaseList p
-        WHERE p.totalPrice >= :amount
-    """)
-    List<User> findUsersWithAnyPurchaseOverAmount(@Param("amount") float amount);
+    List<User> findByPurchaseListTotalPriceGreaterThanEqual(float amount);
 
     @Query("""
     SELECT u

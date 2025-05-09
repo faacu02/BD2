@@ -19,8 +19,7 @@ public interface ServiceRepository extends CrudRepository<Service, Long> {
             "ORDER BY SUM(s.quantity) DESC")
     List<Service> findMostDemandedService(Pageable pageable);
 
-    @Query("SELECT s FROM Service s LEFT JOIN ItemService isv ON s = isv.service WHERE isv.id IS NULL")
-    List<Service> findServicesNotInAnyPurchase();
+    List<Service> findByItemServiceListIsEmpty();
 
 
 

@@ -155,7 +155,7 @@ public class ToursServiceImpl implements ToursService {
     @Transactional(readOnly = true)
     @Override
     public List<Stop> getStopByNameStart(String name) {
-        return this.stopRepository.getStopByNameStart(name);
+        return this.stopRepository.findByNameStartingWith(name);
     }
 
     @Transactional
@@ -382,7 +382,7 @@ public class ToursServiceImpl implements ToursService {
     @Transactional(readOnly = true)
     @Override
     public List<User> getUserSpendingMoreThan(float amount) {
-        return this.userRepository.findUsersWithAnyPurchaseOverAmount(amount);
+        return this.userRepository.findByPurchaseListTotalPriceGreaterThanEqual(amount);
     }
 
     @Transactional(readOnly = true)
@@ -439,7 +439,7 @@ public class ToursServiceImpl implements ToursService {
     @Transactional(readOnly = true)
     @Override
     public List<Service> getServiceNoAddedToPurchases() {
-        return this.serviceRepository.findServicesNotInAnyPurchase();
+        return this.serviceRepository.findByItemServiceListIsEmpty();
     }
 
     @Transactional(readOnly = true)
@@ -464,7 +464,7 @@ public class ToursServiceImpl implements ToursService {
     @Override
     public List<Supplier> getTopNSuppliersItemsSold(int n) {
         PageRequest pageRequest = PageRequest.of(0, n);
-        Page<Supplier> results = itemServiceRepository.findTopSuppliersByItemsSold(pageRequest);
+        Page<Supplier> results = this.supplierRepository.findTopSuppliersByItemsSold(pageRequest);
         return results.getContent();
     }
 

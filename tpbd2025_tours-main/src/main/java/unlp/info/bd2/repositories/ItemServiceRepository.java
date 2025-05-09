@@ -16,15 +16,6 @@ import java.util.List;
 @Repository
 public interface ItemServiceRepository extends CrudRepository<ItemService, Long> {
 
-    @Query("SELECT isv.service.supplier AS supplier, SUM(isv.quantity) AS total " +
-            "FROM ItemService isv " +
-            "GROUP BY isv.service.supplier " +
-            "ORDER BY total DESC")
-    Page<Supplier> findTopSuppliersByItemsSold(Pageable pageable);
-
-
-
-
 
 
 }

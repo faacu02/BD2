@@ -1,5 +1,6 @@
 package unlp.info.bd2.repositories;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -23,6 +24,16 @@ public interface SupplierRepository extends CrudRepository<Supplier, Long> {
 
     @Query("SELECT MAX(SIZE(s.services)) FROM Supplier s")
     Long findMaxServicesPerSupplier();
+
+    @Query("""
+    SELECT s 
+    FROM Supplier s
+    JOIN s.services srv
+    JOIN ItemService isv ON isv.service = srv
+    GROUP BY s
+    ORDER BY SUM(isv.quantity) DESC
+""")
+    Page<Supplier> findTopSuppliersByItemsSold(Pageable pageable);
 
 
 }

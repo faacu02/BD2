@@ -10,7 +10,5 @@ import unlp.info.bd2.model.Stop;
 
 @Repository
 public interface StopRepository extends CrudRepository<Stop, Integer> {
-    @Query("SELECT s FROM Stop s WHERE s.name LIKE ?1%")
-    List<Stop> getStopByNameStart(String name);
-
+    List<Stop> findByNameStartingWith(String name);
 }
