@@ -140,9 +140,4 @@ public class User {
     public boolean canBeDeleted() {
         return true;
     }
-    public void removePurchase(Purchase purchase) {
-        this.purchaseList.remove(purchase);
-        //purchase.setUser(null);
-    }
-
 }
