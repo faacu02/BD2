@@ -19,8 +19,7 @@ public class Purchase {
     @Column(nullable = false, name = "total_price")
     private float totalPrice;
 
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = true)
     private Date date;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -31,17 +30,20 @@ public class Purchase {
     @JoinColumn(name = "route_id")
     private Route route;
 
-    @OneToOne(mappedBy = "purchase", orphanRemoval = true,cascade = {CascadeType.REMOVE,CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "purchase", orphanRemoval = true,cascade = {CascadeType.REMOVE},fetch = FetchType.EAGER)
+    @JoinColumn(name = "review_id",nullable = true)
     private Review review;
 
-    @OneToMany(mappedBy = "purchase", orphanRemoval = true, fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE})
+    @OneToMany(mappedBy = "purchase", orphanRemoval = true, fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST,CascadeType.REMOVE })
     private List<ItemService> itemServiceList = new ArrayList<>();
+
     public Purchase() {}
     public Purchase(String code, Route route, User user) {
         this.code = code;
         this.route = route;
         this.user = user;
         this.totalPrice = route.getPrice();
+        this.user.addPurchase(this);
     }
 
     public Purchase(String code, Date date, Route route, User user) {
@@ -50,6 +52,7 @@ public class Purchase {
         this.route = route;
         this.user = user;
         this.totalPrice = route.getPrice();
+        this.user.addPurchase(this);
     }
 
     public Long getId() {

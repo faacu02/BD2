@@ -1,61 +1,124 @@
 package unlp.info.bd2.services;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
-import unlp.info.bd2.model.*;
 import unlp.info.bd2.utils.ToursException;
 import unlp.info.bd2.repositories.*;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+
+import unlp.info.bd2.model.DriverUser;
+import unlp.info.bd2.model.ItemService;
+import unlp.info.bd2.model.Purchase;
+import unlp.info.bd2.model.Review;
+import unlp.info.bd2.model.Route;
+import unlp.info.bd2.model.Service;
+import unlp.info.bd2.model.Stop;
+import unlp.info.bd2.model.Supplier;
+import unlp.info.bd2.model.TourGuideUser;
+import unlp.info.bd2.model.User;
+import unlp.info.bd2.repositories.RouteRepository;
+import unlp.info.bd2.repositories.StopRepository;
+import unlp.info.bd2.repositories.UserRepository;
 
 
 @org.springframework.stereotype.Service
 
 public class ToursServiceImpl implements ToursService {
 
-    private ToursRepository toursRepository;
-    public ToursServiceImpl(ToursRepository toursRepository) {
-        this.toursRepository = toursRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private RouteRepository routeRepository;
+    @Autowired
+    private StopRepository stopRepository;
+    @Autowired
+    private SupplierRepository supplierRepository;
+    @Autowired
+    private ServiceRepository serviceRepository;
+    @Autowired
+    private ItemServiceRepository itemServiceRepository;
+    @Autowired
+    private PurchaseRepository purchaseRepository;
+    @Autowired
+    private ReviewRepository reviewRepository;
+    @Autowired
+    private DriverUserRepository driverUserRepository;
+    @Autowired
+    private TourGuideUserRepository tourGuideUserRepository;
+
+    public ToursServiceImpl (){
+
     }
 
     @Transactional
     @Override
     public User createUser(String username, String password, String fullName, String email, Date birthdate, String phoneNumber) throws ToursException {
-        User user = new User(username, password, fullName, email, birthdate, phoneNumber);
-        return (User) this.toursRepository.save(user);
+       try {
+           User user = new User(username, password, fullName, email, birthdate, phoneNumber);
+           return this.userRepository.save(user);
+       } catch (Exception e) {
+           throw new ToursException("Error Guardando Usuario");
+       }
     }
 
     @Transactional
     @Override
     public DriverUser createDriverUser(String username, String password, String fullName, String email, Date birthdate, String phoneNumber, String expedient) throws ToursException {
-        DriverUser user = new DriverUser(username, password, fullName, email, birthdate, phoneNumber,expedient);
-        return (DriverUser) this.toursRepository.save(user);
+        try {
+            DriverUser user = new DriverUser(username, password, fullName, email, birthdate, phoneNumber, expedient);
+            return (DriverUser) this.userRepository.save(user);
+        }
+        catch (Exception e) {
+            throw new ToursException("Error Guardando Usuario");
+        }
     }
 
     @Transactional
     @Override
     public TourGuideUser createTourGuideUser(String username, String password, String fullName, String email, Date birthdate, String phoneNumber, String education) throws ToursException {
-        TourGuideUser user = new TourGuideUser(username, password, fullName, email, birthdate, phoneNumber,education);
-        return (TourGuideUser) this.toursRepository.save(user);
+        try {
+            TourGuideUser user = new TourGuideUser(username, password, fullName, email, birthdate, phoneNumber, education);
+            return (TourGuideUser) this.userRepository.save(user);
+        }
+        catch (Exception e) {
+            throw new ToursException("Error Guardando Usuario");
+        }
     }
 
     @Transactional(readOnly = true)
     @Override
     public Optional<User> getUserById(Long id) throws ToursException {
-        return this.toursRepository.findUserById(id);
+        try {
+            return this.userRepository.findById(id);
+        }
+        catch (Exception e) {
+            throw new ToursException("Error buscando Usuario");
+        }
     }
 
     @Transactional(readOnly = true)
     @Override
     public Optional<User> getUserByUsername(String username) throws ToursException {
-        return this.toursRepository.findUserByUsername(username);
+        return this.userRepository.findByUsername(username);
     }
 
     @Transactional
     @Override
     public User updateUser(User user) throws ToursException {
-        return (User) this.toursRepository.update(user);
+        try {
+            return this.userRepository.save(user);
+        }
+        catch (Exception e) {
+            throw new ToursException("Error guardando Usuario");
+        }
     }
 
     @Transactional
@@ -64,7 +127,7 @@ public class ToursServiceImpl implements ToursService {
         if(user.isActive()) {
             if(user.canBeDeleted()) {
                 if (user.getPurchaseList().isEmpty()) {
-                    this.toursRepository.delete(user);
+                    this.userRepository.delete(user);
                 } else {
                         user.setActive(false);
                         this.updateUser(user);
@@ -80,39 +143,49 @@ public class ToursServiceImpl implements ToursService {
     @Transactional
     @Override
     public Stop createStop(String name, String description) throws ToursException {
-        Stop stop = new Stop(name,description);
-        return (Stop) this.toursRepository.save(stop);
+        try {
+            Stop stop = new Stop(name, description);
+            return this.stopRepository.save(stop);
+        }
+        catch (Exception e) {
+            throw new ToursException("Error guardando Stop");
+        }
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<Stop> getStopByNameStart(String name) {
-        return this.toursRepository.findStopByName(name);
+        return this.stopRepository.findByNameStartingWith(name);
     }
 
     @Transactional
     @Override
     public Route createRoute(String name, float price, float totalKm, int maxNumberOfUsers, List<Stop> stops) throws ToursException {
-        Route route = new Route(name,price,totalKm,maxNumberOfUsers,stops);
-        return (Route) this.toursRepository.save(route);
+        try {
+            Route route = new Route(name, price, totalKm, maxNumberOfUsers, stops);
+            return this.routeRepository.save(route);
+        }
+        catch (Exception e) {
+            throw new ToursException("Error guardando Route");
+        }
     }
 
     @Transactional(readOnly = true)
     @Override
     public Optional<Route> getRouteById(Long id) {
-        return this.toursRepository.findRouteById(id);
+        return this.routeRepository.findById(id);
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<Route> getRoutesBelowPrice(float price) {
-        return this.toursRepository.findRouteBelowPrice(price);
+        return this.routeRepository.findByPriceLessThan(price);
     }
 
     @Transactional
     @Override
     public void assignDriverByUsername(String username, Long idRoute) throws ToursException {
-        DriverUser user = this.toursRepository.findDriverUserByUsername(username)
+        DriverUser user = this.driverUserRepository.findByUsername(username)
                 .orElseThrow(() -> new ToursException("User not found"));
 
         Route route = this.getRouteById(idRoute)
@@ -120,13 +193,13 @@ public class ToursServiceImpl implements ToursService {
 
         user.addRoute(route);
         route.addDriver(user);
-        this.toursRepository.update(route);
+        this.updateUser(user);
     }
 
     @Transactional
     @Override
     public void assignTourGuideByUsername(String username, Long idRoute) throws ToursException {
-        TourGuideUser user = this.toursRepository.findTourGuideUserByUsername(username)
+        TourGuideUser user = this.tourGuideUserRepository.findByUsername(username)
                 .orElseThrow(() -> new ToursException("User not found"));
 
 
@@ -135,35 +208,43 @@ public class ToursServiceImpl implements ToursService {
 
         user.addRoute(route);
         route.addTourGuide(user);
-        this.toursRepository.update(route);
+        this.updateUser(user);
     }
 
     @Transactional
     @Override
     public Supplier createSupplier(String businessName, String authorizationNumber) throws ToursException {
-        Supplier supplier = new Supplier(businessName, authorizationNumber);
-        return (Supplier) toursRepository.save(supplier);
+        try {
+            Supplier supplier = new Supplier(businessName, authorizationNumber);
+            return supplierRepository.save(supplier);
+        } catch (Exception e) {
+            throw new ToursException("Error al crear el supplier");
+        }
     }
+
 
     @Transactional
     @Override
     public Service addServiceToSupplier(String name, float price, String description, Supplier supplier) throws ToursException {
-        Service service = new Service(name, price, description, supplier);
-        supplier.addService(service);
-        return (Service) this.toursRepository.save(service);
+        try {
+            Service service = new Service(name, price, description, supplier);
+            supplier.addService(service);
+            return this.serviceRepository.save(service);
+        }
+        catch (Exception e) {
+            throw new ToursException("Error al crear el service");
+        }
     }
 
     @Transactional
     @Override
     public Service updateServicePriceById(Long id, float newPrice) throws ToursException {
         try {
-            Service existingService = toursRepository.findServiceById(id)
-                    .orElseThrow(() -> new ToursException("No existe el producto"));
+            Service existingService = serviceRepository.findById(id)
+                    .orElseThrow(() -> new ToursException("No existe el servicio"));
 
             existingService.setPrice(newPrice);
-            toursRepository.update(existingService);
-
-            return existingService;
+            return serviceRepository.save(existingService);
 
         } catch (Exception e) {
             throw new ToursException("Error al actualizar el precio del servicio");
@@ -174,38 +255,51 @@ public class ToursServiceImpl implements ToursService {
 
 
 
+
     @Transactional(readOnly = true)
     @Override
     public Optional<Supplier> getSupplierById(Long id){
-        return this.toursRepository.findSupplierById(id);
+        return this.supplierRepository.findById(id);
     }
 
     @Transactional(readOnly = true)
     @Override
     public Optional<Supplier> getSupplierByAuthorizationNumber(String authorizationNumber) {
-        return this.toursRepository.findSupplierByAuthorizationNumber(authorizationNumber);
+        return this.supplierRepository.findByAuthorizationNumber(authorizationNumber);
     }
+
+
 
     @Transactional(readOnly = true)
     @Override
     public Optional<Service> getServiceByNameAndSupplierId(String name, Long id) throws ToursException {
-        return this.toursRepository.findServiceByNameAndSupplierId(name, id);
+        try {
+            return serviceRepository.findByNameAndSupplierId(name, id);
+        } catch (Exception e) {
+            throw new ToursException("Error al buscar el servicio");
+        }
     }
+
 
     @Transactional
     @Override
     public Purchase createPurchase(String code, Route route, User user) throws ToursException {
-        return this.createPurchase(code, new Date(), route, user);
+        try {
+            Purchase purchase = new Purchase(code, route, user);
+            return this.purchaseRepository.save(purchase);
+        }
+        catch (Exception e) {
+            throw new ToursException("Error al crear el purchase");
+        }
     }
 
     @Transactional
     @Override
     public Purchase createPurchase(String code, Date date, Route route, User user) throws ToursException {
         try{
-            if(this.toursRepository.getCountOfPurchasesInRouteAndDate(route,date) < route.getMaxNumberUsers()){
+            if(this.purchaseRepository.countByRouteAndDate(route,date) < route.getMaxNumberUsers()){
                 Purchase purchase = new Purchase(code, date, route, user);
-                user.addPurchase(purchase);
-                return (Purchase) this.toursRepository.save(purchase);
+                return this.purchaseRepository.save(purchase);
             } else{
                 throw new ToursException("No hay lugares disponibles");
             }
@@ -217,23 +311,33 @@ public class ToursServiceImpl implements ToursService {
     @Transactional
     @Override
     public ItemService addItemToPurchase(Service service, int quantity, Purchase purchase) throws ToursException {
-        ItemService item = new ItemService(quantity, purchase, service);
-        purchase.addItemService(item);
-        service.addItemService(item);
-        return (ItemService) this.toursRepository.save(item);
+        try {
+            ItemService item = new ItemService(quantity, purchase, service);
+            purchase.addItemService(item);
+            service.addItemService(item);
+            return this.itemServiceRepository.save(item);
+        }
+        catch (Exception e){
+            throw new ToursException("No se puede agregar el item");
+        }
 
     }
 
     @Transactional(readOnly = true)
     @Override
     public Optional<Purchase> getPurchaseByCode(String code){
-        return this.toursRepository.findPurchaseByCode(code);
+        return this.purchaseRepository.findByCode(code);
     }
 
     @Transactional
     @Override
     public void deletePurchase(Purchase purchase) throws ToursException {
-        this.toursRepository.delete(purchase);
+        try {
+            this.purchaseRepository.delete(purchase);
+        }
+        catch (Exception e){
+            throw new ToursException("Error al eliminar el purchase");
+        }
     }
 
     @Transactional
@@ -242,7 +346,7 @@ public class ToursServiceImpl implements ToursService {
         try {
             Review review = new Review(rating, comment, purchase);
             purchase.setReview(review);
-            return (Review) this.toursRepository.save(review);
+            return this.reviewRepository.save(review);
         }catch (Exception e){
             throw new ToursException("No se puede agregar la reseña");
         }
@@ -262,80 +366,122 @@ public class ToursServiceImpl implements ToursService {
             if(user.isEmpty()){
                 return null;
             }else{
-               return user.get().getPurchaseList();
+                return user.get().getPurchaseList();
             }
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<User> getUserSpendingMoreThan(float amount) {
-        return this.toursRepository.getUserSpendingMoreThan(amount);
+        return this.userRepository.findByPurchaseListTotalPriceGreaterThanEqual(amount);
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<Supplier> getTopNSuppliersInPurchases(int n) {
-        return this.toursRepository.getTopNSuppliersInPurchases(n);
+        return this.supplierRepository.findTopSuppliers(PageRequest.of(0, n));
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<Purchase> getTop10MoreExpensivePurchasesInServices() {
-        return this.toursRepository.findTop10MoreExpensivePurchasesInServices();
+    public List<Purchase> getTop10MoreExpensivePurchasesWithServices() {
+        return this.purchaseRepository.findTop10ByItemServiceListIsNotEmptyOrderByTotalPriceDesc();
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<User> getTop5UsersMorePurchases() {
-        return this.toursRepository.getTop5UsersMorePurchases();
+        return this.userRepository.findTop5UsersWithMostPurchases(Pageable.ofSize(5));
     }
 
     @Transactional(readOnly = true)
     @Override
-    public long getCountOfPurchasesBetweenDates(Date start, Date end) {
-        return this.toursRepository.getCountOfPurchasesBetweenDates(start, end);
+    public Long getCountOfPurchasesBetweenDates(Date start, Date end) {
+        return this.purchaseRepository.countByDateBetween(start, end);
     }
 
     //Routes
     @Transactional(readOnly = true)
-    @Override
+    //@Override
     public List<Route> getRoutesWithStop(Stop stop) {
-        return this.toursRepository.findRoutesWithStop(stop);
+        return this.routeRepository.findByStopsContaining(stop);
     }
 
     @Transactional(readOnly = true)
     @Override
     public Long getMaxStopOfRoutes() {
-        return this.toursRepository.findMaxStopOfRoutes();
+        return this.routeRepository.findMaxStopOfRoutes();
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<Route> getRoutsNotSell() {
-        return this.toursRepository.findRoutsNotSells();
+        return this.routeRepository.findRoutsNotSells();
     }
 
-    @Transactional(readOnly = true)
-    @Override
-    public List<Route> getTop3RoutesWithMaxRating() {
-        return this.toursRepository.getTop3RoutesWithMaxRating();
-    }
 
     @Transactional(readOnly = true)
     @Override
     public Service getMostDemandedService() {
-        return this.toursRepository.getMostDemandedService();
+        Pageable pageable = PageRequest.of(0, 1);
+        return this.serviceRepository.findMostDemandedService(pageable).get(0);
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<Service> getServiceNoAddedToPurchases() {
-        return this.toursRepository.getServiceNoAddedToPurchases();
+        return this.serviceRepository.findByItemServiceListIsEmpty();
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<TourGuideUser> getTourGuidesWithRating1() {
-        return this.toursRepository.getTourGuidesWithRating1();
+        return this.tourGuideUserRepository.findTourGuidesWithRating1();
+    }
+    @Override
+    public DriverUser getDriverUserWithMoreRoutes() {
+        PageRequest pageRequest = PageRequest.of(0, 1);
+        Page<DriverUser> driver = this.driverUserRepository.findTopDriverByRouteCount(pageRequest);
+        return  driver.isEmpty() ? null : driver.get().iterator().next();
+
+    }
+    @Override
+    public Route getMostBestSellingRoute() {
+        PageRequest pageRequest = PageRequest.of(0, 1);
+        Page<Route> route = this.routeRepository.getMostBoughtRoute(pageRequest);
+        return route.isEmpty() ? null : route.get().iterator().next();
+
+    }
+    @Override
+    public List<Supplier> getTopNSuppliersItemsSold(int n) {
+        PageRequest pageRequest = PageRequest.of(0, n);
+        Page<Supplier> results = this.supplierRepository.findTopSuppliersByItemsSold(pageRequest);
+        return results.getContent();
+    }
+
+    @Override
+    public List<Purchase> getPurchaseWithService(Service service) {
+        return this.purchaseRepository.findByItemServiceListService(service);
+    }
+    @Override
+    public Long getMaxServicesOfSupplier() {
+        return this.supplierRepository.findMaxServicesPerSupplier();
+    }
+
+    @Override
+    public List<Route> getTop3RoutesWithMoreStops() {
+        return this.routeRepository.getTop3RoutesWithMoreStops();
+    }
+    @Override
+    public List<Route> getRoutesWithMinRating() {
+        return this.routeRepository.getRouteWithMinRating();
+    }
+    @Override
+    public List<Route> getTop3RoutesWithMaxAverageRating() {
+        return this.routeRepository.findTop3RoutesByAverageRating();
+    }
+    @Override
+    public List<User> getUsersWithNumberOfPurchases(int number) {
+        return userRepository.findUsersWithExactlyNumberOfPurchases(number);
     }
 }

@@ -3,6 +3,7 @@ package unlp.info.bd2.model;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class User {
     @Column(nullable = false)
     private boolean active;
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = {})
     private List<Purchase> purchaseList = new ArrayList<>();
 
     public User() {
@@ -139,5 +140,4 @@ public class User {
     public boolean canBeDeleted() {
         return true;
     }
-
 }
