@@ -1,23 +1,25 @@
 package unlp.info.bd2.model;
 
-import jakarta.persistence.*;
 
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-@Entity
-@Table(name = "review")
+@Document(collection = "review")
 public class Review {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Field
+    private ObjectId id;
 
-    @Column(nullable = false)
+    @Field
     private int rating;
 
-    @Column(length = 1000)
+    @Field
     private String comment;
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.EAGER)
+    @Field
     private Purchase purchase;
 
 
@@ -32,11 +34,11 @@ public class Review {
     }
 
 
-    public Long getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 

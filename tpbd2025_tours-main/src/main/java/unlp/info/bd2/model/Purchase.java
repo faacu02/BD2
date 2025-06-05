@@ -1,40 +1,41 @@
 package unlp.info.bd2.model;
 
-import jakarta.persistence.*;
+
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Entity
-@Table(name = "purchase")
+@Document(collection = "purchase")
 public class Purchase {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Field
+    private ObjectId id;
 
-    @Column(nullable = false, unique = true)
+    @Field
     private String code;
 
-    @Column(nullable = false, name = "total_price")
+    @Field
     private float totalPrice;
 
-    @Column(nullable = true)
+    @Field
     private Date date;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "user_id", nullable = false)
+    @Field
     private User user;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {})
-    @JoinColumn(name = "route_id")
+    @Field
     private Route route;
 
-    @OneToOne(mappedBy = "purchase", orphanRemoval = true,cascade = {CascadeType.REMOVE},fetch = FetchType.EAGER)
-    @JoinColumn(name = "review_id",nullable = true)
+    @Field
     private Review review;
 
-    @OneToMany(mappedBy = "purchase", orphanRemoval = true, fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST,CascadeType.REMOVE })
+    @Field
     private List<ItemService> itemServiceList = new ArrayList<>();
 
     public Purchase() {}
@@ -55,11 +56,11 @@ public class Purchase {
         this.user.addPurchase(this);
     }
 
-    public Long getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 

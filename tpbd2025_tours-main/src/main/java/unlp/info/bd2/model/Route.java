@@ -1,5 +1,6 @@
 package unlp.info.bd2.model;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,7 +13,7 @@ import java.util.List;
 public class Route {
 
     @Id
-    private Long id;
+    private ObjectId id;
 
     private String name;
 
@@ -68,11 +69,11 @@ public class Route {
         this.stops = stops;
     }
 
-    public Long getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 

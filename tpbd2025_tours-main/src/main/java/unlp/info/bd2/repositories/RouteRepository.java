@@ -2,6 +2,7 @@ package unlp.info.bd2.repositories;
 
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -12,7 +13,7 @@ import unlp.info.bd2.model.Route;
 import unlp.info.bd2.model.Stop;
 
 @Repository
-public interface RouteRepository extends  MongoRepository<Route, String> {
+public interface RouteRepository extends  MongoRepository<Route, ObjectId> {
     List<Route> findByPriceLessThan(float price);
 
 

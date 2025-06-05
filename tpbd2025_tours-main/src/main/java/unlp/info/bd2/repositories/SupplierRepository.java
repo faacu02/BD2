@@ -1,5 +1,6 @@
 package unlp.info.bd2.repositories;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface SupplierRepository extends MongoRepository<Supplier, Long> {
+public interface SupplierRepository extends MongoRepository<Supplier, ObjectId> {
 
     Optional<Supplier> findByAuthorizationNumber(String authorizationNumber);
 

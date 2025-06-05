@@ -1,5 +1,6 @@
 package unlp.info.bd2.model;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -13,7 +14,7 @@ import java.util.List;
 public class User {
 
     @Id
-    private Long id;
+    private ObjectId id;
 
     private String username;
 
@@ -54,11 +55,11 @@ public class User {
         this.active = true;
     }
 
-    public Long getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 

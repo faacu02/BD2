@@ -1,4 +1,5 @@
 package unlp.info.bd2.services;
+import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -95,7 +96,7 @@ public class ToursServiceImpl implements ToursService {
 
     @Transactional(readOnly = true)
     @Override
-    public Optional<User> getUserById(Long id) throws ToursException {
+    public Optional<User> getUserById(ObjectId id) throws ToursException {
         try {
             return this.userRepository.findById(id);
         }
@@ -172,7 +173,7 @@ public class ToursServiceImpl implements ToursService {
 
     @Transactional(readOnly = true)
     @Override
-    public Optional<Route> getRouteById(Long id) {
+    public Optional<Route> getRouteById(ObjectId id) {
         return this.routeRepository.findById(id);
     }
 
@@ -184,7 +185,7 @@ public class ToursServiceImpl implements ToursService {
 
     @Transactional
     @Override
-    public void assignDriverByUsername(String username, Long idRoute) throws ToursException {
+    public void assignDriverByUsername(String username, ObjectId idRoute) throws ToursException {
         DriverUser user = this.driverUserRepository.findByUsername(username)
                 .orElseThrow(() -> new ToursException("User not found"));
 
@@ -198,7 +199,7 @@ public class ToursServiceImpl implements ToursService {
 
     @Transactional
     @Override
-    public void assignTourGuideByUsername(String username, Long idRoute) throws ToursException {
+    public void assignTourGuideByUsername(String username, ObjectId idRoute) throws ToursException {
         TourGuideUser user = this.tourGuideUserRepository.findByUsername(username)
                 .orElseThrow(() -> new ToursException("User not found"));
 
@@ -238,7 +239,7 @@ public class ToursServiceImpl implements ToursService {
 
     @Transactional
     @Override
-    public Service updateServicePriceById(Long id, float newPrice) throws ToursException {
+    public Service updateServicePriceById(ObjectId id, float newPrice) throws ToursException {
         try {
             Service existingService = serviceRepository.findById(id)
                     .orElseThrow(() -> new ToursException("No existe el servicio"));
@@ -258,7 +259,7 @@ public class ToursServiceImpl implements ToursService {
 
     @Transactional(readOnly = true)
     @Override
-    public Optional<Supplier> getSupplierById(Long id){
+    public Optional<Supplier> getSupplierById(ObjectId id){
         return this.supplierRepository.findById(id);
     }
 
@@ -272,7 +273,7 @@ public class ToursServiceImpl implements ToursService {
 
     @Transactional(readOnly = true)
     @Override
-    public Optional<Service> getServiceByNameAndSupplierId(String name, Long id) throws ToursException {
+    public Optional<Service> getServiceByNameAndSupplierId(String name, ObjectId id) throws ToursException {
         try {
             return serviceRepository.findByNameAndSupplierId(name, id);
         } catch (Exception e) {

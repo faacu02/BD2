@@ -1,5 +1,6 @@
 package unlp.info.bd2.repositories;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.domain.Pageable;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -11,9 +12,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ServiceRepository extends MongoRepository<Service, Long> {
+public interface ServiceRepository extends MongoRepository<Service, ObjectId> {
 
-    Optional<Service> findByNameAndSupplierId(String name, Long supplierId);
+    Optional<Service> findByNameAndSupplierId(String name, ObjectId supplierId);
 
     @Query("SELECT s.service FROM ItemService s " +
             "GROUP BY s.service " +
@@ -21,6 +22,8 @@ public interface ServiceRepository extends MongoRepository<Service, Long> {
     List<Service> findMostDemandedService(Pageable pageable);
 
     List<Service> findByItemServiceListIsEmpty();
+
+
 
 
 

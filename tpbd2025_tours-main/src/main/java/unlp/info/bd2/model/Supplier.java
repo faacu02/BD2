@@ -1,5 +1,6 @@
 package unlp.info.bd2.model;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -7,12 +8,12 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-@Document
+@Document(collection = "supplier")
 public class Supplier {
 
     @Id
     @Field
-    private Long id;
+    private ObjectId id;
 
     @Field
     private String businessName;
@@ -32,11 +33,11 @@ public class Supplier {
         this.authorizationNumber = authorizationNumber;
     }
     
-    public Long getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
