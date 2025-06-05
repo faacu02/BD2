@@ -12,7 +12,6 @@ import java.util.List;
 public class Stop {
 
     @Id
-
     private Long id;
 
 //@Column(nullable = false, length = 100)
