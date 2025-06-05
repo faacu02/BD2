@@ -34,5 +34,7 @@ public interface SupplierRepository extends MongoRepository<Supplier, ObjectId> 
 """)
     Page<Supplier> findTopSuppliersByItemsSold(Pageable pageable);
 
+    boolean existsByAuthorizationNumber(String authorizationNumber);
+
 
 }

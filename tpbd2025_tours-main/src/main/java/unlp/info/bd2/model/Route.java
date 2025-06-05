@@ -15,12 +15,16 @@ public class Route {
     @Id
     private ObjectId id;
 
+    @Field
     private String name;
 
+    @Field
     private float price;
 
+    @Field
     private float totalKm;
 
+    @Field
     private int maxNumberUsers;
 
     /*@ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -29,7 +33,7 @@ public class Route {
             joinColumns = @JoinColumn(name = "route_id"),
             inverseJoinColumns = @JoinColumn(name = "stop_id")
     )*/
-    @Field
+    @DBRef(lazy = false)
     private List<Stop> stops = new ArrayList<>();
 
     /*@ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})

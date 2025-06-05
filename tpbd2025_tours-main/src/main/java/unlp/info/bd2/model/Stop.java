@@ -16,9 +16,10 @@ public class Stop {
     private ObjectId id;
 
 //@Column(nullable = false, length = 100)
+    @Field
     private String name;
 
-
+    @Field
     private String description;
 
     public Stop() {

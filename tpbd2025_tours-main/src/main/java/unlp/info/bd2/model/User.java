@@ -16,23 +16,31 @@ public class User {
     @Id
     private ObjectId id;
 
+    @Field
     private String username;
 
+    @Field
     private String password;
 
+    @Field
     private String name;
 
+    @Field
     private String email;
 
+    @Field
     private Date birthdate;
 
+    @Field
     private String phoneNumber;
 
+    @Field
     private boolean active;
 
     @Field
     private List<Purchase> purchaseList = new ArrayList<>();
 
+    @Field
     private String userType;
 
     public User() {

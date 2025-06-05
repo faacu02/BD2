@@ -3,6 +3,7 @@ package unlp.info.bd2.model;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -26,13 +27,13 @@ public class Purchase {
     @Field
     private Date date;
 
-    @Field
+    @DBRef(lazy = true)
     private User user;
 
     @Field
     private Route route;
 
-    @Field
+    @DBRef(lazy = true)
     private Review review;
 
     @Field
