@@ -1,5 +1,6 @@
 package unlp.info.bd2.model;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.annotation.Id;
 import java.util.ArrayList;
@@ -10,7 +11,8 @@ import java.util.List;
 public class DriverUser extends User {
 
     private String expedient;
-;
+
+    @DBRef(lazy = true)
     private List<Route> routes = new ArrayList<>();
 
 

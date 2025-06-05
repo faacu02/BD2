@@ -1,51 +1,52 @@
 package unlp.info.bd2.model;
 
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "route")
+@Document(collection = "route")
 public class Route {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 100) //Unique
     private String name;
 
-    @Column(nullable = false)
     private float price;
 
-    @Column(nullable = false, name = "total_km")
     private float totalKm;
 
-    @Column(nullable = false, name = "max_number_users")
     private int maxNumberUsers;
 
-    @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    /*@ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "route_stop",
             joinColumns = @JoinColumn(name = "route_id"),
             inverseJoinColumns = @JoinColumn(name = "stop_id")
-    )
+    )*/
+    @Field
     private List<Stop> stops = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    /*@ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "route_driver",
             joinColumns = @JoinColumn(name = "route_id"),
             inverseJoinColumns = @JoinColumn(name = "driver_id")
-    )
+    )*/
+    @DBRef(lazy = true)
     private List<DriverUser> driverList = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    /*@ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "route_tour_guide",
             joinColumns = @JoinColumn(name = "route_id"),
             inverseJoinColumns = @JoinColumn(name = "tour_guide_id")
-    )
+    )*/
+    @DBRef(lazy = true)
     private List<TourGuideUser> tourGuideList = new ArrayList<>();
 
 

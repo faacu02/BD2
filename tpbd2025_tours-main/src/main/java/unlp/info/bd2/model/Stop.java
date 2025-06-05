@@ -1,22 +1,24 @@
 package unlp.info.bd2.model;
 
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "stop")
+@Document(collection = "stop")
 public class Stop {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
 
-    @Column(nullable = false, length = 100)
+//@Column(nullable = false, length = 100)
     private String name;
 
-    @Column(length = 500)
+
     private String description;
 
     public Stop() {

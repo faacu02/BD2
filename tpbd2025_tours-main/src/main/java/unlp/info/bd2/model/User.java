@@ -2,6 +2,7 @@ package unlp.info.bd2.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,6 +29,7 @@ public class User {
 
     private boolean active;
 
+    @Field
     private List<Purchase> purchaseList = new ArrayList<>();
 
     private String userType;
