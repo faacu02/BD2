@@ -1,24 +1,27 @@
 package unlp.info.bd2.model;
 
-import jakarta.persistence.*;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Field;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-@Entity
-@Table(name = "supplier")
+@Document
 public class Supplier {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Field
     private Long id;
 
-    @Column(nullable = false,name = "business_name")
+    @Field
     private String businessName;
 
-    @Column(unique = true, nullable = false,name = "authorization_number")
+    @Field
     private String authorizationNumber;
 
-    @OneToMany(mappedBy = "supplier", orphanRemoval = true, cascade = { CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER )
+    @Field
     private List<Service> services = new ArrayList<>();
 
 
