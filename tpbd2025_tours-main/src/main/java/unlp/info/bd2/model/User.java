@@ -30,6 +30,8 @@ public class User {
 
     private List<Purchase> purchaseList = new ArrayList<>();
 
+    private String userType;
+
     public User() {
     }
 
@@ -122,10 +124,18 @@ public class User {
         this.purchaseList = purchaseList;
     }
 
+    public void setUserType(String u){
+        this.userType = u;
+    }
+    public String getUserType() {
+        return userType;
+    }
+
     public void addPurchase(Purchase purchase) {
         this.purchaseList.add(purchase);
     }
     public boolean canBeDeleted() {
         return true;
     }
+
 }

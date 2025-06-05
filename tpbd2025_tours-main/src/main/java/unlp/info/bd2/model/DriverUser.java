@@ -1,25 +1,28 @@
 package unlp.info.bd2.model;
 
-import jakarta.persistence.*;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.annotation.Id;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Entity
-@DiscriminatorValue("Driver")
+@Document(collection = "user")
 public class DriverUser extends User {
 
-    @Column(length = 50)
     private String expedient;
 ;
-    @ManyToMany(mappedBy = "driverList",fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Route> routes = new ArrayList<>();
 
+
     public DriverUser() {
+        super();
+        this.setUserType("Driver");
     }
+
     public DriverUser(String username, String password, String fullName, String email, Date birthdate, String phoneNumber, String expedient) {
         super(username, password, fullName, email, birthdate, phoneNumber);
         this.expedient = expedient;
+        this.setUserType("Driver");
     }
 
 

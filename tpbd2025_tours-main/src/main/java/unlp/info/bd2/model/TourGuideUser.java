@@ -1,28 +1,30 @@
 package unlp.info.bd2.model;
 
-import jakarta.persistence.*;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.annotation.Id;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Entity
-@DiscriminatorValue("Guide")
+@Document(collection = "user")
 public class TourGuideUser extends User {
 
-    @Column(length = 100)
     private String education;
 
-    @ManyToMany(mappedBy = "tourGuideList",fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Route> routes = new ArrayList<>();
 
     public TourGuideUser() {
+        super();
+        this.setUserType("Guide");
     }
 
     public TourGuideUser(String username, String password, String fullName, String email, Date birthdate, String phoneNumber, String education) {
         super(username, password, fullName, email, birthdate, phoneNumber);
         this.education = education;
+        this.setUserType("Guide");
     }
+
 
     public String getEducation() {
         return education;
