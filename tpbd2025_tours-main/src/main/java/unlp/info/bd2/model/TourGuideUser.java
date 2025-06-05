@@ -1,5 +1,6 @@
 package unlp.info.bd2.model;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.annotation.Id;
 
@@ -12,6 +13,7 @@ public class TourGuideUser extends User {
 
     private String education;
 
+    @DBRef(lazy = true)//????
     private List<Route> routes = new ArrayList<>();
 
     public TourGuideUser() {
