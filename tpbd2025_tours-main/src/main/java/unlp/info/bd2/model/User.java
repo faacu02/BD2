@@ -1,45 +1,33 @@
 package unlp.info.bd2.model;
 
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-@Entity
-@Table(name = "user")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "user_type")
+@Document(collection = "user")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 50,updatable = false)
     private String username;
 
-    @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false, length = 100)
     private String name;
 
-    @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(name = "birth_date")
-    @Temporal(TemporalType.DATE)
     private Date birthdate;
 
-    @Column(name = "phone_number", length = 20) //unique?
     private String phoneNumber;
 
-    @Column(nullable = false)
     private boolean active;
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = {})
     private List<Purchase> purchaseList = new ArrayList<>();
 
     public User() {
