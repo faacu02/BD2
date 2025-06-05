@@ -1,24 +1,24 @@
 package unlp.info.bd2.model;
 
-import jakarta.persistence.*;
 
-@Entity
-@Table(name = "item_service")
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+@Document
 public class ItemService {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Field
     private Long id;
 
-    @Column(nullable = false)
+    @Field
     private int quantity;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "purchase_id", nullable = true)
+    @Field
     private Purchase purchase;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "service_id", nullable = false)
+    @Field
     private Service service;
 
 

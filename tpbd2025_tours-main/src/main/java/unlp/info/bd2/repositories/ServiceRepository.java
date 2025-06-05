@@ -1,8 +1,9 @@
 package unlp.info.bd2.repositories;
 
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 import unlp.info.bd2.model.Service;
 
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ServiceRepository extends CrudRepository<Service, Long> {
+public interface ServiceRepository extends MongoRepository<Service, Long> {
 
     Optional<Service> findByNameAndSupplierId(String name, Long supplierId);
 
