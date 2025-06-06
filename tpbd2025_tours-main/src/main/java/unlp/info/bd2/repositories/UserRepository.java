@@ -32,4 +32,7 @@ public interface UserRepository extends MongoRepository<User, ObjectId> {
     HAVING COUNT(p) >= :number
 """)
     List<User> findUsersWithExactlyNumberOfPurchases(@Param("number") long number);
+
+    boolean existsByUsername(String username);
+    boolean existsByEmail(String email);
 }

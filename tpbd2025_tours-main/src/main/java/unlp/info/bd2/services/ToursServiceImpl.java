@@ -63,13 +63,24 @@ public class ToursServiceImpl implements ToursService {
     @Transactional
     @Override
     public User createUser(String username, String password, String fullName, String email, Date birthdate, String phoneNumber) throws ToursException {
-       try {
-           User user = new User(username, password, fullName, email, birthdate, phoneNumber);
-           return this.userRepository.save(user);
-       } catch (Exception e) {
-           throw new ToursException("Error Guardando Usuario");
-       }
+        try {
+            // Verifica si el username ya existe
+            if (userRepository.existsByUsername(username)) {
+                throw new ToursException("El nombre de usuario ya está en uso.");
+            }
+
+            // Verifica si el email ya existe
+            if (userRepository.existsByEmail(email)) {
+                throw new ToursException("El correo electrónico ya está en uso.");
+            }
+
+            User user = new User(username, password, fullName, email, birthdate, phoneNumber);
+            return userRepository.save(user);
+        } catch (Exception e) {
+            throw new ToursException("Error guardando el usuario.");
+        }
     }
+
 
     @Transactional
     @Override
@@ -357,14 +368,29 @@ public class ToursServiceImpl implements ToursService {
     @Transactional
     @Override
     public Review addReviewToPurchase(int rating, String comment, Purchase purchase) throws ToursException {
+        if (purchase == null) {
+            throw new ToursException("La compra no puede ser nula.");
+        }
+
+        if (purchase.getReview() != null) {
+            throw new ToursException("La compra ya tiene una reseña asociada.");
+        }
+
+        if (rating < 1 || rating > 5) {
+            throw new ToursException("La puntuación debe estar entre 1 y 5.");
+        }
+
         try {
             Review review = new Review(rating, comment, purchase);
-            purchase.setReview(review);
-            return this.reviewRepository.save(review);
-        }catch (Exception e){
+            purchase.setReview(review); // Asocia la review a la compra
+
+            return this.reviewRepository.save(review); // Guarda la review
+
+        } catch (Exception e) {
             throw new ToursException("No se puede agregar la reseña");
         }
     }
+
 
     // CONSULTAS HQL
 
