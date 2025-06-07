@@ -137,6 +137,7 @@ public class ToursServiceImpl implements ToursService {
     @Transactional
     @Override
     public void deleteUser(User user) throws ToursException {
+
         if(user.isActive()) {
             if(user.canBeDeleted()) {
                 if (user.getPurchaseList().isEmpty()) {
@@ -206,6 +207,7 @@ public class ToursServiceImpl implements ToursService {
 
         user.addRoute(route);
         route.addDriver(user);
+        this.routeRepository.save(route); //Al no haber cascade hay q guardar manual
         this.updateUser(user);
     }
 
@@ -221,6 +223,7 @@ public class ToursServiceImpl implements ToursService {
 
         user.addRoute(route);
         route.addTourGuide(user);
+        this.routeRepository.save(route);
         this.updateUser(user);
     }
 
