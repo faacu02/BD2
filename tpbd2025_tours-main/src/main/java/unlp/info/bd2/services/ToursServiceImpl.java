@@ -137,7 +137,6 @@ public class ToursServiceImpl implements ToursService {
     @Transactional
     @Override
     public void deleteUser(User user) throws ToursException {
-
         if(user.isActive()) {
             if(user.canBeDeleted()) {
                 if (user.getPurchaseList().isEmpty()) {
