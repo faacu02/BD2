@@ -4,6 +4,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.bson.Document;
 import org.springframework.transaction.annotation.Transactional;
 import unlp.info.bd2.utils.ToursException;
 import unlp.info.bd2.repositories.*;
@@ -458,7 +459,10 @@ public class ToursServiceImpl implements ToursService {
     @Transactional(readOnly = true)
     @Override
     public Long getMaxStopOfRoutes() {
+
         return this.routeRepository.findMaxStopOfRoutes();
+
+
     }
 
     @Transactional(readOnly = true)

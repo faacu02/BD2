@@ -2,9 +2,11 @@ package unlp.info.bd2.repositories;
 
 import java.util.List;
 
+import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -31,8 +33,13 @@ public interface RouteRepository extends  MongoRepository<Route, ObjectId> {
     List<Route> findByStopsContaining(Stop stop);
 
 
-    @Query("SELECT MAX(size(r.stops)) FROM Route r")
+    @Aggregation(pipeline = {
+            "{ $project: { stopCount: { $size: '$stops' } } }",
+            "{ $group: { _id: null, maxStops: { $max: '$stopCount' } } }",
+            "{ $project: { _id: 0, maxStops: 1 } }"
+    })
     Long findMaxStopOfRoutes();
+
 
     @Query("SELECT r FROM Route r LEFT JOIN Purchase p ON r = p.route WHERE p.id IS NULL")
     List<Route> findRoutsNotSells();
