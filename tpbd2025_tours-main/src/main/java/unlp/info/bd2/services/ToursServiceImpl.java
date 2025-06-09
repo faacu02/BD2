@@ -256,8 +256,10 @@ public class ToursServiceImpl implements ToursService {
     public Service addServiceToSupplier(String name, float price, String description, Supplier supplier) throws ToursException {
         try {
             Service service = new Service(name, price, description, supplier);
+            this.serviceRepository.save(service);
             supplier.addService(service);
-            return this.serviceRepository.save(service);
+            this.supplierRepository.save(supplier);
+            return service;
         }
         catch (Exception e) {
             throw new ToursException("Error al crear el service");
@@ -329,7 +331,10 @@ public class ToursServiceImpl implements ToursService {
             }
             if(this.purchaseRepository.countByRouteAndDate(route,date) < route.getMaxNumberUsers()){
                 Purchase purchase = new Purchase(code, date, route, user);
-                return this.purchaseRepository.save(purchase);
+                this.purchaseRepository.save(purchase);
+                user.addPurchase(purchase);
+                this.userRepository.save(user);
+                return purchase;
             } else{
                 throw new ToursException("No hay lugares disponibles");
             }
@@ -440,7 +445,8 @@ public class ToursServiceImpl implements ToursService {
     @Transactional(readOnly = true)
     @Override
     public List<User> getTop5UsersMorePurchases() {
-        return this.userRepository.findTop5UsersWithMostPurchases(Pageable.ofSize(5));
+        return this.userRepository.findTop5UsersWithMostPurchases();
+
     }
 
     @Transactional(readOnly = true)
