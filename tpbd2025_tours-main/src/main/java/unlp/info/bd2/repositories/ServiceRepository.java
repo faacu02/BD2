@@ -23,8 +23,4 @@ public interface ServiceRepository extends MongoRepository<Service, ObjectId> {
 
     List<Service> findByItemServiceListIsEmpty();
 
-
-
-
-
 }

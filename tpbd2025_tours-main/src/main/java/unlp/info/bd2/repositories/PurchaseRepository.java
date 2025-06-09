@@ -25,11 +25,5 @@ public interface PurchaseRepository extends MongoRepository<Purchase, ObjectId> 
 
     List<Purchase> findByItemServiceListService(Service service);
 
-
-
-
-
-
-
-
+    Boolean existsByCode(String code);
 }

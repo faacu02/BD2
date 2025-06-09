@@ -312,8 +312,7 @@ public class ToursServiceImpl implements ToursService {
     @Override
     public Purchase createPurchase(String code, Route route, User user) throws ToursException {
         try {
-            Purchase purchase = new Purchase(code, route, user);
-            return this.purchaseRepository.save(purchase);
+            return this.createPurchase(code, new Date(), route, user);
         }
         catch (Exception e) {
             throw new ToursException("Error al crear el purchase");
@@ -324,6 +323,9 @@ public class ToursServiceImpl implements ToursService {
     @Override
     public Purchase createPurchase(String code, Date date, Route route, User user) throws ToursException {
         try{
+            if(this.purchaseRepository.existsByCode(code)){
+                throw new ToursException("El code ya existe");
+            }
             if(this.purchaseRepository.countByRouteAndDate(route,date) < route.getMaxNumberUsers()){
                 Purchase purchase = new Purchase(code, date, route, user);
                 return this.purchaseRepository.save(purchase);
@@ -340,12 +342,15 @@ public class ToursServiceImpl implements ToursService {
     public ItemService addItemToPurchase(Service service, int quantity, Purchase purchase) throws ToursException {
         try {
             ItemService item = new ItemService(quantity, purchase, service);
+            ItemService itemService = (ItemService) this.itemServiceRepository.save(item);
             purchase.addItemService(item);
             service.addItemService(item);
-            return this.itemServiceRepository.save(item);
+            this.purchaseRepository.save(purchase);
+            this.serviceRepository.save(service);
+            return itemService;
         }
         catch (Exception e){
-            throw new ToursException("No se puede agregar el item");
+            throw new ToursException(e.getMessage());
         }
 
     }
@@ -384,9 +389,10 @@ public class ToursServiceImpl implements ToursService {
 
         try {
             Review review = new Review(rating, comment, purchase);
-            purchase.setReview(review); // Asocia la review a la compra
+            Review reviewPersisted = this.reviewRepository.save(review);
+            purchase.setReview(reviewPersisted); // Asocia la review a la compra
 
-            return this.reviewRepository.save(review); // Guarda la review
+            return reviewPersisted; // Guarda la review
 
         } catch (Exception e) {
             throw new ToursException("No se puede agregar la reseña");
