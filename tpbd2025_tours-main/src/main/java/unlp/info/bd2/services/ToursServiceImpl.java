@@ -540,6 +540,6 @@ public class ToursServiceImpl implements ToursService {
     }
     @Override
     public List<User> getUsersWithNumberOfPurchases(int number) {
-        return userRepository.findUsersWithExactlyNumberOfPurchases(number);
+        return userRepository.findUsersWithAtLeastNumberOfPurchases(number);
     }
 }

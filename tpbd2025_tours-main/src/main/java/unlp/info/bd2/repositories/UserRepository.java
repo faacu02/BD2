@@ -32,14 +32,12 @@ public interface UserRepository extends MongoRepository<User, ObjectId> {
 
     List<User> findByPurchaseListTotalPriceGreaterThanEqual(float amount);
 
-    @Query("""
-    SELECT u
-    FROM User u
-    JOIN u.purchaseList p
-    GROUP BY u
-    HAVING COUNT(p) >= :number
-""")
-    List<User> findUsersWithExactlyNumberOfPurchases(@Param("number") long number);
+    @Aggregation(pipeline = {
+            "{ $project: { username: 1, purchaseList: 1, purchaseCount: { $size: { $ifNull: ['$purchaseList', []] } } } }",
+            "{ $match: { purchaseCount: { $gte: ?0 } } }"
+    })
+    List<User> findUsersWithAtLeastNumberOfPurchases(long number);
+
 
     boolean existsByUsername(String username);
     boolean existsByEmail(String email);
