@@ -335,7 +335,7 @@ public class ToursServiceImpl implements ToursService {
                 user.addPurchase(purchase); // actualizar referencia en usuario
 
                 this.purchaseRepository.save(purchase); // guardar compra
-                this.userRepository.save(user);         // guardar usuario con referencia actualizada
+                this.updateUser(user);         // guardar usuario con referencia actualizada
 
                 return purchase;
             } else {

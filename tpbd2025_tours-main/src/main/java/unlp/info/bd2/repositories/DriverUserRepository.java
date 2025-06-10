@@ -15,7 +15,7 @@ import unlp.info.bd2.model.DriverUser;
 import java.util.Optional;
 
 @Repository
-public interface DriverUserRepository extends MongoRepository<DriverUser, ObjectId> {
+public interface DriverUserRepository extends MongoRepository<DriverUser, String> {
     Optional<DriverUser> findByUsername(String username);
 
     @Aggregation(pipeline = {
