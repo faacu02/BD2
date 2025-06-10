@@ -207,7 +207,7 @@ public class ToursServiceImpl implements ToursService {
 
         user.addRoute(route);
         route.addDriver(user);
-        this.routeRepository.save(route); //Al no haber cascade hay q guardar manual
+        this.routeRepository.save(route);//Al no haber cascade hay q guardar manual
         this.updateUser(user);
     }
 
@@ -501,11 +501,9 @@ public class ToursServiceImpl implements ToursService {
     }
     @Override
     public DriverUser getDriverUserWithMoreRoutes() {
-        PageRequest pageRequest = PageRequest.of(0, 1);
-        Page<DriverUser> driver = this.driverUserRepository.findTopDriverByRouteCount(pageRequest);
-        return  driver.isEmpty() ? null : driver.get().iterator().next();
-
+        return this.driverUserRepository.findTopDriverByRouteCount().orElse(null);
     }
+
     @Override
     public Route getMostBestSellingRoute() {
         PageRequest pageRequest = PageRequest.of(0, 1);
