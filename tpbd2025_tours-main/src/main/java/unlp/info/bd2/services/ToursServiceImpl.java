@@ -325,20 +325,23 @@ public class ToursServiceImpl implements ToursService {
     @Transactional
     @Override
     public Purchase createPurchase(String code, Date date, Route route, User user) throws ToursException {
-        try{
-            if(this.purchaseRepository.existsByCode(code)){
+        try {
+            if (this.purchaseRepository.existsByCode(code)) {
                 throw new ToursException("El code ya existe");
             }
-            if(this.purchaseRepository.countByRouteAndDate(route,date) < route.getMaxNumberUsers()){
+            if (this.purchaseRepository.countByRouteAndDate(route, date) < route.getMaxNumberUsers()) {
                 Purchase purchase = new Purchase(code, date, route, user);
-                this.purchaseRepository.save(purchase);
-                user.addPurchase(purchase);
-                this.userRepository.save(user);
+
+                user.addPurchase(purchase); // actualizar referencia en usuario
+
+                this.purchaseRepository.save(purchase); // guardar compra
+                this.userRepository.save(user);         // guardar usuario con referencia actualizada
+
                 return purchase;
-            } else{
+            } else {
                 throw new ToursException("No hay lugares disponibles");
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new ToursException("No puede realizarse la compra");
         }
     }
