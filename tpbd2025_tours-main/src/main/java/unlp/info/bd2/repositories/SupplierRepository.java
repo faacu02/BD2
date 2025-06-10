@@ -3,6 +3,7 @@ package unlp.info.bd2.repositories;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -21,7 +22,10 @@ public interface SupplierRepository extends MongoRepository<Supplier, ObjectId> 
             "ORDER BY COUNT(s.id) DESC")
     List<Supplier> findTopSuppliers(Pageable pageable);
 
-    @Query("SELECT MAX(SIZE(s.services)) FROM Supplier s")
+    @Aggregation(pipeline = {
+            "{ $project: { size: { $size: '$services' } } }",
+            "{ $group: { _id: null, max: { $max: '$size' } } }"
+    })
     Long findMaxServicesPerSupplier();
 
     @Query("""
