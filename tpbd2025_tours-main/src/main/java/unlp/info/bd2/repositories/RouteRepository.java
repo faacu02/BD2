@@ -2,6 +2,7 @@ package unlp.info.bd2.repositories;
 
 import java.util.List;
 
+import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,21 +19,34 @@ public interface RouteRepository extends  MongoRepository<Route, ObjectId> {
     List<Route> findByPriceLessThan(float price);
 
 
-    @Query("""
-        SELECT r, AVG(rev.rating) as avgRating
-        FROM Route r
-        JOIN Purchase p ON p.route = r
-        JOIN Review rev ON rev.purchase = p
-        GROUP BY r
-        ORDER BY avgRating DESC
-        LIMIT 3
-    """)
+    @Aggregation(pipeline = {
+            // Traer las compras donde esta ruta fue utilizada
+            "{ $lookup: { from: 'purchase', localField: '_id', foreignField: 'route._id', as: 'purchases' } }",
+            // Desenrollamos las compras
+            "{ $unwind: '$purchases' }",
+            // Traemos los reviews cuyo purchase tiene el mismo code que la purchase actual
+            "{ $lookup: { from: 'review', localField: 'purchases.code', foreignField: 'purchase.code', as: 'reviews' } }",
+            "{ $unwind: '$reviews' }",
+            // Agrupamos por ruta y calculamos el promedio
+            "{ $group: { _id: '$_id', route: { $first: '$$ROOT' }, avgRating: { $avg: '$reviews.rating' } } }",
+            // Ordenamos por rating promedio descendente
+            "{ $sort: { avgRating: -1 } }",
+            // Limitamos a los 3 mejores
+            "{ $limit: 3 }",
+            // Reemplazamos el root por la ruta
+            "{ $replaceRoot: { newRoot: '$route' } }"
+    })
     List<Route> findTop3RoutesByAverageRating();
+
 
     List<Route> findByStopsContaining(Stop stop);
 
 
-    @Query("SELECT MAX(size(r.stops)) FROM Route r")
+    @Aggregation(pipeline = {
+            "{ $project: { stopCount: { $size: '$stops' } } }",
+            "{ $group: { _id: null, maxStops: { $max: '$stopCount' } } }",
+            "{ $project: { _id: 0, maxStops: 1 } }"
+    })
     Long findMaxStopOfRoutes();
 
     @Aggregation(pipeline = {

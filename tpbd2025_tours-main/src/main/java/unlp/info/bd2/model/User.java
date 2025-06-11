@@ -2,6 +2,7 @@ package unlp.info.bd2.model;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -37,7 +38,7 @@ public class User {
     @Field
     private boolean active;
 
-    @Field
+    @DBRef(lazy = false)
     private List<Purchase> purchaseList = new ArrayList<>();
 
     @Field
@@ -143,8 +144,14 @@ public class User {
     }
 
     public void addPurchase(Purchase purchase) {
-        this.purchaseList.add(purchase);
+        if (purchaseList == null) {
+            purchaseList = new ArrayList<>();
+        }
+        if (!purchaseList.contains(purchase)) {
+            purchaseList.add(purchase);
+        }
     }
+
     public boolean canBeDeleted() {
         return true;
     }

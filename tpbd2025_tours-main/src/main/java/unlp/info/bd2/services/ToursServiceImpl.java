@@ -4,6 +4,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.bson.Document;
 import org.springframework.transaction.annotation.Transactional;
 import unlp.info.bd2.utils.ToursException;
 import unlp.info.bd2.repositories.*;
@@ -206,7 +207,7 @@ public class ToursServiceImpl implements ToursService {
 
         user.addRoute(route);
         route.addDriver(user);
-        this.routeRepository.save(route); //Al no haber cascade hay q guardar manual
+        this.routeRepository.save(route);//Al no haber cascade hay q guardar manual
         this.updateUser(user);
     }
 
@@ -255,8 +256,10 @@ public class ToursServiceImpl implements ToursService {
     public Service addServiceToSupplier(String name, float price, String description, Supplier supplier) throws ToursException {
         try {
             Service service = new Service(name, price, description, supplier);
+            this.serviceRepository.save(service);
             supplier.addService(service);
-            return this.serviceRepository.save(service);
+            this.supplierRepository.save(supplier);
+            return service;
         }
         catch (Exception e) {
             throw new ToursException("Error al crear el service");
@@ -322,17 +325,23 @@ public class ToursServiceImpl implements ToursService {
     @Transactional
     @Override
     public Purchase createPurchase(String code, Date date, Route route, User user) throws ToursException {
-        try{
-            if(this.purchaseRepository.existsByCode(code)){
+        try {
+            if (this.purchaseRepository.existsByCode(code)) {
                 throw new ToursException("El code ya existe");
             }
-            if(this.purchaseRepository.countByRouteAndDate(route,date) < route.getMaxNumberUsers()){
+            if (this.purchaseRepository.countByRouteAndDate(route, date) < route.getMaxNumberUsers()) {
                 Purchase purchase = new Purchase(code, date, route, user);
-                return this.purchaseRepository.save(purchase);
-            } else{
+
+                user.addPurchase(purchase); // actualizar referencia en usuario
+
+                this.purchaseRepository.save(purchase); // guardar compra
+                this.updateUser(user);         // guardar usuario con referencia actualizada
+
+                return purchase;
+            } else {
                 throw new ToursException("No hay lugares disponibles");
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new ToursException("No puede realizarse la compra");
         }
     }
@@ -391,7 +400,7 @@ public class ToursServiceImpl implements ToursService {
             Review review = new Review(rating, comment, purchase);
             Review reviewPersisted = this.reviewRepository.save(review);
             purchase.setReview(reviewPersisted); // Asocia la review a la compra
-
+            this.purchaseRepository.save(purchase);
             return reviewPersisted; // Guarda la review
 
         } catch (Exception e) {
@@ -439,7 +448,8 @@ public class ToursServiceImpl implements ToursService {
     @Transactional(readOnly = true)
     @Override
     public List<User> getTop5UsersMorePurchases() {
-        return this.userRepository.findTop5UsersWithMostPurchases(Pageable.ofSize(5));
+        return this.userRepository.findTop5UsersWithMostPurchases();
+
     }
 
     @Transactional(readOnly = true)
@@ -458,7 +468,10 @@ public class ToursServiceImpl implements ToursService {
     @Transactional(readOnly = true)
     @Override
     public Long getMaxStopOfRoutes() {
+
         return this.routeRepository.findMaxStopOfRoutes();
+
+
     }
 
     @Transactional(readOnly = true)
@@ -488,11 +501,9 @@ public class ToursServiceImpl implements ToursService {
     }
     @Override
     public DriverUser getDriverUserWithMoreRoutes() {
-        PageRequest pageRequest = PageRequest.of(0, 1);
-        Page<DriverUser> driver = this.driverUserRepository.findTopDriverByRouteCount(pageRequest);
-        return  driver.isEmpty() ? null : driver.get().iterator().next();
-
+        return this.driverUserRepository.findTopDriverByRouteCount().orElse(null);
     }
+
     @Override
     public Route getMostBestSellingRoute() {
         PageRequest pageRequest = PageRequest.of(0, 1);
@@ -530,6 +541,6 @@ public class ToursServiceImpl implements ToursService {
     }
     @Override
     public List<User> getUsersWithNumberOfPurchases(int number) {
-        return userRepository.findUsersWithExactlyNumberOfPurchases(number);
+        return userRepository.findUsersWithAtLeastNumberOfPurchases(number);
     }
 }
