@@ -237,16 +237,9 @@ public class ToursServiceImpl implements ToursService {
     @Transactional
     @Override
     public Supplier createSupplier(String businessName, String authorizationNumber) throws ToursException {
-        // 1. Validación explícita
         if (supplierRepository.existsByAuthorizationNumber(authorizationNumber)) {
             throw new ToursException("Ya existe un proveedor con este número de autorización");
         }
-
-        // 2. Validación de parámetros
-        if (businessName == null || businessName.trim().isEmpty()) {
-            throw new ToursException("El nombre del proveedor no puede estar vacío");
-        }
-
         try {
             Supplier supplier = new Supplier(businessName, authorizationNumber);
             return supplierRepository.save(supplier);
@@ -338,8 +331,6 @@ public class ToursServiceImpl implements ToursService {
             }
             if (this.purchaseRepository.countByRouteAndDate(route, date) < route.getMaxNumberUsers()) {
                 Purchase purchase = new Purchase(code, date, route, user);
-
-                user.addPurchase(purchase); // actualizar referencia en usuario
 
                 this.purchaseRepository.save(purchase); // guardar compra
                 this.updateUser(user);         // guardar usuario con referencia actualizada
