@@ -18,13 +18,7 @@ import java.util.Optional;
 public interface DriverUserRepository extends MongoRepository<DriverUser, String> {
     Optional<DriverUser> findByUsername(String username);
 
-    @Aggregation(pipeline = {
-            "{ $match: { userType: 'Driver' } }",
-            "{ $addFields: { routeCount: { $size: '$routes' } } }",
-            "{ $sort: { routeCount: -1 } }",
-            "{ $limit: 1 }"
-    })
-    Optional<DriverUser> findTopDriverByRouteCount();
+
 
 
 

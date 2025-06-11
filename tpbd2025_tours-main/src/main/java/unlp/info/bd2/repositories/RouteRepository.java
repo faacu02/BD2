@@ -66,17 +66,6 @@ public interface RouteRepository extends  MongoRepository<Route, ObjectId> {
     @Query("SELECT r FROM Route r LEFT JOIN Purchase p ON p.route = r GROUP BY r ORDER BY COUNT(p) DESC")
     Page<Route> getMostBoughtRoute(Pageable pageable);
 
-    @Query("{ '_id': { $nin: ?0 } }")
-    List<Route> findByIdNotIn(List<ObjectId> ids);
 
-    @Aggregation(pipeline = {
-            "{ '$lookup': { 'from': 'purchase', 'localField': '_id', 'foreignField': 'route._id', 'as': 'purchases' } }",
-            "{ '$unwind': '$purchases' }",
-            "{ '$lookup': { 'from': 'review', 'localField': 'purchases.review.$id', 'foreignField': '_id', 'as': 'review' } }",
-            "{ '$unwind': '$review' }",
-            "{ '$match': { 'review.rating': 1 } }",
-            "{ '$group': { '_id': '$_id', 'route': { '$first': '$$ROOT' } } }",
-            "{ '$replaceRoot': { 'newRoot': '$route' } }"
-    })
-    List<Route> findRoutesWithBadReviews();
+
 }
