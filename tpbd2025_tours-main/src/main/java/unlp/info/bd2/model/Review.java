@@ -36,7 +36,7 @@ public class Review {
 
 
     public ObjectId getId() {
-        return id;
+        return null; //NOPUEDESEEER
     }
 
     public void setId(ObjectId id) {
