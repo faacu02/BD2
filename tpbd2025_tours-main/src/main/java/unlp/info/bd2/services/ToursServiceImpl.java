@@ -137,20 +137,27 @@ public class ToursServiceImpl implements ToursService {
 
     @Transactional
     @Override
-    public void deleteUser(User user) throws ToursException {
-        if(user.isActive()) {
-            if(user.canBeDeleted()) {
-                if (user.getPurchaseList().isEmpty()) {
-                    this.userRepository.delete(user);
-                } else {
+    public void deleteUser(User user1) throws ToursException {
+        Optional<User> userOp = this.getUserByUsername(user1.getUsername());
+        if (userOp.isPresent()) {
+            User user = userOp.get();
+            if (user.isActive()) {
+                if (user.canBeDeleted()) {
+                    if (user.getPurchaseList().isEmpty()) {
+                        this.userRepository.delete(user);
+                    } else {
                         user.setActive(false);
                         this.updateUser(user);
+                    }
+                } else {
+                    throw new ToursException("User has routes");
                 }
             } else {
-                throw new ToursException("User has routes");
+                throw new ToursException("User is not active");
             }
-        }else {
-            throw new ToursException("User is not active");
+        }
+        else{
+            throw new ToursException("User does not exist");
         }
     }
 
@@ -207,7 +214,7 @@ public class ToursServiceImpl implements ToursService {
 
         user.addRoute(route);
         route.addDriver(user);
-        this.routeRepository.save(route); //Al no haber cascade hay q guardar manual
+        this.routeRepository.save(route);//Al no haber cascade hay q guardar manual
         this.updateUser(user);
     }
 
@@ -230,16 +237,9 @@ public class ToursServiceImpl implements ToursService {
     @Transactional
     @Override
     public Supplier createSupplier(String businessName, String authorizationNumber) throws ToursException {
-        // 1. Validación explícita
         if (supplierRepository.existsByAuthorizationNumber(authorizationNumber)) {
             throw new ToursException("Ya existe un proveedor con este número de autorización");
         }
-
-        // 2. Validación de parámetros
-        if (businessName == null || businessName.trim().isEmpty()) {
-            throw new ToursException("El nombre del proveedor no puede estar vacío");
-        }
-
         try {
             Supplier supplier = new Supplier(businessName, authorizationNumber);
             return supplierRepository.save(supplier);
@@ -332,10 +332,8 @@ public class ToursServiceImpl implements ToursService {
             if (this.purchaseRepository.countByRouteAndDate(route, date) < route.getMaxNumberUsers()) {
                 Purchase purchase = new Purchase(code, date, route, user);
 
-                user.addPurchase(purchase); // actualizar referencia en usuario
-
                 this.purchaseRepository.save(purchase); // guardar compra
-                this.userRepository.save(user);         // guardar usuario con referencia actualizada
+                this.updateUser(user);         // guardar usuario con referencia actualizada
 
                 return purchase;
             } else {
@@ -400,7 +398,7 @@ public class ToursServiceImpl implements ToursService {
             Review review = new Review(rating, comment, purchase);
             Review reviewPersisted = this.reviewRepository.save(review);
             purchase.setReview(reviewPersisted); // Asocia la review a la compra
-
+            this.purchaseRepository.save(purchase);
             return reviewPersisted; // Guarda la review
 
         } catch (Exception e) {
@@ -477,7 +475,12 @@ public class ToursServiceImpl implements ToursService {
     @Transactional(readOnly = true)
     @Override
     public List<Route> getRoutsNotSell() {
-        return this.routeRepository.findRoutsNotSells();
+        List<ObjectId> soldRouteIds = purchaseRepository.findAll().stream()
+                .map(p -> p.getRoute().getId())
+                .distinct()
+                .collect(Collectors.toList());
+
+        return routeRepository.findByIdNotIn(soldRouteIds);
     }
 
 
@@ -501,11 +504,9 @@ public class ToursServiceImpl implements ToursService {
     }
     @Override
     public DriverUser getDriverUserWithMoreRoutes() {
-        PageRequest pageRequest = PageRequest.of(0, 1);
-        Page<DriverUser> driver = this.driverUserRepository.findTopDriverByRouteCount(pageRequest);
-        return  driver.isEmpty() ? null : driver.get().iterator().next();
-
+        return this.driverUserRepository.findTopDriverByRouteCount().orElse(null);
     }
+
     @Override
     public Route getMostBestSellingRoute() {
         PageRequest pageRequest = PageRequest.of(0, 1);
@@ -522,7 +523,7 @@ public class ToursServiceImpl implements ToursService {
 
     @Override
     public List<Purchase> getPurchaseWithService(Service service) {
-        return this.purchaseRepository.findByItemServiceListService(service);
+        return this.purchaseRepository.findByItemServiceListServiceId(service.getId());
     }
     @Override
     public Long getMaxServicesOfSupplier() {
@@ -535,7 +536,7 @@ public class ToursServiceImpl implements ToursService {
     }
     @Override
     public List<Route> getRoutesWithMinRating() {
-        return this.routeRepository.getRouteWithMinRating();
+        return this.routeRepository.findRoutesWithBadReviews();
     }
     @Override
     public List<Route> getTop3RoutesWithMaxAverageRating() {

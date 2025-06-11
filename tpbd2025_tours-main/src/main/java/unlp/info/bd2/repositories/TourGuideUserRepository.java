@@ -1,6 +1,7 @@
 package unlp.info.bd2.repositories;
 
 import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -13,14 +14,17 @@ import java.util.Optional;
 public interface TourGuideUserRepository extends MongoRepository<TourGuideUser, ObjectId> {
     Optional<TourGuideUser> findByUsername(String username);
 
-    @Query("""
-        SELECT DISTINCT tg
-        FROM TourGuideUser tg
-        JOIN tg.routes r
-        JOIN Purchase p ON p.route = r
-        JOIN Review rev ON rev.purchase = p
-        WHERE rev.rating = 1
-    """)
+    @Aggregation(pipeline = {
+            "{ '$match': { 'userType': 'Guide' } }",
+            "{ '$lookup': { 'from': 'route', 'localField': '_id', 'foreignField': 'tourGuideList.$id', 'as': 'routes' } }",
+            "{ '$unwind': '$routes' }",
+            "{ '$lookup': { 'from': 'purchase', 'localField': 'routes._id', 'foreignField': 'route._id', 'as': 'purchases' } }",
+            "{ '$unwind': '$purchases' }",
+            "{ '$lookup': { 'from': 'review', 'localField': 'purchases.review.$id', 'foreignField': '_id', 'as': 'review' } }",
+            "{ '$unwind': '$review' }",
+            "{ '$match': { 'review.rating': 1 } }",
+            "{ '$group': { '_id': '$_id', 'name': { '$first': '$name' }, 'email': { '$first': '$email' }, 'phoneNumber': { '$first': '$phoneNumber' }, 'birthdate': { '$first': '$birthdate' }, 'username': { '$first': '$username' }, 'active': { '$first': '$active' } } }"
+    })
     List<TourGuideUser> findTourGuidesWithRating1();
 
 }

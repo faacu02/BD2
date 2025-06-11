@@ -3,6 +3,7 @@ package unlp.info.bd2.repositories;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Pageable;
 
+import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -16,9 +17,14 @@ public interface ServiceRepository extends MongoRepository<Service, ObjectId> {
 
     Optional<Service> findByNameAndSupplierId(String name, ObjectId supplierId);
 
-    @Query("SELECT s.service FROM ItemService s " +
-            "GROUP BY s.service " +
-            "ORDER BY SUM(s.quantity) DESC")
+    @Aggregation(pipeline = {
+            "{ $group: { _id: '$name', count: { $sum: 1 }, serviceId: { $first: '$_id' } } }",
+            "{ $sort: { count: -1 } }",
+            "{ $limit: 1 }",
+            "{ $lookup: { from: 'service', localField: 'serviceId', foreignField: '_id', as: 'service' } }",
+            "{ $unwind: '$service' }",
+            "{ $replaceRoot: { newRoot: '$service' } }"
+    })
     List<Service> findMostDemandedService(Pageable pageable);
 
     List<Service> findByItemServiceListIsEmpty();

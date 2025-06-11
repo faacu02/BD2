@@ -33,7 +33,7 @@ public class Route {
             joinColumns = @JoinColumn(name = "route_id"),
             inverseJoinColumns = @JoinColumn(name = "stop_id")
     )*/
-    @DBRef(lazy = false)
+    @Field
     private List<Stop> stops = new ArrayList<>();
 
     /*@ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})

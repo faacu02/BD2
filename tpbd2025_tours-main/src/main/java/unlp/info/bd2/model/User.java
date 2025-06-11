@@ -144,12 +144,7 @@ public class User {
     }
 
     public void addPurchase(Purchase purchase) {
-        if (purchaseList == null) {
-            purchaseList = new ArrayList<>();
-        }
-        if (!purchaseList.contains(purchase)) {
-            purchaseList.add(purchase);
-        }
+        purchaseList.add(purchase);
     }
 
     public boolean canBeDeleted() {

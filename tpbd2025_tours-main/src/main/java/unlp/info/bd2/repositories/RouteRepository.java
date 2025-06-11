@@ -19,16 +19,25 @@ public interface RouteRepository extends  MongoRepository<Route, ObjectId> {
     List<Route> findByPriceLessThan(float price);
 
 
-    @Query("""
-        SELECT r, AVG(rev.rating) as avgRating
-        FROM Route r
-        JOIN Purchase p ON p.route = r
-        JOIN Review rev ON rev.purchase = p
-        GROUP BY r
-        ORDER BY avgRating DESC
-        LIMIT 3
-    """)
+    @Aggregation(pipeline = {
+            // Traer las compras donde esta ruta fue utilizada
+            "{ $lookup: { from: 'purchase', localField: '_id', foreignField: 'route._id', as: 'purchases' } }",
+            // Desenrollamos las compras
+            "{ $unwind: '$purchases' }",
+            // Traemos los reviews cuyo purchase tiene el mismo code que la purchase actual
+            "{ $lookup: { from: 'review', localField: 'purchases.code', foreignField: 'purchase.code', as: 'reviews' } }",
+            "{ $unwind: '$reviews' }",
+            // Agrupamos por ruta y calculamos el promedio
+            "{ $group: { _id: '$_id', route: { $first: '$$ROOT' }, avgRating: { $avg: '$reviews.rating' } } }",
+            // Ordenamos por rating promedio descendente
+            "{ $sort: { avgRating: -1 } }",
+            // Limitamos a los 3 mejores
+            "{ $limit: 3 }",
+            // Reemplazamos el root por la ruta
+            "{ $replaceRoot: { newRoot: '$route' } }"
+    })
     List<Route> findTop3RoutesByAverageRating();
+
 
     List<Route> findByStopsContaining(Stop stop);
 
@@ -40,26 +49,16 @@ public interface RouteRepository extends  MongoRepository<Route, ObjectId> {
     })
     Long findMaxStopOfRoutes();
 
-
-    @Query("SELECT r FROM Route r LEFT JOIN Purchase p ON r = p.route WHERE p.id IS NULL")
-    List<Route> findRoutsNotSells();
-    @Query("""
-    SELECT r
-    FROM Review rev
-    JOIN rev.purchase p
-    JOIN p.route r
-    where rev.rating = 1
-""")
-    List<Route> getRouteWithMinRating();
-
-    @Query("""
-    SELECT r, COUNT(s) AS stopCount
-    FROM Route r
-    JOIN r.stops s
-    GROUP BY r
-    ORDER BY stopCount DESC
-    LIMIT 3
-""")
+    @Aggregation(pipeline = {
+            // Lookup para traer los documentos stop referenciados
+            "{ $lookup: { from: 'stop', localField: 'stops', foreignField: '_id', as: 'stopDocs' } }",
+            // Agregar un campo con la cantidad de stops
+            "{ $addFields: { stopCount: { $size: '$stopDocs' } } }",
+            // Ordenar por stopCount descendente
+            "{ $sort: { stopCount: -1 } }",
+            // Limitar a 3
+            "{ $limit: 3 }"
+    })
     List<Route> getTop3RoutesWithMoreStops();
 
 
@@ -67,7 +66,17 @@ public interface RouteRepository extends  MongoRepository<Route, ObjectId> {
     @Query("SELECT r FROM Route r LEFT JOIN Purchase p ON p.route = r GROUP BY r ORDER BY COUNT(p) DESC")
     Page<Route> getMostBoughtRoute(Pageable pageable);
 
+    @Query("{ '_id': { $nin: ?0 } }")
+    List<Route> findByIdNotIn(List<ObjectId> ids);
 
-
-
+    @Aggregation(pipeline = {
+            "{ '$lookup': { 'from': 'purchase', 'localField': '_id', 'foreignField': 'route._id', 'as': 'purchases' } }",
+            "{ '$unwind': '$purchases' }",
+            "{ '$lookup': { 'from': 'review', 'localField': 'purchases.review.$id', 'foreignField': '_id', 'as': 'review' } }",
+            "{ '$unwind': '$review' }",
+            "{ '$match': { 'review.rating': 1 } }",
+            "{ '$group': { '_id': '$_id', 'route': { '$first': '$$ROOT' } } }",
+            "{ '$replaceRoot': { 'newRoot': '$route' } }"
+    })
+    List<Route> findRoutesWithBadReviews();
 }
