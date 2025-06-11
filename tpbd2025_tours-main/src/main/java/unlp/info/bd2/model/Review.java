@@ -20,7 +20,7 @@ public class Review {
     @Field
     private String comment;
 
-    @DBRef
+    @Field
     private Purchase purchase;
 
 
