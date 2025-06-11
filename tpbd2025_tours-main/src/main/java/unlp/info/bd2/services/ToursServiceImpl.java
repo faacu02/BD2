@@ -412,17 +412,7 @@ public class ToursServiceImpl implements ToursService {
     @Transactional(readOnly = true)
     @Override
     public List<Purchase> getAllPurchasesOfUsername(String username) {
-        Optional<User> user;
-        try {
-            user = this.getUserByUsername(username);
-        }catch (ToursException e){
-            return null;
-        }
-            if(user.isEmpty()){
-                return null;
-            }else{
-                return user.get().getPurchaseList();
-            }
+        return this.purchaseRepository.getAllPurchasesOfUsername(username);
     }
 
     @Transactional(readOnly = true)
@@ -437,11 +427,7 @@ public class ToursServiceImpl implements ToursService {
         return this.supplierRepository.findTopSuppliers(PageRequest.of(0, n));
     }
 
-    @Transactional(readOnly = true)
-    @Override
-    public List<Purchase> getTop10MoreExpensivePurchasesWithServices() {
-        return this.purchaseRepository.findTop10ByItemServiceListIsNotEmptyOrderByTotalPriceDesc();
-    }
+
 
     @Transactional(readOnly = true)
     @Override
@@ -456,55 +442,18 @@ public class ToursServiceImpl implements ToursService {
         return this.purchaseRepository.countByDateBetween(start, end);
     }
 
-    //Routes
-    @Transactional(readOnly = true)
-    //@Override
-    public List<Route> getRoutesWithStop(Stop stop) {
-        return this.routeRepository.findByStopsContaining(stop);
-    }
+
 
     @Transactional(readOnly = true)
     @Override
     public Long getMaxStopOfRoutes() {
-
         return this.routeRepository.findMaxStopOfRoutes();
-
-
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<Route> getRoutsNotSell() {
-        List<ObjectId> soldRouteIds = purchaseRepository.findAll().stream()
-                .map(p -> p.getRoute().getId())
-                .distinct()
-                .collect(Collectors.toList());
-
-        return routeRepository.findByIdNotIn(soldRouteIds);
-    }
-
-
-    @Transactional(readOnly = true)
-    @Override
-    public Service getMostDemandedService() {
-        Pageable pageable = PageRequest.of(0, 1);
-        return this.serviceRepository.findMostDemandedService(pageable).get(0);
-    }
-
-    @Transactional(readOnly = true)
-    @Override
-    public List<Service> getServiceNoAddedToPurchases() {
-        return this.serviceRepository.findByItemServiceListIsEmpty();
-    }
-
-    @Transactional(readOnly = true)
-    @Override
-    public List<TourGuideUser> getTourGuidesWithRating1() {
-        return this.tourGuideUserRepository.findTourGuidesWithRating1();
-    }
-    @Override
-    public DriverUser getDriverUserWithMoreRoutes() {
-        return this.driverUserRepository.findTopDriverByRouteCount().orElse(null);
+    public List<Route> getRoutesWithStop(Stop stop) {
+        return this.routeRepository.findByStopsContaining(stop);
     }
 
     @Override
@@ -521,10 +470,7 @@ public class ToursServiceImpl implements ToursService {
         return results.getContent();
     }
 
-    @Override
-    public List<Purchase> getPurchaseWithService(Service service) {
-        return this.purchaseRepository.findByItemServiceListServiceId(service.getId());
-    }
+
     @Override
     public Long getMaxServicesOfSupplier() {
         return this.supplierRepository.findMaxServicesPerSupplier();
@@ -534,10 +480,7 @@ public class ToursServiceImpl implements ToursService {
     public List<Route> getTop3RoutesWithMoreStops() {
         return this.routeRepository.getTop3RoutesWithMoreStops();
     }
-    @Override
-    public List<Route> getRoutesWithMinRating() {
-        return this.routeRepository.findRoutesWithBadReviews();
-    }
+
     @Override
     public List<Route> getTop3RoutesWithMaxAverageRating() {
         return this.routeRepository.findTop3RoutesByAverageRating();

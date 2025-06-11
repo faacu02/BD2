@@ -22,9 +22,18 @@ public interface PurchaseRepository extends MongoRepository<Purchase, ObjectId> 
 
     Long countByDateBetween(Date start, Date end);
 
-    List<Purchase> findTop10ByItemServiceListIsNotEmptyOrderByTotalPriceDesc();
 
-    List<Purchase> findByItemServiceListServiceId(ObjectId id);
 
     Boolean existsByCode(String code);
+
+
+    @Aggregation(pipeline = {
+            "{ $lookup: { from: 'user', localField: 'user.$id', foreignField: '_id', as: 'userDoc' } }",
+            "{ $unwind: '$userDoc' }",
+            "{ $match: { 'userDoc.username': ?0 } }"
+    })
+    List<Purchase> getAllPurchasesOfUsername(String username);
+
+
+
 }
