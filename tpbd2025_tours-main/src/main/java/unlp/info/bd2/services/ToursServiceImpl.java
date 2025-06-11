@@ -477,7 +477,12 @@ public class ToursServiceImpl implements ToursService {
     @Transactional(readOnly = true)
     @Override
     public List<Route> getRoutsNotSell() {
-        return this.routeRepository.findRoutesNotSold();
+        List<ObjectId> soldRouteIds = purchaseRepository.findAll().stream()
+                .map(p -> p.getRoute().getId())
+                .distinct()
+                .collect(Collectors.toList());
+
+        return routeRepository.findByIdNotIn(soldRouteIds);
     }
 
 
@@ -533,7 +538,7 @@ public class ToursServiceImpl implements ToursService {
     }
     @Override
     public List<Route> getRoutesWithMinRating() {
-        return this.routeRepository.findRoutesInPurchasesWithReviewRatingOne();
+        return this.reviewRepository.findRoutesFromReviewsWithRatingOne();
     }
     @Override
     public List<Route> getTop3RoutesWithMaxAverageRating() {

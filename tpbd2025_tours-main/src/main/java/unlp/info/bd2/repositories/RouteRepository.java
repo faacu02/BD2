@@ -56,21 +56,15 @@ public interface RouteRepository extends  MongoRepository<Route, ObjectId> {
     List<Route> findRoutesNotSold();
 
     @Aggregation(pipeline = {
-            "{ $lookup: { from: 'review', localField: 'review', foreignField: '_id', as: 'reviewDoc' } }",
-            "{ $unwind: '$reviewDoc' }",
-            "{ $match: { 'reviewDoc.rating': 1 } }",
-            "{ $replaceWith: '$route' }"
+            // Lookup para traer los documentos stop referenciados
+            "{ $lookup: { from: 'stop', localField: 'stops', foreignField: '_id', as: 'stopDocs' } }",
+            // Agregar un campo con la cantidad de stops
+            "{ $addFields: { stopCount: { $size: '$stopDocs' } } }",
+            // Ordenar por stopCount descendente
+            "{ $sort: { stopCount: -1 } }",
+            // Limitar a 3
+            "{ $limit: 3 }"
     })
-    List<Route> findRoutesInPurchasesWithReviewRatingOne();
-
-    @Query("""
-    SELECT r, COUNT(s) AS stopCount
-    FROM Route r
-    JOIN r.stops s
-    GROUP BY r
-    ORDER BY stopCount DESC
-    LIMIT 3
-""")
     List<Route> getTop3RoutesWithMoreStops();
 
 
@@ -78,7 +72,6 @@ public interface RouteRepository extends  MongoRepository<Route, ObjectId> {
     @Query("SELECT r FROM Route r LEFT JOIN Purchase p ON p.route = r GROUP BY r ORDER BY COUNT(p) DESC")
     Page<Route> getMostBoughtRoute(Pageable pageable);
 
-
-
-
+    @Query("{ '_id': { $nin: ?0 } }")
+    List<Route> findByIdNotIn(List<ObjectId> ids);
 }
