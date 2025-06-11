@@ -137,20 +137,27 @@ public class ToursServiceImpl implements ToursService {
 
     @Transactional
     @Override
-    public void deleteUser(User user) throws ToursException {
-        if(user.isActive()) {
-            if(user.canBeDeleted()) {
-                if (user.getPurchaseList().isEmpty()) {
-                    this.userRepository.delete(user);
-                } else {
+    public void deleteUser(User user1) throws ToursException {
+        Optional<User> userOp = this.getUserByUsername(user1.getUsername());
+        if (userOp.isPresent()) {
+            User user = userOp.get();
+            if (user.isActive()) {
+                if (user.canBeDeleted()) {
+                    if (user.getPurchaseList().isEmpty()) {
+                        this.userRepository.delete(user);
+                    } else {
                         user.setActive(false);
                         this.updateUser(user);
+                    }
+                } else {
+                    throw new ToursException("User has routes");
                 }
             } else {
-                throw new ToursException("User has routes");
+                throw new ToursException("User is not active");
             }
-        }else {
-            throw new ToursException("User is not active");
+        }
+        else{
+            throw new ToursException("User does not exist");
         }
     }
 
