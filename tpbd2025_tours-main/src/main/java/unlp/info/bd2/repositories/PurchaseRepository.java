@@ -23,7 +23,7 @@ public interface PurchaseRepository extends MongoRepository<Purchase, ObjectId> 
 
     List<Purchase> findTop10ByItemServiceListIsNotEmptyOrderByTotalPriceDesc();
 
-    List<Purchase> findByItemServiceListService(Service service);
+    List<Purchase> findByItemServiceListServiceId(ObjectId id);
 
     Boolean existsByCode(String code);
 }

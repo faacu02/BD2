@@ -5,6 +5,7 @@ import java.util.List;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -34,16 +35,19 @@ public interface RouteRepository extends  MongoRepository<Route, ObjectId> {
     @Query("SELECT MAX(size(r.stops)) FROM Route r")
     Long findMaxStopOfRoutes();
 
-    @Query("SELECT r FROM Route r LEFT JOIN Purchase p ON r = p.route WHERE p.id IS NULL")
-    List<Route> findRoutsNotSells();
-    @Query("""
-    SELECT r
-    FROM Review rev
-    JOIN rev.purchase p
-    JOIN p.route r
-    where rev.rating = 1
-""")
-    List<Route> getRouteWithMinRating();
+    @Aggregation(pipeline = {
+            "{ $lookup: { from: 'purchase', localField: '_id', foreignField: 'routeId', as: 'purchase_docs' } }",
+            "{ $match: { purchase_docs: { $size: 0 } } }"
+    })
+    List<Route> findRoutesNotSold();
+
+    @Aggregation(pipeline = {
+            "{ $lookup: { from: 'review', localField: 'review', foreignField: '_id', as: 'reviewDoc' } }",
+            "{ $unwind: '$reviewDoc' }",
+            "{ $match: { 'reviewDoc.rating': 1 } }",
+            "{ $replaceWith: '$route' }"
+    })
+    List<Route> findRoutesInPurchasesWithReviewRatingOne();
 
     @Query("""
     SELECT r, COUNT(s) AS stopCount
