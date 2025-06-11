@@ -428,7 +428,7 @@ public class ToursServiceImpl implements ToursService {
     @Transactional(readOnly = true)
     @Override
     public List<User> getUserSpendingMoreThan(float amount) {
-        return this.userRepository.findByPurchaseListTotalPriceGreaterThanEqual(amount);
+        return this.userRepository.getUserSpendingMoreThan(amount);
     }
 
     @Transactional(readOnly = true)
