@@ -3,9 +3,11 @@ package unlp.info.bd2.model;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.index.IndexOptions;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +15,7 @@ import java.util.List;
 @Document(collection = "supplier")
 public class Supplier {
 
-    @Id
+    @MongoId
     @Field
     private ObjectId id;
 
@@ -23,7 +25,7 @@ public class Supplier {
     @Field
     private String authorizationNumber;
 
-    @Field
+    @DBRef(lazy = true)
     private List<Service> services = new ArrayList<>();
 
 

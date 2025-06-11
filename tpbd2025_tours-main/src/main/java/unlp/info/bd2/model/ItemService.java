@@ -2,15 +2,16 @@ package unlp.info.bd2.model;
 
 
 import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
+
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 @Document(collection = "itemservice")
 public class ItemService {
 
-    @Id
+    @MongoId
     @Field
     private ObjectId id;
 

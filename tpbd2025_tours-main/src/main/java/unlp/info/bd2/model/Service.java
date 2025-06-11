@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 @Document(collection = "service")
 public class Service {
 
-    @Id
+    @MongoId
     @Field
     private ObjectId id;
 
@@ -28,7 +29,7 @@ public class Service {
     @DBRef(lazy = true)
     private List<ItemService> itemServiceList = new ArrayList<>();
 
-    @DBRef(lazy = false)
+    @Field
     private Supplier supplier;
 
 

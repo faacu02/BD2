@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +13,10 @@ import java.util.List;
 @Document(collection = "stop")
 public class Stop {
 
-    @Id
+    @MongoId
     private ObjectId id;
 
-//@Column(nullable = false, length = 100)
+
     @Field
     private String name;
 

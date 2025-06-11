@@ -12,7 +12,7 @@ public class DriverUser extends User {
 
     private String expedient;
 
-    @DBRef(lazy = true)
+    @DBRef(lazy = false)
     private List<Route> routes = new ArrayList<>();
 
 

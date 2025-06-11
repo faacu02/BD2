@@ -1,11 +1,11 @@
 package unlp.info.bd2.model;
-
+ //usar MONGO ID PARA TODO
 
 import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,7 +14,7 @@ import java.util.List;
 @Document(collection = "purchase")
 public class Purchase {
 
-    @Id
+    @MongoId
     @Field
     private ObjectId id;
 
