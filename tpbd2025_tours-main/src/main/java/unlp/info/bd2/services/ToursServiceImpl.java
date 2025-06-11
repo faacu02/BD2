@@ -538,7 +538,7 @@ public class ToursServiceImpl implements ToursService {
     }
     @Override
     public List<Route> getRoutesWithMinRating() {
-        return this.reviewRepository.findRoutesFromReviewsWithRatingOne();
+        return this.routeRepository.findRoutesWithBadReviews();
     }
     @Override
     public List<Route> getTop3RoutesWithMaxAverageRating() {

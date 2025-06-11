@@ -50,12 +50,6 @@ public interface RouteRepository extends  MongoRepository<Route, ObjectId> {
     Long findMaxStopOfRoutes();
 
     @Aggregation(pipeline = {
-            "{ $lookup: { from: 'purchase', localField: '_id', foreignField: 'routeId', as: 'purchase_docs' } }",
-            "{ $match: { purchase_docs: { $size: 0 } } }"
-    })
-    List<Route> findRoutesNotSold();
-
-    @Aggregation(pipeline = {
             // Lookup para traer los documentos stop referenciados
             "{ $lookup: { from: 'stop', localField: 'stops', foreignField: '_id', as: 'stopDocs' } }",
             // Agregar un campo con la cantidad de stops
@@ -74,4 +68,15 @@ public interface RouteRepository extends  MongoRepository<Route, ObjectId> {
 
     @Query("{ '_id': { $nin: ?0 } }")
     List<Route> findByIdNotIn(List<ObjectId> ids);
+
+    @Aggregation(pipeline = {
+            "{ '$lookup': { 'from': 'purchase', 'localField': '_id', 'foreignField': 'route._id', 'as': 'purchases' } }",
+            "{ '$unwind': '$purchases' }",
+            "{ '$lookup': { 'from': 'review', 'localField': 'purchases.review.$id', 'foreignField': '_id', 'as': 'review' } }",
+            "{ '$unwind': '$review' }",
+            "{ '$match': { 'review.rating': 1 } }",
+            "{ '$group': { '_id': '$_id', 'route': { '$first': '$$ROOT' } } }",
+            "{ '$replaceRoot': { 'newRoot': '$route' } }"
+    })
+    List<Route> findRoutesWithBadReviews();
 }
