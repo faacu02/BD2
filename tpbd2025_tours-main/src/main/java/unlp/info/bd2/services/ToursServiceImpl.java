@@ -400,7 +400,7 @@ public class ToursServiceImpl implements ToursService {
             Review review = new Review(rating, comment, purchase);
             Review reviewPersisted = this.reviewRepository.save(review);
             purchase.setReview(reviewPersisted); // Asocia la review a la compra
-
+            this.purchaseRepository.save(purchase);
             return reviewPersisted; // Guarda la review
 
         } catch (Exception e) {
