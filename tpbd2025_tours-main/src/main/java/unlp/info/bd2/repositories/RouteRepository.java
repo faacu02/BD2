@@ -2,7 +2,7 @@ package unlp.info.bd2.repositories;
 
 import java.util.List;
 
-import org.bson.Document;
+
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -2,7 +2,6 @@ package unlp.info.bd2.model;
 
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.annotation.Id;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

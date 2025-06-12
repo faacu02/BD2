@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 import unlp.info.bd2.model.Purchase;
 import unlp.info.bd2.model.Route;
-import unlp.info.bd2.model.Service;
+
 
 import java.util.Date;
 

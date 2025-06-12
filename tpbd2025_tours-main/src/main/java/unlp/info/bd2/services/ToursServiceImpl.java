@@ -380,18 +380,6 @@ public class ToursServiceImpl implements ToursService {
     @Transactional
     @Override
     public Review addReviewToPurchase(int rating, String comment, Purchase purchase) throws ToursException {
-        if (purchase == null) {
-            throw new ToursException("La compra no puede ser nula.");
-        }
-
-        if (purchase.getReview() != null) {
-            throw new ToursException("La compra ya tiene una reseña asociada.");
-        }
-
-        if (rating < 1 || rating > 5) {
-            throw new ToursException("La puntuación debe estar entre 1 y 5.");
-        }
-
         try {
             Review review = new Review(rating, comment, purchase);
             purchase.setReview(review); // Asocia la review a la compra
