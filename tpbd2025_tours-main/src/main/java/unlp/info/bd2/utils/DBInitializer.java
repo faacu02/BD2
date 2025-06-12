@@ -93,40 +93,27 @@ public class DBInitializer {
         List<Stop> stopsRoute1 = new ArrayList<Stop>(Arrays.asList(stop1, stop2, stop3, stop4, stop6, stop14, stop15, stop17, stop19));
         Route route1 = this.toursService.createRoute("City Tour", 200, 62,10, stopsRoute1);
         route1.addDriver(driverUser1);
-        this.toursService.assignDriverByUsername(driverUser1.getUsername(),route1.getId());
         route1.addDriver(driverUser2);
-        this.toursService.assignDriverByUsername(driverUser2.getUsername(),route1.getId());
         route1.addTourGuide(tourGuideUser1);
-        this.toursService.assignTourGuideByUsername(tourGuideUser1.getUsername(),route1.getId());
 
         List<Stop> stopsRoute2 = new ArrayList<Stop>(Arrays.asList(stop2, stop3, stop7, stop9, stop18, stop19));
         Route route2 = this.toursService.createRoute("Historical Adventure", 300, 68,10, stopsRoute2);
         route2.addDriver(driverUser2);
-        this.toursService.assignDriverByUsername(driverUser2.getUsername(),route2.getId());
         route2.addDriver(driverUser3);
-        this.toursService.assignDriverByUsername(driverUser3.getUsername(),route2.getId());
         route2.addTourGuide(tourGuideUser2);
-        this.toursService.assignTourGuideByUsername(tourGuideUser2.getUsername(),route2.getId());
         route2.addTourGuide(tourGuideUser3);
-        this.toursService.assignTourGuideByUsername(tourGuideUser3.getUsername(),route2.getId());
 
         List<Stop> stopsRoute3 = new ArrayList<Stop>(Arrays.asList(stop5, stop6, stop8,  stop9, stop14, stop15));
         Route route3 = this.toursService.createRoute("Architectural Expedition", 500, 55,15, stopsRoute3);
         route3.addDriver(driverUser3);
-        this.toursService.assignDriverByUsername(driverUser3.getUsername(),route3.getId());
         route3.addTourGuide(tourGuideUser3);
-        this.toursService.assignTourGuideByUsername(tourGuideUser3.getUsername(),route3.getId());
 
         List<Stop> stopsRoute4 = new ArrayList<Stop>(Arrays.asList(stop7, stop11, stop20));
         Route route4 = this.toursService.createRoute("Delta Tour", 800, 75,10, stopsRoute4);
         route2.addDriver(driverUser2);
-        this.toursService.assignDriverByUsername(driverUser2.getUsername(),route4.getId());
         route4.addDriver(driverUser4);
-        this.toursService.assignDriverByUsername(driverUser4.getUsername(),route4.getId());
         route4.addTourGuide(tourGuideUser3);
-        this.toursService.assignTourGuideByUsername(tourGuideUser3.getUsername(),route4.getId());
         route4.addTourGuide(tourGuideUser4);
-        this.toursService.assignTourGuideByUsername(tourGuideUser4.getUsername(),route4.getId());
 
         List<Stop> stopsRoute5 = new ArrayList<>(Arrays.asList(stop1, stop2));
         Route route5 = this.toursService.createRoute("Ruta vacia", 900, 20, 5, stopsRoute5);
