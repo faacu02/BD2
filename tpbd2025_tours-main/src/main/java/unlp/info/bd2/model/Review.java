@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
-@Document(collection = "review")
+//a@Document(collection = "review")
 public class Review {
 
     @MongoId
@@ -21,7 +21,7 @@ public class Review {
     @Field
     private String comment;
 
-    @Field
+    @DBRef(lazy = false)
     private Purchase purchase;
 
 
@@ -37,7 +37,7 @@ public class Review {
 
 
     public ObjectId getId() {
-        return null; //NOPUEDESEEER
+        return id; //NOPUEDESEEER
     }
 
     public void setId(ObjectId id) {

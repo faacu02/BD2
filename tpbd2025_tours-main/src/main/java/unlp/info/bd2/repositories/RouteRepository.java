@@ -24,11 +24,10 @@ public interface RouteRepository extends  MongoRepository<Route, ObjectId> {
             "{ $lookup: { from: 'purchase', localField: '_id', foreignField: 'route._id', as: 'purchases' } }",
             // Desenrollamos las compras
             "{ $unwind: '$purchases' }",
-            // Traemos los reviews cuyo purchase tiene el mismo code que la purchase actual
-            "{ $lookup: { from: 'review', localField: 'purchases.code', foreignField: 'purchase.code', as: 'reviews' } }",
-            "{ $unwind: '$reviews' }",
-            // Agrupamos por ruta y calculamos el promedio
-            "{ $group: { _id: '$_id', route: { $first: '$$ROOT' }, avgRating: { $avg: '$reviews.rating' } } }",
+            // Filtramos compras que tengan review no nulo
+            "{ $match: { 'purchases.review': { $ne: null } } }",
+            // Agrupamos por ruta y calculamos el promedio de ratings embebidos
+            "{ $group: { _id: '$_id', route: { $first: '$$ROOT' }, avgRating: { $avg: '$purchases.review.rating' } } }",
             // Ordenamos por rating promedio descendente
             "{ $sort: { avgRating: -1 } }",
             // Limitamos a los 3 mejores
@@ -37,6 +36,7 @@ public interface RouteRepository extends  MongoRepository<Route, ObjectId> {
             "{ $replaceRoot: { newRoot: '$route' } }"
     })
     List<Route> findTop3RoutesByAverageRating();
+
 
 
     List<Route> findByStopsContaining(Stop stop);

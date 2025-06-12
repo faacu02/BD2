@@ -51,8 +51,6 @@ public class ToursServiceImpl implements ToursService {
     @Autowired
     private PurchaseRepository purchaseRepository;
     @Autowired
-    private ReviewRepository reviewRepository;
-    @Autowired
     private DriverUserRepository driverUserRepository;
     @Autowired
     private TourGuideUserRepository tourGuideUserRepository;
@@ -396,10 +394,9 @@ public class ToursServiceImpl implements ToursService {
 
         try {
             Review review = new Review(rating, comment, purchase);
-            Review reviewPersisted = this.reviewRepository.save(review);
-            purchase.setReview(reviewPersisted); // Asocia la review a la compra
+            purchase.setReview(review); // Asocia la review a la compra
             this.purchaseRepository.save(purchase);
-            return reviewPersisted; // Guarda la review
+            return review; // Guarda la review
 
         } catch (Exception e) {
             throw new ToursException("No se puede agregar la reseña");
